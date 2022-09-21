@@ -1,0 +1,10 @@
+gspread==5.4.0
+ibapi==9.81.1.post1
+numpy==1.22.3
+pandas==1.4.3
+pandas_stubs==1.2.0.40
+plotly==5.6.0
+requests==2.27.0
+websockets==10.3
+binance-connector
+google-cloud-storage
