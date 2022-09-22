@@ -287,7 +287,6 @@ class Client (EWrapper, EClient):
         now = datetime.now().timestamp()
         mins = round(to_timestamp(interval) / 60)
         days = math.ceil((mins * range) / 1440)
-        print(f"values: {symbol}\t{mins}\t{days}")
         if mins < 1440:
             df = Webull.get_klines_min([symbol], mins, days)
         else:
