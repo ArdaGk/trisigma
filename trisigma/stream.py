@@ -50,7 +50,7 @@ class Stream:
     def __ibkr_setup(self, *argv):
         self.client = ibkr.Client()
         time.sleep(1)
-        self.client.connect(argv[0], self.port, 123)
+        self.client.connect(argv[0], self.port, 456)
         time.sleep(1)
         self.client_thread = threading.Thread(target=self.client.run, daemon=True)
         self.client_thread.start()

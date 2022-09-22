@@ -13,7 +13,7 @@ from .scraper import Webull
 from .time_utils import to_timestamp, to_timestamp_split
 import json
 import math
-
+import pandas as pd
 
 #Webull day limited to 23
 
@@ -127,100 +127,6 @@ class Broker:
         pass
 
 
-class Stream:
-    def __init__(self, addr, user_id, client='TWS', acc='PAPER'):
-        self.addr = addr
-        self.user_id = user_id
-        ports = {'TWS': {'LIVE': 7496, 'PAPER': 7497},
-                 'TWS': {'LIVE': 4001, 'PAPER': 4002}}
-
-        self.port = ports[client][acc]
-        self.app = Client()
-
-    def connect(self, alg, symbols, load, fm):
-
-        #Some initial setup
-        self.app.connect('127.0.0.1', 7497, 123)
-        self.app_thread = threading.Thread(target=self.app.run, daemon=True)
-        self.app_thread.start()
-        self.wait = 0.1
-        self.app.setup([sym['symbol'] for sym in symbols])
-        self.init = (datetime.now() - timedelta(days=1)).timestamp()
-        self.resps = {}
-        self.bots = {}
-        for sym in symbols:
-            self.bots[sym['symbol']] = {
-                "alg": alg(), "freq": sym['freq'], "last": datetime.now().timestamp()}
-            self.bots[sym['symbol']]['alg'].setup(
-                Broker(sym['symbol'], sym['balance'], self.app), fm, config_data=sym)
-            self.bots[sym['symbol']]['alg']
-            for k, v in load.items():
-                self.app.load_ohlc(sym['symbol'],v,k)
-
-
-
-        #Start both client and Bot Controller
-
-
-        self.start()
-        
-    def start(self):
-
-        while True:
-            try:
-                time.sleep(self.wait)
-                ready_bots = self.filter()
-                self.update(ready_bots)
-                self.fire(ready_bots)
-                self.evaluate()
-            except Exception as e:
-                raise e
-                input(e)
-                break
-
-    def filter(self):
-        return dict(list(filter(lambda item: self.__is_ready(item[1]), self.bots.items())))
-
-    def update(self, bots):
-        pass
-
-    def fire(self, bots):
-        for k, v in bots.items():
-
-            v['last'] = datetime.now().timestamp()
-            resp = v['alg']()
-            self.resps[k] = v
-
-    def evaluate(self):
-        pass
-
-    def __is_ready(self, bot):
-        now = datetime.now().timestamp()
-        last_dur = bot['last'] - self.init
-        cur_dur = now - self.init
-        output = self.__floor(last_dur, bot['freq']) != self.__floor(
-            cur_dur, bot['freq'])
-        return output
-
-    def __floor(self, date, interval, delta=None):
-        if delta != None:
-            delta = delta.total_seconds()
-        else:
-            delta = 0
-        if not isinstance(date, (int, float)):
-            date = date.timestamp()
-        units = {'w': (604800, 345600), 'd': (86400, 0),
-                 'h': (3600, 0 ), 'm': (60, 0), 's': (1, 0)}
-        freq = int(''.join([i for i in interval if i.isdigit()]))
-        unit = ''.join([i for i in interval if i.isalpha()])
-        coef = units[unit][0] * freq
-        delt = units[unit][1] + delta
-
-        result = (date - delt) - ((date - delt) % coef) + delt
-        return datetime.fromtimestamp(int(result))
-
-
-
 
 class Client (EWrapper, EClient):
     def __init__(self):
@@ -291,6 +197,11 @@ class Client (EWrapper, EClient):
             df = Webull.get_klines_min([symbol], mins, days)
         else:
             df = Webull.get_klines_day(symbol)
+            df['time'] = pd.to_datetime(df['time'].astype("float64"), unit='s')
+            df = df.set_index('time')
+            df = df.resample(interval).agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'})
+            df = df.reset_index()         
+
         #df = yahoo.get_kline(symbol, start, now, interval)
 
         klines = list(reversed(json.loads(df.to_json(orient='records'))))
