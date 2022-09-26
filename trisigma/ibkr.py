@@ -323,7 +323,8 @@ class Client (EWrapper, EClient):
         contract.symbol = symbol
         contract.secType = 'STK'
         contract.exchange = 'SMART'
-        contract.currency = 'USD'
+        contract.primaryExchange = 'NASDAQ'
+        contract.currency = self.currency
         return contract
 
     def getId(self):
