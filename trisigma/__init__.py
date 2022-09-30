@@ -1,4 +1,3 @@
-from dis import dis
 import json
 import time
 import socket
@@ -103,7 +102,6 @@ class Algorithm:
     def bind(self, alg, auto=False):
         alg.setup(self.broker, self.fm, master=self, auto_broker=auto)
         return alg
-
 
 class Alarm:
 
