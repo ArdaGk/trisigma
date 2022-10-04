@@ -50,6 +50,7 @@ class Tuner:
     def get_key(self, i):
         i+=self.offset
         print(f"i:{i},  len(combs): {len(self.combs)}")
+        pass
         key=dict.fromkeys(self.parameters.keys(), self.combs[i])
         key={k : self.combs[i][j] for j, k in enumerate(self.parameters.keys())}
         key['_id'] = i
