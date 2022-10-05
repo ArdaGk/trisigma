@@ -68,7 +68,6 @@ class Client:
         self.updatables.append(argv[0])
 
       resp = self.spot.new_order(*argv, **kwargs)
-      print(resp)
       return resp
     except Exception as e:
       self.fm.log('binance_logs', str(e))
@@ -299,14 +298,14 @@ class Broker:
         try:
           return self.client.cancel(self.symbol, orderId=orderId)
         except Exception as a:
-          print(a)
+          #print(a)
           return a
 
     def cancel_all(self):
         try:
           return self.client.cancel_all(self.symbol)
         except Exception as a:
-          print(a)
+          #print(a)
           return a
 
     def get_open_orders(self):
