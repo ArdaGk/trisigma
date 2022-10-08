@@ -397,7 +397,7 @@ class Plot:
             val['time'] = pd.to_datetime(val['time'], unit='s')
             fig.add_trace(go.Scatter(x=val['time'], y=val['value']))
 
-
+        fig.update_yaxes(fixedrange=False)
         fig.show()
 
 
