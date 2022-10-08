@@ -104,10 +104,17 @@ class Algorithm:
         return alg
 
 class Alarm:
-
+    """This is a class that can be used to trigger functions in different intervals."""
     statics = {}
 
     def __init__(self, broker, interval, delta=None):
+        """Constructor method
+        :param broker: Broker object
+        :param interval: The interval in which the target function should be triggered. Units: (seconds: s, minutes: m, days: d, weeks: w, years: y.
+        :type interval: string
+        :param delta: Amount of delay to add on each interval. eg. interval of "1w" with delta=timedelta(days=3) would mean "every Wednesday".
+        :type delta: datetime.Timedelta
+        """
         self.intervals = {'1w': [7, 'D'], '1d': [1, 'D'],
                         '1h': [1, 'h'], '30m': [30, 'm'], '15m': [15, 'm'], '1m': [1, 'm'], '1s': [1, 's']}
 
@@ -122,6 +129,7 @@ class Alarm:
         self.time_buffer = self.broker.get_time()
 
     def __call__(self):
+        """Will return true if the current interval has ended."""
         time = self.broker.get_time()
         cur_floor = datetime.timestamp(Alarm._floor(time, self.interval, self.delta))
         last_floor = datetime.timestamp(Alarm._floor(self.time_buffer, self.interval, self.delta))
@@ -130,32 +138,11 @@ class Alarm:
         return cond
 
     def static(broker, interval, id, delta=None):
+        """Alternative constructor that will keep track of the interval staticly."""
         if id not in Alarm.statics.keys():
             Alarm.statics[id] = Alarm(broker, interval, delta)
 
         return Alarm.statics[id]
-
-    def floor(self, time, interval, unit, delta=None):
-        result = time
-        if delta != None:
-            result = (time - delta)
-        if unit == 'D':
-            result -= timedelta(days=(result.weekday() % interval), hours=result.hour,
-                                minutes=result.minute, seconds=result.second, microseconds=result.microsecond)
-
-        if unit == 'h':
-            result -= timedelta(hours=(result.hour %
-                                       interval), minutes=result.minute, seconds=result.second, microseconds=result.microsecond)
-
-        if unit == 'm':
-            result -= timedelta(minutes=(result.minute % interval),
-                                seconds=result.second, microseconds=result.microsecond)
-
-        if unit == 's':
-            result -= timedelta(seconds=(result.second %
-                                interval), microseconds=result.microsecond)
-
-        return result
 
     def _floor(date, interval, delta=None):
         if delta != None:
@@ -268,7 +255,13 @@ class Broker_Debug:
         return (buys, sells)
 
 class Trail:
+    """This class can be used to create trailling loss orders"""
     def __init__(self, broker, perc, save=False):
+        """Constructor
+        :param broker: broker object
+        :param perc: The trailling percentage (0.0-1.0)
+        :param save: Whether to save the trail loss in a list for plotting:
+        """
         self.perc = perc
         self.broker = broker
         self.locked = False
@@ -279,6 +272,7 @@ class Trail:
         self.hist = {}
         self.save = save
     def __call__(self):
+        """This object must be called whenever the trail must be updated with the new price"""
         price = self.broker.get_price()
         if not self.locked and (price * self.perc) * self.dir <= self.trail * self.dir:
             self.last_trail = self.trail
@@ -287,6 +281,9 @@ class Trail:
             self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active} 
 
     def reset(self, target_price=None):
+        """Resets the trail to the current price * perc
+        :param target_price: float (Optional)
+        """
         if target_price == None:
             self.trail = self.broker.get_price() * self.perc
         else:
@@ -295,6 +292,10 @@ class Trail:
         self.last_trail = -1
 
     def on_change(self, dir):
+        """Returns True if trails last movement is in the same direction as <dir>/
+        :param dir: "higher", or "lower",
+        :type dir: string
+        """
         cond1 = self.last_trail != -1
         cond2 = dir == 'higher' and self.trail > self.last_trail
         cond3 = dir == 'lower' and self.trail < self.last_trail
@@ -302,6 +303,7 @@ class Trail:
         return not self.locked and cond1 and (cond2 or cond3)
 
     def on_hit(self):
+        """Returns true if the price hit the trail"""
         return self.active and self.broker.get_price() <= self.trail
 
 class Traces:
