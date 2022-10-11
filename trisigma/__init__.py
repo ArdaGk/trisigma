@@ -280,14 +280,15 @@ class Trail:
         if self.save:
             self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active} 
 
-    def reset(self, target_price=None):
+    def reset(self, target_price=None, perc=None):
         """Resets the trail to the current price * perc
         :param target_price: float (Optional)
         """
+        perc = self.perc if perc == None else perc
         if target_price == None:
-            self.trail = self.broker.get_price() * self.perc
+            self.trail = self.broker.get_price() * perc
         else:
-            self.trail = target_price * self.perc
+            self.trail = target_price * perc
 
         self.last_trail = -1
 

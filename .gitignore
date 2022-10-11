@@ -1,7 +1,6 @@
-__pycache__/
-gspread.json
-trisigma.egg-info/
-*.py
-*.out
+/*
 !setup.py
 !trisigma/*.py
+!readme.md
+!requirements.txt
+

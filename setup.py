@@ -8,4 +8,5 @@ setup(name='trisigma',
       author='Arda Gok',
       author_email='ardagkmhs@gmail.com',
       packages=['trisigma'],
+      #package_dir={'trisigma':'src'}
      )
