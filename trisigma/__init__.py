@@ -308,7 +308,9 @@ class Trail:
         return self.active and self.broker.get_price() <= self.trail
 
 class Traces:
+    """This class can be used to set regions defined by traces"""
     def __init__(self, broker):
+        """Constructor method"""
         self.traces = {}
         self.labels = {}
         self.broker = broker
@@ -319,6 +321,7 @@ class Traces:
 
 
     def __call__(self):
+        """Callin this magic function will update the region of the current price based on the traces."""
         price = self.broker.get_price()
         region = None
         size = len(self.traces.keys())
@@ -334,20 +337,34 @@ class Traces:
         self.region = region
 
     def here_since (self, region, duration):
+        """Returns true if price been in the given reagon for a specified amount of time
+        :param region: The region of the price
+        "param duration: How long in seconds should the price be in this region.
+        """
         return region == self.region and self.broker.get_timestamp() >= self.crossed_at + duration
 
     def set_traces(self, new_traces, save=None):
+        """Set new traces
+        :param new_traces: new traces as dict, key is the name value is the price point
+        :type new_traces: <dict>
+        """
         self.traces = dict(sorted(new_traces.items(), key=lambda x: x[1]))
         if save != None:
             self.hist[save] = list(new_traces.values())
 
     def get_traces(self):
+        """Returns traces"""
         return self.traces
 
     def get_region(self):
+        """Returns the region that the price is at """
         return self.region
 
     def is_inside(self, region, ohlc):
+        """Checks wether if the price was inside the given region within the given candlesticks
+        :param region:
+        :param ohlc: Candlesticks as a list of dict
+        """
         r = region + int(len(self.traces.keys()) / 2)
         s = region + int(len(self.traces.keys()) / 2) - 1
         for kline in ohlc:

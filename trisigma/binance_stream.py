@@ -213,7 +213,7 @@ class Client:
 
 class Broker:
 
-    def __init__(self, symbol, balance, client):
+    def __init__(self, symbol, balance, client, label):
         self.client = client
         self.symbol = symbol
         self.quote_asset = 'USDT'
@@ -224,6 +224,7 @@ class Broker:
         self.trades = {}
         self.__init_time = self.client.server_time - 86400
         self.__trade_buffer = {'BUY': -1, 'SELL': -1}
+        self.label = label
 
     def __call__(self):
 
@@ -364,4 +365,12 @@ class Broker:
 
         return output[side]
 
-
+    def __save(self, order):
+        typ = order['type']
+        ts = order['time']
+        stats = fm.load(f"{self.label}_stats")
+        stats['open_orders'].append(ts)
+        times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
+        new_orders = [t for t in stats['orders'] if t in times]
+        stats['open_orders'] = new_orders
+        fm.save(stats, f"{self.label}_stats")
