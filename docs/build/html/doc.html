@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>trisigma Scripting API &#8212; trisigma  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">trisigma Scripting API</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="trisigma-scripting-api">
+<h1>trisigma Scripting API<a class="headerlink" href="#trisigma-scripting-api" title="Permalink to this heading">¶</a></h1>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Base Class</p></li>
+<li><p>Components</p></li>
+<li><p>Built-in methods</p></li>
+<li><p>Backtesting</p></li>
+<li><p>Go Live</p></li>
+<li><p>Strategy Optimizer</p></li>
+</ol>
+</section>
+</section>
+<section id="base-class">
+<h1>Base Class<a class="headerlink" href="#base-class" title="Permalink to this heading">¶</a></h1>
+<section id="class-trisigma-algorithm">
+<h2>class <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm</span></code><a class="headerlink" href="#class-trisigma-algorithm" title="Permalink to this heading">¶</a></h2>
+<p>Base class for every algorithm. Includes the necessary built-in functions.</p>
+<section id="class-trisigma-algorithm-broker">
+<h3>class <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.broker</span></code><a class="headerlink" href="#class-trisigma-algorithm-broker" title="Permalink to this heading">¶</a></h3>
+<p>Includes functions for, market data, account data, and actions (buy/sell)</p>
+</section>
+<section id="string-trisigma-algorithm-alg-stat">
+<h3>string <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.alg_stat</span></code><a class="headerlink" href="#string-trisigma-algorithm-alg-stat" title="Permalink to this heading">¶</a></h3>
+<p>Returns the state: ‘init’ for initialized, and “running” if running.</p>
+</section>
+<section id="string-trisigma-algorithm-config-data">
+<h3>string <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.config_data</span></code><a class="headerlink" href="#string-trisigma-algorithm-config-data" title="Permalink to this heading">¶</a></h3>
+<p>Includes instrument-specific parameters that are passed in the conf file</p>
+</section>
+<section id="trisigma-algorithm-register-func-trigger-args">
+<h3><code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.register(func,</span> <span class="pre">trigger,</span> <span class="pre">args=[])</span></code><a class="headerlink" href="#trisigma-algorithm-register-func-trigger-args" title="Permalink to this heading">¶</a></h3>
+<p>Used to make certain functions triggered when a condition returns True.</p>
+<section id="example-1">
+<h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sell_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trail</span><span class="o">.</span><span class="n">on_hit</span><span class="p">)</span> 
+<span class="c1">#Call the custom method &#39;self.sell_loss&#39; whenever self.trail.on_hit returns True. </span>
+<span class="c1">#(self.trail.on_hit is a method from Trailling_Loss that returns True whenever price is below the trail)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-2">
+<h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_traces</span><span class="p">,</span> <span class="n">Alarm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">))</span>
+<span class="c1">#Call the custom method &#39;self.new_traces&#39; Alarm(self.broker, &#39;1w&#39;)() returns True.</span>
+<span class="c1">#In this case &quot;Alarm()&quot; is a callable object that returns True on every new interval.</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="trisigma-algorithm-bind-alg-trisigma-algorithm">
+<h3><code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.bind(alg)</span></code> –&gt; trisigma.Algorithm<a class="headerlink" href="#trisigma-algorithm-bind-alg-trisigma-algorithm" title="Permalink to this heading">¶</a></h3>
+<p>Creates a child algo that can be accessed within the current algo</p>
+<section id="id1">
+<h4>Example 2<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">child_algo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ChildAlgo</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">child_algo</span><span class="p">()</span>
+<span class="c1">#Each Algorithym is a callable object. Calling it will trigger its &quot;update&quot; function</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="built-in-methods">
+<h1>Built-in Methods<a class="headerlink" href="#built-in-methods" title="Permalink to this heading">¶</a></h1>
+<p>These methods will be called by the base class only if they exist in the code.</p>
+<section id="start">
+<h2><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">()</span></code><a class="headerlink" href="#start" title="Permalink to this heading">¶</a></h2>
+<p>Triggered for only once when the bot has started. This is where new methods should be added to the <code class="docutils literal notranslate"><span class="pre">self.event_handler</span></code></p>
+</section>
+<section id="update">
+<h2><code class="docutils literal notranslate"><span class="pre">update</span> <span class="pre">()</span></code><a class="headerlink" href="#update" title="Permalink to this heading">¶</a></h2>
+<p>Triggered whenever the price changes</p>
+</section>
+<section id="late-update">
+<h2><code class="docutils literal notranslate"><span class="pre">late_update</span> <span class="pre">()</span></code><a class="headerlink" href="#late-update" title="Permalink to this heading">¶</a></h2>
+<p>The very last method that will be called whenever the price changes. Can be used to execute the signals that were retuned during the <code class="docutils literal notranslate"><span class="pre">update()</span></code>.</p>
+</section>
+<section id="end">
+<h2><code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">()</span></code><a class="headerlink" href="#end" title="Permalink to this heading">¶</a></h2>
+<p>Will be triggered whenever the bot has been interrupted or shut down.</p>
+</section>
+</section>
+<section id="components">
+<h1>Components<a class="headerlink" href="#components" title="Permalink to this heading">¶</a></h1>
+<section id="class-broker">
+<h2><em>class</em> <code class="docutils literal notranslate"><span class="pre">Broker</span></code><a class="headerlink" href="#class-broker" title="Permalink to this heading">¶</a></h2>
+<p>Includes functions for, market data, account data, and actions (buy/sell). It is the only component that is built-in in the base class (self.broker), so no need to recreate.</p>
+<section id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this heading">¶</a></h3>
+<p>Variables below are ‘GET’ only. They are auutomatically set and updated by the engine while the algorithm is running.</p>
+</section>
+<section id="string-broker-symbol">
+<h3><em>string</em> <code class="docutils literal notranslate"><span class="pre">Broker.symbol</span></code><a class="headerlink" href="#string-broker-symbol" title="Permalink to this heading">¶</a></h3>
+<p>Returns the instrument of the strategy. This is set automatically by the engine when the algorithm is running.</p>
+</section>
+<section id="string-broker-quote-asset">
+<h3><em>string</em> <code class="docutils literal notranslate"><span class="pre">Broker.quote_asset</span></code><a class="headerlink" href="#string-broker-quote-asset" title="Permalink to this heading">¶</a></h3>
+<p>Returns the quote asset (default: USD)</p>
+</section>
+<section id="bool-broker-buy-filled">
+<h3><em>bool</em> <code class="docutils literal notranslate"><span class="pre">Broker.buy_filled</span></code><a class="headerlink" href="#bool-broker-buy-filled" title="Permalink to this heading">¶</a></h3>
+<p>True, if an asset sold in that very current frame.</p>
+</section>
+<section id="bool-broker-sell-filled">
+<h3><em>bool</em> <code class="docutils literal notranslate"><span class="pre">Broker.sell_filled</span></code><a class="headerlink" href="#bool-broker-sell-filled" title="Permalink to this heading">¶</a></h3>
+<p>True, if an asset sold in that very current frame.</p>
+</section>
+<section id="signals">
+<h3>Signals<a class="headerlink" href="#signals" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-buy-type-qty-limit-price-none">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.buy</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code><a class="headerlink" href="#broker-buy-type-qty-limit-price-none" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-quote-buy-type-qty-quote-price-limit-price-none">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">quote_price,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code><a class="headerlink" href="#broker-quote-buy-type-qty-quote-price-limit-price-none" title="Permalink to this heading">¶</a></h3>
+<p>Buy by USD instead of quantity</p>
+</section>
+<section id="broker-sell-type-qty-limit-price-none">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.sell</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code><a class="headerlink" href="#broker-sell-type-qty-limit-price-none" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-quote-sell-type-qty-quote-price-limit-price-none">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">quote_price,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code><a class="headerlink" href="#broker-quote-sell-type-qty-quote-price-limit-price-none" title="Permalink to this heading">¶</a></h3>
+<p>Sell by USD instead of quantity</p>
+</section>
+<section id="broker-cancel-side-index">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.cancel</span> <span class="pre">(side,</span> <span class="pre">index)</span></code><a class="headerlink" href="#broker-cancel-side-index" title="Permalink to this heading">¶</a></h3>
+<p>Cancels a particular open order by its index</p>
+</section>
+<section id="broker-cancel-all-side">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all</span> <span class="pre">(side)</span></code><a class="headerlink" href="#broker-cancel-all-side" title="Permalink to this heading">¶</a></h3>
+<p>Cancels every (BUY or SELL) order</p>
+</section>
+<section id="account-data">
+<h3>Account Data<a class="headerlink" href="#account-data" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-open-orders-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders</span> <span class="pre">()</span></code> –&gt; dict<a class="headerlink" href="#broker-get-open-orders-dict" title="Permalink to this heading">¶</a></h3>
+<p>Returns a dict with two keys: BUY and SELL. each containing a list of orders</p>
+</section>
+<section id="broker-get-position-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_position</span> <span class="pre">()</span></code> –&gt; dict<a class="headerlink" href="#broker-get-position-dict" title="Permalink to this heading">¶</a></h3>
+<p>Returns a dict with three keys: “FREE”: spendable assets, “LOCKED”: assets that are waiting to be limit sold, “FULL”: FREE + LOCKED</p>
+</section>
+<section id="broker-get-balance-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_balance</span> <span class="pre">()</span></code> –&gt; dict<a class="headerlink" href="#broker-get-balance-dict" title="Permalink to this heading">¶</a></h3>
+<p>Returns a dict with three keys: “FREE”: spendable quote asset, “LOCKED”: quote asset locked for limit buy, “FULL”: FREE + LOCKED</p>
+</section>
+<section id="market-data">
+<h3>Market Data<a class="headerlink" href="#market-data" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-ohlc-interval-lookback-1-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc</span> <span class="pre">(interval,</span> <span class="pre">lookback</span> <span class="pre">=</span> <span class="pre">1)</span></code> –&gt; dict<a class="headerlink" href="#broker-get-ohlc-interval-lookback-1-dict" title="Permalink to this heading">¶</a></h3>
+<p>Get the candlestick of the ‘interval’. Includes open/high/sell/low</p>
+</section>
+<section id="broker-get-price-lookback-1-float">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_price</span> <span class="pre">(lookback</span> <span class="pre">=</span> <span class="pre">1)</span></code> –&gt; float<a class="headerlink" href="#broker-get-price-lookback-1-float" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-time-datetime">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_time</span> <span class="pre">()</span></code> –&gt; datetime<a class="headerlink" href="#broker-get-time-datetime" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-timestamp-float">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp</span> <span class="pre">()</span> </code> –&gt; float<a class="headerlink" href="#broker-get-timestamp-float" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-bids-list">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_bids</span> <span class="pre">()</span></code> –&gt; list<a class="headerlink" href="#broker-get-bids-list" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-asks-list">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_asks</span> <span class="pre">()</span></code> –&gt; list<a class="headerlink" href="#broker-get-asks-list" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="broker-get-buy-price-float">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_buy_price</span> <span class="pre">()</span></code> –&gt; float<a class="headerlink" href="#broker-get-buy-price-float" title="Permalink to this heading">¶</a></h3>
+<p>Returns the price we would pay if we were to do Market Buy</p>
+</section>
+<section id="broker-get-sell-price-float">
+<h3><code class="docutils literal notranslate"><span class="pre">Broker.get_sell_price</span> <span class="pre">()</span></code> –&gt; float<a class="headerlink" href="#broker-get-sell-price-float" title="Permalink to this heading">¶</a></h3>
+<p>Returns the price we would get if we were to do Market Sell</p>
+</section>
+</section>
+<section id="class-alarm">
+<h2><em>class</em> Alarm<a class="headerlink" href="#class-alarm" title="Permalink to this heading">¶</a></h2>
+<p>A component that can be used to trigger in the beginning of a certain interval</p>
+<section id="intervals">
+<h3>Intervals<a class="headerlink" href="#intervals" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>1w</p></li>
+<li><p>1d</p></li>
+<li><p>1h</p></li>
+<li><p>30m</p></li>
+<li><p>15m</p></li>
+<li><p>1m</p></li>
+<li><p>1s</p></li>
+</ul>
+<p>Coefficients can be anything. (Ex: 43m would work just fine)</p>
+</section>
+<section id="alarm-init-broker-interval-delta-none">
+<h3><code class="docutils literal notranslate"><span class="pre">Alarm.__init__</span> <span class="pre">(broker,</span> <span class="pre">interval,</span> <span class="pre">delta=None)</span></code><a class="headerlink" href="#alarm-init-broker-interval-delta-none" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><em>Broker</em> broker: needs <code class="docutils literal notranslate"><span class="pre">self.broker</span></code> in order to access the current time</p></li>
+<li><p><em>string</em> interval: one of those intervals. (Case sensitive)</p></li>
+<li><p><em>timedelta</em> delta: offset for the certain unit. Ex/ (self.broker, ‘1w’, delta=timedelta(days=6)) indicates every week’s Sunday (not Monday)</p></li>
+</ul>
+</section>
+<section id="alarm-call-bool">
+<h3><code class="docutils literal notranslate"><span class="pre">Alarm.__call__</span> <span class="pre">()</span> <span class="pre">--&gt;</span> <span class="pre">bool</span></code><a class="headerlink" href="#alarm-call-bool" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Alarm</span></code>, as an object, must be called in every frame so it can process the current <code class="docutils literal notranslate"><span class="pre">self.broker.get_time()</span></code> and return True/False. There is no need to do this manually. Adding the object into base class’ event handler (<code class="docutils literal notranslate"><span class="pre">self.event_handler.add</span></code>) will make the base class automatically call this object in every iteration.</p>
+</section>
+</section>
+<section id="class-trailling-loss">
+<h2><em>class</em> Trailling_Loss<a class="headerlink" href="#class-trailling-loss" title="Permalink to this heading">¶</a></h2>
+<p>A certain percentage below the current price can be easily tracked via this class.</p>
+<section id="trailling-loss-init-broker-perc">
+<h3><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.__init__</span> <span class="pre">(broker,</span> <span class="pre">perc)</span></code><a class="headerlink" href="#trailling-loss-init-broker-perc" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><em>Broker</em> broker: It also needs <code class="docutils literal notranslate"><span class="pre">self.broker</span></code> in order to access the current price</p></li>
+<li><p><em>float</em> perc: How much below? Ex/ 0.975, for %2.5</p></li>
+</ul>
+</section>
+<section id="trailling-loss-call-bool">
+<h3><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.__call__</span> <span class="pre">()</span> <span class="pre">--&gt;</span> <span class="pre">bool</span></code><a class="headerlink" href="#trailling-loss-call-bool" title="Permalink to this heading">¶</a></h3>
+<p>Just like <code class="docutils literal notranslate"><span class="pre">Alarm</span></code>, the class, as an object, must be called in every iteration so it can update the trail. Except this time the Base class won’t be able to do it manually (yet). Syntax for calling.</p>
+</section>
+<section id="trailling-loss-on-hit-bool">
+<h3><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.on_hit</span> <span class="pre">()</span></code> –&gt; <em>bool</em><a class="headerlink" href="#trailling-loss-on-hit-bool" title="Permalink to this heading">¶</a></h3>
+<p>Returns true if the price went below the trail.</p>
+</section>
+<section id="sample-usage">
+<h3>Sample Usage<a class="headerlink" href="#sample-usage" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Alg_v1</span> <span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">start</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">trail</span> <span class="o">=</span> <span class="n">Trailling_Loss</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">event_handler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sell_all</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">trail</span><span class="o">.</span><span class="n">on_hit</span><span class="p">)</span> <span class="c1"># Call sell_all whenever price is below the trail.</span>
+
+  <span class="k">def</span> <span class="nf">update</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">trail</span><span class="p">()</span> <span class="c1">#Must be called in every iteration, so it can update the trail based on new price.  </span>
+
+  <span class="k">def</span> <span class="nf">sell_all</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1">#Sell all</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="class-traces">
+<h2><em>class</em> Traces<a class="headerlink" href="#class-traces" title="Permalink to this heading">¶</a></h2>
+<section id="traces-init-broker">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.__init__</span> <span class="pre">(broker)</span></code><a class="headerlink" href="#traces-init-broker" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><em>Broker</em> broker: again, needs self.broker in order to access certain market datas</p></li>
+</ul>
+</section>
+<section id="traces-call-broker">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.__call__</span> <span class="pre">(broker)</span></code><a class="headerlink" href="#traces-call-broker" title="Permalink to this heading">¶</a></h3>
+<p>Must also be called manually in every iteration so that it can update its variables.</p>
+</section>
+<section id="traces-set-traces-new-traces">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.set_traces</span> <span class="pre">(new_traces)</span></code><a class="headerlink" href="#traces-set-traces-new-traces" title="Permalink to this heading">¶</a></h3>
+<p>Updates the traces with the given</p>
+</section>
+<section id="traces-get-traces-dict">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.get_traces</span> <span class="pre">()</span></code> –&gt; <em>dict</em><a class="headerlink" href="#traces-get-traces-dict" title="Permalink to this heading">¶</a></h3>
+<p>Returns the traces</p>
+</section>
+<section id="traces-get-region-int">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.get_region</span> <span class="pre">()</span></code> –&gt; <em>int</em><a class="headerlink" href="#traces-get-region-int" title="Permalink to this heading">¶</a></h3>
+<p>Returns the region. format: […, -2, -1, 0, 1, 2, …] where 0 is the white region, positives top, negatives below.</p>
+</section>
+<section id="traces-is-inside-region-ohlc-bool">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.is_inside</span> <span class="pre">(region,</span> <span class="pre">ohlc)</span></code> –&gt; <em>bool</em><a class="headerlink" href="#traces-is-inside-region-ohlc-bool" title="Permalink to this heading">¶</a></h3>
+<p>Returns true if the all of the given candles (“ohlc”) are  inside the “region”</p>
+</section>
+<section id="traces-on-change-bool">
+<h3><code class="docutils literal notranslate"><span class="pre">Traces.on_change</span> <span class="pre">()</span></code> –&gt; <em>bool</em><a class="headerlink" href="#traces-on-change-bool" title="Permalink to this heading">¶</a></h3>
+<p>Returns true whenever the current price crosses a trace. Passing this to the event handler will automatically trigger the desired function when a trace is crossed.</p>
+</section>
+<section id="id2">
+<h3>Sample Usage<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Alg_v1</span> <span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">traces</span> <span class="o">=</span> <span class="n">Traces</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">set_traces</span><span class="p">(</span><span class="n">get_new_traces</span><span class="p">())</span> 
+      <span class="bp">self</span><span class="o">.</span><span class="n">event_handler</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sell_profit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">on_change</span><span class="p">)</span> <span class="c1"># Call sell_profit whenever self.traces.on_change returns True</span>
+
+  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="p">()</span> <span class="c1">#Again must be called every iterations</span>
+
+  <span class="k">def</span> <span class="nf">sell_profit</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">traces</span><span class="o">.</span><span class="n">region</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1">#Sell the positions</span>
+    
+</pre></div>
+</div>
+</section>
+</section>
+<section id="other-useful-modules-classes">
+<h2>Other useful modules/classes<a class="headerlink" href="#other-useful-modules-classes" title="Permalink to this heading">¶</a></h2>
+<section id="class-trisigma-sock">
+<h3><em>class</em> trisigma.Sock<a class="headerlink" href="#class-trisigma-sock" title="Permalink to this heading">¶</a></h3>
+<p>A socket-based event handler. Triggers given function whenever desired message is sent from another socker host.</p>
+</section>
+<section id="class-trisigma-slack">
+<h3><em>class</em> trisigma.Slack<a class="headerlink" href="#class-trisigma-slack" title="Permalink to this heading">¶</a></h3>
+<p>Slack channel integration</p>
+</section>
+<section id="module-trisigma-sheets">
+<h3><em>module</em> trisigma.sheets<a class="headerlink" href="#module-trisigma-sheets" title="Permalink to this heading">¶</a></h3>
+<p>Google sheets integration</p>
+</section>
+<section id="module-trisigma-cloud-storage">
+<h3><em>module</em> trisigma.cloud_storage<a class="headerlink" href="#module-trisigma-cloud-storage" title="Permalink to this heading">¶</a></h3>
+<p>Google Cloud Storage integration</p>
+</section>
+<section id="module-trisigma-yahoo">
+<h3><em>module</em> trisigma.yahoo<a class="headerlink" href="#module-trisigma-yahoo" title="Permalink to this heading">¶</a></h3>
+<p>Yahoo finance integration</p>
+</section>
+<section id="module-trisigma-filemanager">
+<h3><em>module</em> trisigma.filemanager<a class="headerlink" href="#module-trisigma-filemanager" title="Permalink to this heading">¶</a></h3>
+<p>Provides a platform-independent and easier way to interact with the disk.</p>
+</section>
+<section id="module-trisigma-pots">
+<h3><em>module</em> trisigma.pots<a class="headerlink" href="#module-trisigma-pots" title="Permalink to this heading">¶</a></h3>
+<p>Includes different ways of handling the capital.</p>
+</section>
+<section id="module-trisigma-evaluation-utils">
+<h3><em>module</em> trisigma.evaluation_utils<a class="headerlink" href="#module-trisigma-evaluation-utils" title="Permalink to this heading">¶</a></h3>
+<p>Library to calculate different metrics like return and sharp ratio</p>
+</section>
+</section>
+</section>
+<section id="backtesting">
+<h1>Backtesting<a class="headerlink" href="#backtesting" title="Permalink to this heading">¶</a></h1>
+<section id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trisigma.backtesting</span> <span class="kn">import</span> <span class="n">Backtesting</span>
+<span class="kn">from</span> <span class="nn">my_alg</span> <span class="kn">import</span> <span class="n">Alg</span>
+
+<span class="n">conf</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;alg&#39;</span><span class="p">:</span> <span class="n">Alg</span><span class="p">,</span>
+		<span class="s1">&#39;intervals&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">,</span> <span class="s1">&#39;15m&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">],</span>
+		<span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span>
+		<span class="s1">&#39;balance&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+		<span class="s1">&#39;lookback&#39;</span><span class="p">:</span> <span class="mi">365</span><span class="p">,</span>
+		<span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+		<span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;link1y&quot;</span><span class="p">,</span>
+		<span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s1">&#39;LINKUSDT&#39;</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s1">&#39;ETHUSDT&#39;</span><span class="p">}],</span>
+		<span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;binance&#39;</span>
+		<span class="s1">&#39;fm&#39;</span><span class="p">:</span> <span class="s2">&quot;/home/arda/alg_data/&quot;</span><span class="p">}</span>
+		
+<span class="n">test</span> <span class="o">=</span> <span class="n">Backtesting</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+<span class="n">test</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="class-backtesting">
+<h3><em>class</em> Backtesting<a class="headerlink" href="#class-backtesting" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="init-conf-kwargs">
+<h3><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code><a class="headerlink" href="#init-conf-kwargs" title="Permalink to this heading">¶</a></h3>
+<section id="configuration-parameters">
+<h4>Configuration parameters:<a class="headerlink" href="#configuration-parameters" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>“alg”: The algorithm as a <em><strong>class</strong></em>. Initialization will be done by the “Backtesting” class without any arguments.</p></li>
+<li><p>“symbols”: Symbols (Instruments) that should be tested. Any additional keys inside these dictionaries will be accessible within the class via <code class="docutils literal notranslate"><span class="pre">self.config_data</span></code>. Therefore, instrument-specific parameters should be included in here.</p></li>
+<li><p>“intervals”: Candlestick intervals that will be needed for the strategy. These intervals will be automatically cached by the engine for quicker access.</p></li>
+<li><p>“freq”: Main interval of backtest.</p></li>
+<li><p>“lookback”: How much past should the backtest go</p></li>
+<li><p>“delta”: Skips the given amount of time before starting the test. It is useful when we need access to past candlesticks that normally won’t be recorded within the test.</p></li>
+<li><p>“balance”: Grand balance</p></li>
+<li><p>“source”: market data source. “binance” for crypto, “webull” for securities</p></li>
+<li><p>“name” (optional). Market data that is pulled will be saved in the disk with the given name.</p></li>
+<li><p>“fm”: Path for the data to be saved.</p></li>
+</ul>
+</section>
+</section>
+<section id="run-steps-1">
+<h3><code class="docutils literal notranslate"><span class="pre">run(steps=1)</span></code><a class="headerlink" href="#run-steps-1" title="Permalink to this heading">¶</a></h3>
+<p>Starts the backtest.</p>
+<ul class="simple">
+<li><p>steps: how many interval to jump over in each iteration. This comes handy when we need to speed up the test.</p></li>
+</ul>
+<p><em><strong>Note:</strong></em> steps=3 for the main interval: ‘5m’ doesn’t always mean “every 15 minutes”. This is because tradeless time frames are automatically ignored.</p>
+</section>
+</section>
+</section>
+<section id="go-live">
+<h1>Go Live<a class="headerlink" href="#go-live" title="Permalink to this heading">¶</a></h1>
+<section id="id3">
+<h2>Syntax<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stream</span>
+<span class="kn">from</span> <span class="nn">my_alg</span> <span class="kn">import</span> <span class="n">Alg</span>
+
+<span class="n">conf</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;alg&#39;</span><span class="p">:</span> <span class="n">Alg</span><span class="p">,</span>
+<span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="s1">&#39;5m&#39;</span><span class="p">,</span>
+<span class="s1">&#39;balance&#39;</span><span class="p">:</span> <span class="mi">5000</span><span class="p">,</span>
+<span class="s1">&#39;load&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;15m&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+<span class="s1">&#39;platform&#39;</span><span class="p">:</span> <span class="s2">&quot;ibkr-paper&quot;</span><span class="p">,</span>
+<span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">},</span>
+			<span class="p">{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s2">&quot;NFLX&quot;</span><span class="p">},</span>
+			<span class="p">{</span><span class="s1">&#39;symbol&#39;</span><span class="p">}</span> <span class="s2">&quot;META&quot;</span><span class="p">}],</span>
+<span class="s1">&#39;fm&#39;</span><span class="p">:</span> <span class="s2">&quot;/home/arda/alg_data&quot;</span><span class="p">]</span>
+<span class="n">stream</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+<span class="n">stream</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="class-trisigma-stream-stream">
+<h3><em>class</em> trisigma.stream.Stream<a class="headerlink" href="#class-trisigma-stream-stream" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id4">
+<h3><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code><a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<section id="id5">
+<h4>Configuration parameters:<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>“alg”: The algorithm as a <em><strong>class</strong></em>. Initialization will be done by the “Backtesting” class without any arguments.</p></li>
+<li><p>“symbols”: Symbols (Instruments) that will be traded. Any additional keys inside these dictionaries will be accessible within the class via <code class="docutils literal notranslate"><span class="pre">self.config_data</span></code>. Therefore, instrument-specific parameters should be included in here.</p></li>
+<li><p>“intervals”: Candlestick intervals that will be needed for the strategy. These intervals will be automatically cached by the engine for quicker access. Unlike the <code class="docutils literal notranslate"><span class="pre">Backtesting</span></code> conf, intervels here are in the form of dictionaries. Each value represents how much candles to go back.</p></li>
+<li><p>“freq”: Main interval of stream.</p></li>
+<li><p>“balance”: Grand balance</p></li>
+<li><p>“platform”: Brokerage platform. options: “binance”, “ibkr-paper”, “ibkr-real”</p></li>
+<li><p>“fm”: Path for the data to be saved.</p></li>
+</ul>
+<p>(Any of these keys can also be passed through **kwargs)</p>
+</section>
+</section>
+<section id="connect-ip-none">
+<h3><code class="docutils literal notranslate"><span class="pre">connect</span> <span class="pre">(ip=None)</span></code><a class="headerlink" href="#connect-ip-none" title="Permalink to this heading">¶</a></h3>
+<p>Starts the stream.</p>
+<ul class="simple">
+<li><p>ip: client server address for “ibkr-paper” or “ibkr-real”. No need for “binance”</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="strategy-optizer">
+<h1>Strategy Optizer<a class="headerlink" href="#strategy-optizer" title="Permalink to this heading">¶</a></h1>
+<section id="id6">
+<h2>Syntax<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trisigma</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">trisigma.tuner</span> <span class="kn">import</span> <span class="n">Tuner</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">conf</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;talg_gen1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;alg&quot;</span><span class="p">:</span> <span class="s2">&quot;talg_gen1.py&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;parameters&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;__data__&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;linktune3y&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;LINKUSDT&quot;</span><span class="p">]]],</span>
+        <span class="s2">&quot;stop_loss&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="s2">&quot;close&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">true</span><span class="p">,</span> <span class="n">false</span><span class="p">],</span>
+        <span class="s2">&quot;wait15&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">true</span><span class="p">,</span> <span class="n">false</span><span class="p">],</span>
+        <span class="s2">&quot;candles&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">tuner</span> <span class="o">=</span> <span class="n">Tuner</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="n">max_child</span><span class="o">=</span><span class="n">CHILD</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">OFFSET</span><span class="p">,</span> <span class="n">fm</span><span class="o">=</span><span class="s1">&#39;/home/arda/alg_data&#39;</span><span class="p">)</span>
+<span class="n">tuner</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="class-trisigma-tuner-tuner">
+<h3><em>class</em> trisigma.tuner.Tuner<a class="headerlink" href="#class-trisigma-tuner-tuner" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="id7">
+<h3><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code><a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<section id="id8">
+<h4>Configuration parameters:<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>“alg”: The algorithm as a <em><strong>module</strong></em>. this module will be run by the <em><strong>Tuner</strong></em>’s subprocessor with an additional argument: parameters.</p></li>
+<li><p>“label”: Name given to the tuning process.</p></li>
+<li><p>“parameters”: Inside, there should be the parameters to be optimized. Each value has to be a list containing the possible parameters. “_ _ data _ _” is a mandatory special parameter that indicates the desired market. This is the same label that is saved through <em><strong>Backtesting</strong></em>’s “name” key.</p></li>
+</ul>
+</section>
+</section>
+<section id="launch">
+<h3><code class="docutils literal notranslate"><span class="pre">launch</span> <span class="pre">()</span></code><a class="headerlink" href="#launch" title="Permalink to this heading">¶</a></h3>
+<p>Starts the tuner.</p>
+<p><em><strong>Note</strong></em>: the <em><strong>Tuner</strong></em> does not expect or save any output. Saving must be handled within the algo.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">trisigma Scripting API</a><ul>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#base-class">Base Class</a><ul>
+<li><a class="reference internal" href="#class-trisigma-algorithm">class <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm</span></code></a><ul>
+<li><a class="reference internal" href="#class-trisigma-algorithm-broker">class <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.broker</span></code></a></li>
+<li><a class="reference internal" href="#string-trisigma-algorithm-alg-stat">string <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.alg_stat</span></code></a></li>
+<li><a class="reference internal" href="#string-trisigma-algorithm-config-data">string <code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.config_data</span></code></a></li>
+<li><a class="reference internal" href="#trisigma-algorithm-register-func-trigger-args"><code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.register(func,</span> <span class="pre">trigger,</span> <span class="pre">args=[])</span></code></a><ul>
+<li><a class="reference internal" href="#example-1">Example 1</a></li>
+<li><a class="reference internal" href="#example-2">Example 2</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#trisigma-algorithm-bind-alg-trisigma-algorithm"><code class="docutils literal notranslate"><span class="pre">trisigma.Algorithm.bind(alg)</span></code> –&gt; trisigma.Algorithm</a><ul>
+<li><a class="reference internal" href="#id1">Example 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#built-in-methods">Built-in Methods</a><ul>
+<li><a class="reference internal" href="#start"><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">()</span></code></a></li>
+<li><a class="reference internal" href="#update"><code class="docutils literal notranslate"><span class="pre">update</span> <span class="pre">()</span></code></a></li>
+<li><a class="reference internal" href="#late-update"><code class="docutils literal notranslate"><span class="pre">late_update</span> <span class="pre">()</span></code></a></li>
+<li><a class="reference internal" href="#end"><code class="docutils literal notranslate"><span class="pre">end</span> <span class="pre">()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#components">Components</a><ul>
+<li><a class="reference internal" href="#class-broker"><em>class</em> <code class="docutils literal notranslate"><span class="pre">Broker</span></code></a><ul>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#string-broker-symbol"><em>string</em> <code class="docutils literal notranslate"><span class="pre">Broker.symbol</span></code></a></li>
+<li><a class="reference internal" href="#string-broker-quote-asset"><em>string</em> <code class="docutils literal notranslate"><span class="pre">Broker.quote_asset</span></code></a></li>
+<li><a class="reference internal" href="#bool-broker-buy-filled"><em>bool</em> <code class="docutils literal notranslate"><span class="pre">Broker.buy_filled</span></code></a></li>
+<li><a class="reference internal" href="#bool-broker-sell-filled"><em>bool</em> <code class="docutils literal notranslate"><span class="pre">Broker.sell_filled</span></code></a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#broker-buy-type-qty-limit-price-none"><code class="docutils literal notranslate"><span class="pre">Broker.buy</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code></a></li>
+<li><a class="reference internal" href="#broker-quote-buy-type-qty-quote-price-limit-price-none"><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">quote_price,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code></a></li>
+<li><a class="reference internal" href="#broker-sell-type-qty-limit-price-none"><code class="docutils literal notranslate"><span class="pre">Broker.sell</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code></a></li>
+<li><a class="reference internal" href="#broker-quote-sell-type-qty-quote-price-limit-price-none"><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell</span> <span class="pre">(_type,</span> <span class="pre">qty,</span> <span class="pre">quote_price,</span> <span class="pre">limit_price</span> <span class="pre">=</span> <span class="pre">None)</span></code></a></li>
+<li><a class="reference internal" href="#broker-cancel-side-index"><code class="docutils literal notranslate"><span class="pre">Broker.cancel</span> <span class="pre">(side,</span> <span class="pre">index)</span></code></a></li>
+<li><a class="reference internal" href="#broker-cancel-all-side"><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all</span> <span class="pre">(side)</span></code></a></li>
+<li><a class="reference internal" href="#account-data">Account Data</a></li>
+<li><a class="reference internal" href="#broker-get-open-orders-dict"><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders</span> <span class="pre">()</span></code> –&gt; dict</a></li>
+<li><a class="reference internal" href="#broker-get-position-dict"><code class="docutils literal notranslate"><span class="pre">Broker.get_position</span> <span class="pre">()</span></code> –&gt; dict</a></li>
+<li><a class="reference internal" href="#broker-get-balance-dict"><code class="docutils literal notranslate"><span class="pre">Broker.get_balance</span> <span class="pre">()</span></code> –&gt; dict</a></li>
+<li><a class="reference internal" href="#market-data">Market Data</a></li>
+<li><a class="reference internal" href="#broker-get-ohlc-interval-lookback-1-dict"><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc</span> <span class="pre">(interval,</span> <span class="pre">lookback</span> <span class="pre">=</span> <span class="pre">1)</span></code> –&gt; dict</a></li>
+<li><a class="reference internal" href="#broker-get-price-lookback-1-float"><code class="docutils literal notranslate"><span class="pre">Broker.get_price</span> <span class="pre">(lookback</span> <span class="pre">=</span> <span class="pre">1)</span></code> –&gt; float</a></li>
+<li><a class="reference internal" href="#broker-get-time-datetime"><code class="docutils literal notranslate"><span class="pre">Broker.get_time</span> <span class="pre">()</span></code> –&gt; datetime</a></li>
+<li><a class="reference internal" href="#broker-get-timestamp-float"><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp</span> <span class="pre">()</span> </code> –&gt; float</a></li>
+<li><a class="reference internal" href="#broker-get-bids-list"><code class="docutils literal notranslate"><span class="pre">Broker.get_bids</span> <span class="pre">()</span></code> –&gt; list</a></li>
+<li><a class="reference internal" href="#broker-get-asks-list"><code class="docutils literal notranslate"><span class="pre">Broker.get_asks</span> <span class="pre">()</span></code> –&gt; list</a></li>
+<li><a class="reference internal" href="#broker-get-buy-price-float"><code class="docutils literal notranslate"><span class="pre">Broker.get_buy_price</span> <span class="pre">()</span></code> –&gt; float</a></li>
+<li><a class="reference internal" href="#broker-get-sell-price-float"><code class="docutils literal notranslate"><span class="pre">Broker.get_sell_price</span> <span class="pre">()</span></code> –&gt; float</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-alarm"><em>class</em> Alarm</a><ul>
+<li><a class="reference internal" href="#intervals">Intervals</a></li>
+<li><a class="reference internal" href="#alarm-init-broker-interval-delta-none"><code class="docutils literal notranslate"><span class="pre">Alarm.__init__</span> <span class="pre">(broker,</span> <span class="pre">interval,</span> <span class="pre">delta=None)</span></code></a></li>
+<li><a class="reference internal" href="#alarm-call-bool"><code class="docutils literal notranslate"><span class="pre">Alarm.__call__</span> <span class="pre">()</span> <span class="pre">--&gt;</span> <span class="pre">bool</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-trailling-loss"><em>class</em> Trailling_Loss</a><ul>
+<li><a class="reference internal" href="#trailling-loss-init-broker-perc"><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.__init__</span> <span class="pre">(broker,</span> <span class="pre">perc)</span></code></a></li>
+<li><a class="reference internal" href="#trailling-loss-call-bool"><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.__call__</span> <span class="pre">()</span> <span class="pre">--&gt;</span> <span class="pre">bool</span></code></a></li>
+<li><a class="reference internal" href="#trailling-loss-on-hit-bool"><code class="docutils literal notranslate"><span class="pre">Trailling_Loss.on_hit</span> <span class="pre">()</span></code> –&gt; <em>bool</em></a></li>
+<li><a class="reference internal" href="#sample-usage">Sample Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-traces"><em>class</em> Traces</a><ul>
+<li><a class="reference internal" href="#traces-init-broker"><code class="docutils literal notranslate"><span class="pre">Traces.__init__</span> <span class="pre">(broker)</span></code></a></li>
+<li><a class="reference internal" href="#traces-call-broker"><code class="docutils literal notranslate"><span class="pre">Traces.__call__</span> <span class="pre">(broker)</span></code></a></li>
+<li><a class="reference internal" href="#traces-set-traces-new-traces"><code class="docutils literal notranslate"><span class="pre">Traces.set_traces</span> <span class="pre">(new_traces)</span></code></a></li>
+<li><a class="reference internal" href="#traces-get-traces-dict"><code class="docutils literal notranslate"><span class="pre">Traces.get_traces</span> <span class="pre">()</span></code> –&gt; <em>dict</em></a></li>
+<li><a class="reference internal" href="#traces-get-region-int"><code class="docutils literal notranslate"><span class="pre">Traces.get_region</span> <span class="pre">()</span></code> –&gt; <em>int</em></a></li>
+<li><a class="reference internal" href="#traces-is-inside-region-ohlc-bool"><code class="docutils literal notranslate"><span class="pre">Traces.is_inside</span> <span class="pre">(region,</span> <span class="pre">ohlc)</span></code> –&gt; <em>bool</em></a></li>
+<li><a class="reference internal" href="#traces-on-change-bool"><code class="docutils literal notranslate"><span class="pre">Traces.on_change</span> <span class="pre">()</span></code> –&gt; <em>bool</em></a></li>
+<li><a class="reference internal" href="#id2">Sample Usage</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-useful-modules-classes">Other useful modules/classes</a><ul>
+<li><a class="reference internal" href="#class-trisigma-sock"><em>class</em> trisigma.Sock</a></li>
+<li><a class="reference internal" href="#class-trisigma-slack"><em>class</em> trisigma.Slack</a></li>
+<li><a class="reference internal" href="#module-trisigma-sheets"><em>module</em> trisigma.sheets</a></li>
+<li><a class="reference internal" href="#module-trisigma-cloud-storage"><em>module</em> trisigma.cloud_storage</a></li>
+<li><a class="reference internal" href="#module-trisigma-yahoo"><em>module</em> trisigma.yahoo</a></li>
+<li><a class="reference internal" href="#module-trisigma-filemanager"><em>module</em> trisigma.filemanager</a></li>
+<li><a class="reference internal" href="#module-trisigma-pots"><em>module</em> trisigma.pots</a></li>
+<li><a class="reference internal" href="#module-trisigma-evaluation-utils"><em>module</em> trisigma.evaluation_utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#backtesting">Backtesting</a><ul>
+<li><a class="reference internal" href="#syntax">Syntax</a><ul>
+<li><a class="reference internal" href="#class-backtesting"><em>class</em> Backtesting</a></li>
+<li><a class="reference internal" href="#init-conf-kwargs"><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code></a><ul>
+<li><a class="reference internal" href="#configuration-parameters">Configuration parameters:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#run-steps-1"><code class="docutils literal notranslate"><span class="pre">run(steps=1)</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#go-live">Go Live</a><ul>
+<li><a class="reference internal" href="#id3">Syntax</a><ul>
+<li><a class="reference internal" href="#class-trisigma-stream-stream"><em>class</em> trisigma.stream.Stream</a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code></a><ul>
+<li><a class="reference internal" href="#id5">Configuration parameters:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#connect-ip-none"><code class="docutils literal notranslate"><span class="pre">connect</span> <span class="pre">(ip=None)</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#strategy-optizer">Strategy Optizer</a><ul>
+<li><a class="reference internal" href="#id6">Syntax</a><ul>
+<li><a class="reference internal" href="#class-trisigma-tuner-tuner"><em>class</em> trisigma.tuner.Tuner</a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">__init__</span> <span class="pre">(conf,</span> <span class="pre">**kwargs)</span></code></a><ul>
+<li><a class="reference internal" href="#id8">Configuration parameters:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#launch"><code class="docutils literal notranslate"><span class="pre">launch</span> <span class="pre">()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/doc.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">trisigma Scripting API</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Arda Gok.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+    </div>
+  </body>
+</html>
