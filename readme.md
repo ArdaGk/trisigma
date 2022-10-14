@@ -1,6 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/trisigma.svg)](https://badge.fury.io/py/trisigma)
 [![Documentation Status](https://readthedocs.org/projects/trisigma/badge/?version=latest)](https://trisigma.readthedocs.io/en/latest/?badge=latest)
-[![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.com/project/pip/)
+[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 # Trisigma
 ``` bash
 $ pip install trisigma
