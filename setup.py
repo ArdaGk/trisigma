@@ -3,10 +3,10 @@
 from distutils.core import setup
 
 setup(name='trisigma',
-      version='1.0',
+      version='1.0.0',
       description='trisigma engine',
       author='Arda Gok',
       author_email='ardagkmhs@gmail.com',
       packages=['trisigma'],
-      #package_dir={'trisigma':'src'}
+      package_dir={'trisigma':'src'}
      )
