@@ -1,6 +1,6 @@
 [![PyPI version](https://badge.fury.io/py/trisigma.svg)](https://badge.fury.io/py/trisigma)
 [![Documentation Status](https://readthedocs.org/projects/trisigma/badge/?version=latest)](https://trisigma.readthedocs.io/en/latest/?badge=latest)
-[![GitHub license](https://img.shields.io/github/license/ArdaGk/trisigma)](https://github.com/ArdaGk/trisigma/blob/main/LICENSE)
+[![PyPi license](https://badgen.net/pypi/license/pip/)](https://pypi.com/project/pip/)
 # Trisigma
 ``` bash
 $ pip install trisigma
