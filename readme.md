@@ -3,7 +3,7 @@
 $ pip install trisigma
 ```
 
-Trisigma is an event-driven algo-trading python framework. Its unique structure makes it possible to completely isolate the trading logic from its target market. As a result, the strategy can be deployed on any market/brokerage and backtested, without any additional tweaks.
+Trisigma is an event-driven algo-trading framework. Its object-oriented representation of strategies makes it possible to completely seperate the trading logic from its target market. As a result, strategies can run on any market/brokerage firm,  backtested, and optimized without any additional tweaks.
 
 ### Platforms
 * Binance.com
@@ -12,7 +12,7 @@ Trisigma is an event-driven algo-trading python framework. Its unique structure 
 
 ### Main Features
 * Binance.com, Binance.us and Interactive Brokers integration
-* Webull, Yahoo Finance and Binance historic data
-* Realistic Simulator for Backtesting
-* Google sheets and Google cloud storage integration
-* Slack Integration
+* Webull, Yahoo Finance and Binance historic data scraper.
+* Backtesting and Strategy Optimizer.
+* Google Sheets and Google Cloud Storage integration.
+* Slack Channel Integration.
