@@ -1,6 +1,3 @@
-from re import L
-
-
 class AlgException (Exception):
     def __init__ (self, message):
         super().__init__(message)

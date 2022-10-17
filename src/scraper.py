@@ -20,7 +20,6 @@ def tickermap(ticker):
     for re in req['data']:
       if re['symbol'] == ticker:
         return re['tickerId']
-        break
   except:
     print("No symbol is matched!")
 
@@ -48,7 +47,6 @@ def clmultimin(tickeridn, tmin, tidn):
   resp = requests.get(url, headers=headers).json()
   return resp[0]['data']
 
-  stdout, stderr = process.communicate()
   a = json.loads(stdout.decode('utf-8'))
   return a[0]['data']
 
@@ -63,7 +61,6 @@ def webull(symbols, mins, days):
     if ticker == "BTCUSD":
       tickerid = 950160802
     mvar = 'm{}'.format(mins)
-    tvar = '{}T'.format(mins)
     for i in range(rng):
         try:
           if i == 0:
@@ -171,6 +168,18 @@ def binance(symbols, lookback, interval):
       f'Took {round(time.time() - start_time,2)} seconds. (weight={weight_high})')
   return output
 
+class Binance:
+    def get_price(symbol):
+        """Get the current price of the symbol"""
+        return -1
+    def get_klines(symbol, lookback, interval):
+        """Get the candlesticks of the symbol
+        :param symbol: symbol and quote asset eg. "LINKUSDT"
+        :param lookback: the number of candles
+        :param interval: interval for candles
+        :type intetrval: <str>
+        """
+        return binance([symbol], lookback, interval)
 
 class Webull:
   headers = { 'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
@@ -236,7 +245,6 @@ class Webull:
       if ticker == "BTCUSD":
         tickerid = 950160802
       mvar = 'm{}'.format(mins)
-      tvar = '{}T'.format(mins)
 
       def clmultimin(tickeridn, tmin, tidn): return requests.get(
           'https://quotes-gw.webullfintech.com/api/quote/charts/query?tickerIds={}&type={}&count=1200&timestamp={}'.format(tickeridn, tmin, tidn), headers=Webull.headers).json()[0]['data']

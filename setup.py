@@ -12,7 +12,7 @@ setup(name='trisigma',
       long_description=long_description,
       keywords=['python', 'algo-trading', 'finance', 'stocks', 'crypto', 'market'],
       packages=['trisigma'],
-      package_dir={'trisigma':'src'}
+      package_dir={'trisigma':'src'},
       install_requires=['numpy', 'pandas', 'binance-connector', 'requests'],
 
      )

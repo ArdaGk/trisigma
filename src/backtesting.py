@@ -2,9 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from trisigma.filemanager import FileManager
 from .alg_exceptions import err
-import os
-from .time_utils import floor, ceil, to_timestamp_split
-from binance.spot import Spot
+from .time_utils import ceil, to_timestamp_split
 from copy import deepcopy
 import trisigma.scraper as scraper
 
@@ -152,7 +150,6 @@ class Broker:
         self.balance = self.get_balance()
 
 
-        
 
     def buy(self, _type, qty, limit_price=None, forced_price=None):
         return self.__trade('BUY', _type, qty, limit_price, forced_price)

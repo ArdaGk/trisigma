@@ -1,9 +1,6 @@
 from binance.spot import Spot
 from datetime import datetime, timedelta
-from . import Globals
-import requests
 import math
-import time
 import copy
 
 
@@ -213,7 +210,7 @@ class Client:
 
 class Broker:
 
-    def __init__(self, symbol, balance, client, label):
+    def __init__(self, symbol, balance, client, label=None):
         self.client = client
         self.symbol = symbol
         self.quote_asset = 'USDT'
@@ -373,4 +370,4 @@ class Broker:
         times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
         new_orders = [t for t in stats['orders'] if t in times]
         stats['open_orders'] = new_orders
-        fm.save(stats, f"{self.label}_stats")
+        self.fm.save(stats, f"{self.label}_stats")

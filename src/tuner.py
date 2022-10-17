@@ -23,12 +23,6 @@ class Tuner:
         self.size = len(self.combs)
         self.offset = offset
 
-        try:
-            self.fm.load(f'{self.label}_stat')
-        except:
-            self.fm.save({'count':0}, f'{self.label}_stat')
-        
-
     def launch (self):
         try:
             keys = []
@@ -50,7 +44,6 @@ class Tuner:
     def get_key(self, i):
         i+=self.offset
         print(f"i:{i},  len(combs): {len(self.combs)}")
-        pass
         key=dict.fromkeys(self.parameters.keys(), self.combs[i])
         key={k : self.combs[i][j] for j, k in enumerate(self.parameters.keys())}
         key['_id'] = i
@@ -81,7 +74,7 @@ class Tuner:
             proc = subprocess.Popen(['python3', self.alg, json.dumps(conf)])
             proc.wait()
             return True
-        except Exception as exc:
+        except Exception:
             key_str = json.dumps(key).replace('\n', '')
             print(f"variation {key['variation_id']} failed, key:{key_str}")
             return False
@@ -104,10 +97,6 @@ class Tuner:
         return conf
 
     def next_id(self):
-        stat = self.fm.load(f'{self.label}_stat')
-        stat['count']+=1
-        self.fm.save(stat, f'{self.label}_stat')
-        _id = mangle(stat['count'])
         return _id
 
 

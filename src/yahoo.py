@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import timedelta
 from .time_utils import to_timestamp_split
 
 def get_quote(symbol):

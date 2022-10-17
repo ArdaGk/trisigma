@@ -1,14 +1,11 @@
-from unittest import result
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
 from ibapi.contract import Contract, ContractDetails
 from ibapi.order import *
 from ibapi.execution import *
 from datetime import datetime, timedelta
-import threading
 import time
 from ibapi.ticktype import TickTypeEnum
-from . import yahoo
 from .scraper import Webull
 from .time_utils import to_timestamp, to_timestamp_split
 import json
@@ -183,16 +180,15 @@ class Client (EWrapper, EClient):
         pass
 
     def load_price(self, symbol):
-        #quote = yahoo.get_quote(symbol)
         quote = {"bid": -1, "ask": -1, "price": Webull.get_price(symbol)}
         self.quote[symbol] = quote
         return quote
 
-    def load_ohlc(self,symbol, range, interval):
+    def load_ohlc(self,symbol, _range, interval):
         #Pull data
         now = datetime.now().timestamp()
         mins = round(to_timestamp(interval) / 60)
-        days = math.ceil((mins * range) / 1440)
+        days = math.ceil((mins * _range) / 1440)
         if mins < 1440:
             df = Webull.get_klines_min([symbol], mins, days)
         else:
@@ -202,7 +198,6 @@ class Client (EWrapper, EClient):
             df = df.resample(interval).agg({'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last'})
             df = df.reset_index()         
 
-        #df = yahoo.get_kline(symbol, start, now, interval)
 
         klines = list(reversed(json.loads(df.to_json(orient='records'))))
 
@@ -255,7 +250,7 @@ class Client (EWrapper, EClient):
 
             self.req_buffer[reqId].append(entry)
         except Exception as e:
-            print(f'err, invalid execDetail reqId: {reqId}')
+            print(f'err {str(e)}, invalid execDetail reqId: {reqId}')
 
     def execDetailsEnd(self, reqId: int):
         trades = dict([(k,[]) for k, v in self.trades.items()])
@@ -264,7 +259,6 @@ class Client (EWrapper, EClient):
                 if trd['symbol'] not in trades.keys():
                     trades[trd['symbol']] = []
                 trades[trd['symbol']].append(trd)
-                
             del self.req_buffer[reqId]
             self.trades = trades
 
@@ -286,7 +280,7 @@ class Client (EWrapper, EClient):
 
     def tickPrice(self, reqId, tickType, price, attrib):
         tick_str = TickTypeEnum.idx2name[tickType]
-        symbol = self.req_buffer[reqId]
+        #symbol = self.req_buffer[reqId]
         """
         if tick_str in ['DELAYED_BID', 'BID']:
             self.bids[symbol] = [price]

@@ -4,10 +4,10 @@ import socket
 import threading
 import pandas as pd
 import plotly.graph_objects as go
-from datetime import datetime, timedelta, tzinfo
+from datetime import datetime, timedelta
 from dateutil import tz
-from .alg_exceptions import *
-from .alg_events import *
+from .alg_exceptions import Disconnected, AlgException, err
+from .alg_events import BaseListener
 import requests
 import gspread
 import numpy as np
@@ -137,12 +137,12 @@ class Alarm:
         self.time_buffer = time
         return cond
 
-    def static(broker, interval, id, delta=None):
-        """Alternative constructor that will keep track of the interval staticly."""
-        if id not in Alarm.statics.keys():
-            Alarm.statics[id] = Alarm(broker, interval, delta)
+    def static(broker, interval, _id, delta=None):
+        """Alternative constructor that  will keep track of the interval staticly."""
+        if _id not in Alarm.statics.keys():
+            Alarm.statics[_id] = Alarm(broker, interval, delta)
 
-        return Alarm.statics[id]
+        return Alarm.statics[_id]
 
     def _floor(date, interval, delta=None):
         if delta != None:
@@ -278,7 +278,7 @@ class Trail:
             self.last_trail = self.trail
             self.trail = price * self.perc
         if self.save:
-            self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active} 
+            self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active}
 
     def reset(self, target_price=None, perc=None):
         """Resets the trail to the current price * perc
@@ -499,7 +499,7 @@ class Sock:
         except socket.timeout as e:
             print(e)
 
-
+    @staticmethod
     def __launch():
         Sock.__enabled = True
         s = socket.socket()

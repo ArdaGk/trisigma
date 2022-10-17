@@ -62,7 +62,7 @@ class Stream:
         for sym in self.symbols:
             self.bots[sym['symbol']] = {"alg": self.alg(), "freq": sym['freq'], "last": datetime.now().timestamp()}
             self.bots[sym['symbol']]['alg'].setup(ibkr.Broker(sym['symbol'], -1, self.client), self.fm, config_data=sym)
-            self.bots[sym['symbol']]['alg']
+            #self.bots[sym['symbol']]['alg']
             for k, v in self.load.items():
                 self.client.load_ohlc(sym['symbol'], v, k)
 
@@ -79,7 +79,6 @@ class Stream:
                 self.evaluate()
             except Exception as e:
                 raise e
-                break
         print("Stream Ended")
 
     def pick(self):
@@ -92,7 +91,7 @@ class Stream:
         for k, v in bots.items():
             try:
                 v['last'] = datetime.now().timestamp()
-                resp = v['alg']()
+                v['alg']()
                 v['freq'] = v['alg'].config_data['freq']
                 self.resps[k] = v
             except ConnectionResetError as exc:
