@@ -1,4 +1,7 @@
 [![Documentation Status](https://readthedocs.org/projects/trisigma/badge/?version=latest)](https://trisigma.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/trisigma.svg)](https://badge.fury.io/py/trisigma)
+[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a8cc574eb2d84be2b370f3caa6f6a969)](https://www.codacy.com/gh/ArdaGk/trisigma/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ArdaGk/trisigma&amp;utm_campaign=Badge_Grade)
 # Trisigma
 ``` bash
 pip install trisigma
