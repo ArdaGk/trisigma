@@ -36,7 +36,6 @@ class FileManager:
         self.dir['tests'] = self.dir['data'] + f'tests{self.sep}'
         self.dir['markets'] = self.dir['data'] + f'markets{self.sep}'
 
-
         [self.__mkdir(_dir) for _dir in self.dir.values()]
 
     def __mkdir (self,_dir):
