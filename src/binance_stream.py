@@ -173,14 +173,14 @@ class Client:
       return output
     except IndexError as a:
       return 0
-      
+
   def changed_assets(self):
     if self.positions_buffer == {}:
       self.positions_buffer = copy.deepcopy(self.positions)
 
     elif self.positions_buffer != self.positions:
       for asset in self.positions.keys():
-        if self.positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset:
+        if asset in self.position_buffer.keys() and self.positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset:
           symbol = asset + self.quote_asset
           if symbol not in self.updatables:
             self.updatables.append(asset + self.quote_asset)
