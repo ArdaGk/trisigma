@@ -2,7 +2,8 @@ from binance.spot import Spot
 from datetime import datetime, timedelta
 import math
 import copy
-
+VERSION = "v1.0.1"
+print(f"binance_stream running {VERSION}")
 
 class Client:
   def __init__ (self, api, secret, symbols, fm):
