@@ -1,4 +1,4 @@
-import json
+mport json
 import os
 from datetime import date, datetime
 
@@ -15,7 +15,6 @@ class FileManager:
             self.sep = '\\'
             if base_path == None:
                 base_path = default
-
         elif os.name == 'posix':
             self.sep = '/'
             if base_path == None:
