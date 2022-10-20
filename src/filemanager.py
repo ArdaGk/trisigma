@@ -6,9 +6,9 @@ from datetime import date, datetime
 class FileManager:
 
     def __init__ (self, base_path=None):
-    """Constructor for Filemanager
-    :param base_path: the dir where data should be stores.
-    """
+        """Constructor for Filemanager
+        :param base_path: the dir where data should be stores.
+        """
         default = os.path.join(os.getcwd(), "algdata")
         self.dir = {}
         if os.name == 'nt':
