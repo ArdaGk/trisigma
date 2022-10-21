@@ -364,11 +364,14 @@ class Broker:
         return output[side]
 
     def __save(self, order):
-        typ = order['type']
-        ts = order['time']
-        stats = fm.load(f"{self.label}_stats")
-        stats['open_orders'].append(ts)
-        times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
-        new_orders = [t for t in stats['orders'] if t in times]
-        stats['open_orders'] = new_orders
-        self.fm.save(stats, f"{self.label}_stats")
+        if "time" in order.keys():
+            typ = order['type']
+            ts = order['time']
+            stats = fm.load(f"{self.label}_stats")
+            stats['open_orders'].append(ts)
+            times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
+            new_orders = [t for t in stats['orders'] if t in times]
+            stats['open_orders'] = new_orders
+            self.fm.save(stats, f"{self.label}_stats")
+        else:
+            print(f"err, unknown order: {str(order)}")
