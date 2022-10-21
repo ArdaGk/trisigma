@@ -2,7 +2,7 @@ from binance.spot import Spot
 from datetime import datetime, timedelta
 import math
 import copy
-VERSION = "v1.0.1"
+VERSION = "v1.0.2"
 print(f"binance_stream running {VERSION}")
 
 class Client:
@@ -181,7 +181,7 @@ class Client:
 
     elif self.positions_buffer != self.positions:
       for asset in self.positions.keys():
-        if asset in self.position_buffer.keys() and self.positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset:
+        if asset in self.positions_buffer.keys() and self.positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset:
           symbol = asset + self.quote_asset
           if symbol not in self.updatables:
             self.updatables.append(asset + self.quote_asset)

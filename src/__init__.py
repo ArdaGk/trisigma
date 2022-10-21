@@ -273,14 +273,26 @@ class Trail:
         self.save = save
     def __call__(self):
         """This object must be called whenever the trail must be updated with the new price"""
-        price = self.broker.get_price()
+        if self.active:
+            if not self.locked:
+                price = self.broker.get_price()
+                cond1 = price * self.perc * self.dir < self.trail * self.dir
+                cond2 = self.trail == -1
+                if cond1 or cond2:
+                    self.last_trail = self.trail
+                    self.trail = price * self.perc
+        else:
+            self.trail = -1
+        if self.save:
+            self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active}
+        return
         if not self.locked and (price * self.perc) * self.dir <= self.trail * self.dir:
             self.last_trail = self.trail
             self.trail = price * self.perc
         if self.save:
             self.hist[self.broker.get_timestamp()] = {"trail": self.trail, "locked": self.locked, "active": self.active}
 
-    def reset(self, target_price=None, perc=None):
+    def reset(self, target_price=None):
         """Resets the trail to the current price * perc
         :param target_price: float (Optional)
         """
@@ -292,14 +304,25 @@ class Trail:
 
         self.last_trail = -1
 
-    def on_change(self, dir):
+    def lock(self, value=None):
+        """When locked, trail will remain the same even if price changes.
+        :param value: (Optional) lockes the trail at a specific value.
+        """
+        self.locked = True
+        if value != None:
+            self.trail = value
+
+    def unlock(self):
+        """When unlocked, trail will be reset to its original value. Trail value will change as price goes beyond the percentage.""".
+
+    def on_change(self, _dir): #Obsolete
         """Returns True if trails last movement is in the same direction as <dir>/
         :param dir: "higher", or "lower",
         :type dir: string
         """
         cond1 = self.last_trail != -1
-        cond2 = dir == 'higher' and self.trail > self.last_trail
-        cond3 = dir == 'lower' and self.trail < self.last_trail
+        cond2 = _dir == 'higher' and self.trail > self.last_trail
+        cond3 = _dir == 'lower' and self.trail < self.last_trail
 
         return not self.locked and cond1 and (cond2 or cond3)
 
@@ -307,6 +330,14 @@ class Trail:
         """Returns true if the price hit the trail"""
         return self.active and self.broker.get_price() <= self.trail
 
+    def activate(self):
+        """Activates the trail. When activated, trigger functions like on_hit() will be usable."""
+        self.active = True
+        self()
+    def deactivate(self):
+        """Deactivates the trail. When deactivated, trigger functions like on_hit will always return False."""
+        self.active = False
+        self()
 class Traces:
     """This class can be used to set regions defined by traces"""
     def __init__(self, broker):
