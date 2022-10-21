@@ -271,6 +271,8 @@ class Trail:
         self.dir = 1 if perc>1.0 else -1
         self.hist = {}
         self.save = save
+        self.is_active = lambda: self.active
+        self.is_locked = lambda: self.locked
     def __call__(self):
         """This object must be called whenever the trail must be updated with the new price"""
         if self.active:
@@ -296,7 +298,7 @@ class Trail:
         """Resets the trail to the current price * perc
         :param target_price: float (Optional)
         """
-        perc = self.perc if perc == None else perc
+        perc = self.perc
         if target_price == None:
             self.trail = self.broker.get_price() * perc
         else:
@@ -304,6 +306,11 @@ class Trail:
 
         self.last_trail = -1
 
+
+
+    def set_peak (self, peak):
+        self.last_trail = self.trail
+        self.trail = peak * self.perc
     def lock(self, value=None):
         """When locked, trail will remain the same even if price changes.
         :param value: (Optional) lockes the trail at a specific value.
@@ -313,7 +320,8 @@ class Trail:
             self.trail = value
 
     def unlock(self):
-        """When unlocked, trail will be reset to its original value. Trail value will change as price goes beyond the percentage.""".
+        """When unlocked, trail will be reset to its original value. Trail value will change as price goes beyond the percentage."""
+        self.locked=False
 
     def on_change(self, _dir): #Obsolete
         """Returns True if trails last movement is in the same direction as <dir>/
