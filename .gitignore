@@ -3,4 +3,5 @@ gspread.json
 *.py
 *.out
 !setup.py
+!docs/source/*.py
 !src/*.py
