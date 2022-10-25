@@ -227,7 +227,9 @@ class Broker:
     def __call__(self):
 
         self.client.symbol_update(self.symbol)
-        trades = self.client.trades[self.symbol]
+        stats = self.__match_trades(self.client.trades[self.symbol])
+        trades = stats['trades']
+        position = stats['position']
         for trd in trades:
           trd['side'] = 'BUY' if trd['isBuyer'] else 'SELL'
           trd['price'] = float(trd['price'])
@@ -246,9 +248,9 @@ class Broker:
             filter(lambda x: x['side'] == 'SELL', self.client.orders[self.symbol]))
 
         #Balance update
-        buys = list(filter(lambda x: x['isBuyer'], self.client.trades[self.symbol]))
+        buys = list(filter(lambda x: x['isBuyer'], self.trades))
         spent = sum([float(buy['quoteQty']) for buy in buys])
-        sells = list(filter(lambda x: not x['isBuyer'], self.client.trades[self.symbol]))
+        sells = list(filter(lambda x: not x['isBuyer'], self.trades))
         earned = sum([float(sell['quoteQty']) for sell in sells])
 
         full = earned - spent + self.start_balance
@@ -262,7 +264,8 @@ class Broker:
 
         #Position Update
         asset = self.symbol[:-len(self.quote_asset)]
-        self.position = self.client.positions[asset]
+        self.position = position
+        #self.position = self.client.positions[asset]
 
 
     def buy(self, _type, qty, limit_price=None):
@@ -363,15 +366,36 @@ class Broker:
 
         return output[side]
 
-    def __save(self, order):
+    def __save(self, order): #Save order to stats file
         if "time" in order.keys():
             typ = order['type']
             ts = order['time']
             stats = fm.load(f"{self.label}_stats")
             stats['open_orders'].append(ts)
-            times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
-            new_orders = [t for t in stats['orders'] if t in times]
+            #Remove those that are canceled
+            ord_times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
+            new_orders = [t for t in stats['open_orders'] if t in ord_times]
+            trd_times = [trd['time'] for trd in self.client.trades[self.broker.symbol]]
+
+            trades = [t for t in trd_times if t not in stats['trades'] and t in stats['open_orders']] 
+
+            [stats['trades'].append(t) for t in stats['trades'] if t in ord_times]
             stats['open_orders'] = new_orders
             self.fm.save(stats, f"{self.label}_stats")
         else:
+
             print(f"err, unknown order: {str(order)}")
+
+    #I: Every trade in the particular asset
+    #O: Trades that also math in the stats file and position derived from the trades
+    def __match_trades (self, trades):
+        times = self.fm.load(f"{self.label}_stats")
+        matched_trades = []
+        for t in time:
+            if t['time'] in times:
+                output.append(t)
+        sign = lambda x: x['quoteQty'] if x['side'] == 'BUY' else -x['quoteQty'] 
+        pos = [sign(trd) for trd in matched_trades]
+        output = {"trades":  matched_trades, "position": pos}
+        return output
+
