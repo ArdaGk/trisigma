@@ -7,6 +7,7 @@ Binance multialgo
 Scraper binance scraper prototype not included in backtesting
 Dependencies
 
+
 External
 MongoMigration
 Cuda
