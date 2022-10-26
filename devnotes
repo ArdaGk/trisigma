@@ -3,6 +3,31 @@ negative balance position error --> compare the bal/pos with the real binance
 access to pear balances maybe???
 shrinking the trades to as specific time frame might cause this error, the cutting line has to be when the position was zero
 
+Binance use all orders as open orders and merge the open_orders and trades stast. Update the data from the general orders.
+
+Balance problem:
+    too much orders might interrupt the framework. Cutting from certain dates might make the balance inaccurate
+    Solution 1:
+        Zero date: store the nearest date where the position was zero. Client has to access zero date of all the tickers, or it should set it itself
+    Solution 2:
+        Store the balance at an interval like week, use this data to calculate the new balance
+
+
+order_mathing:
+    I: orders, stats(orderIds)
+    O: open_orders, trades, balances
+
+    Fields:
+        orderId (primary)
+        side
+        qty
+        type
+        status
+
+write:
+    append the order id on every trade
+
+add them in buy/sell
 
 __save (order)
     check if its valid ("time")
