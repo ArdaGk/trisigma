@@ -2,7 +2,7 @@ from binance.spot import Spot
 from datetime import datetime, timedelta
 import math
 import copy
-VERSION = "v1.0.2"
+VERSION = "v1.0.3"
 print(f"binance_stream running {VERSION}")
 
 class Client:
@@ -15,6 +15,7 @@ class Client:
     self.orders = {}
     self.trades = {}
 
+    self.pos_cut = {}
     self.fuel = 0
     self.weight = 0
     self.weight_hist = [-1]
@@ -75,7 +76,19 @@ class Client:
   def generic_update(self):
     self.update_quote() #2
     self.update_balances() #10
+    self.update_cut()
+  def update_cut(self):
+    filename = "binance_positions"
+    try:
+        positions = self.fm.load(filename)
+        if positions['time'] < (datetime.now - timedelta(days=7)).timestamp():
+            return
+    except FileNotFoundError:
+        pass
 
+    positions = {"time": datetime.now().timestamp(), "positions": self.positions}
+    self.pos_cut = positions
+    self.fm.save(positions, filename)
 
   def symbol_update(self, symbol=None):
     try:
@@ -370,7 +383,7 @@ class Broker:
         if "time" in order.keys():
             typ = order['type']
             ts = order['time']
-            stats = fm.load(f"{self.label}_stats")
+            stats = self.__get_stats()
             stats['open_orders'].append(ts)
             #Remove those that are canceled
             ord_times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
@@ -381,7 +394,7 @@ class Broker:
 
             [stats['trades'].append(t) for t in stats['trades'] if t in ord_times]
             stats['open_orders'] = new_orders
-            self.fm.save(stats, f"{self.label}_stats")
+            self.client..fm.save(stats, f"{self.label}_stats")
         else:
 
             print(f"err, unknown order: {str(order)}")
@@ -389,7 +402,8 @@ class Broker:
     #I: Every trade in the particular asset
     #O: Trades that also math in the stats file and position derived from the trades
     def __match_trades (self, trades):
-        times = self.fm.load(f"{self.label}_stats")
+        stats = self.__get_stats()
+        times = stats['trades']
         matched_trades = []
         for t in time:
             if t['time'] in times:
@@ -399,3 +413,12 @@ class Broker:
         output = {"trades":  matched_trades, "position": pos}
         return output
 
+    def __get_stats(self):
+        filename = "{self.label}-{self.symbol}_stats"
+        try:
+            stats = self.client.fm.load(filename)
+        except FileNotFoundError:
+            stats = {"open_orders":[], "trades":[]}
+            self.client.fm.save(stats,filename)
+        return stats
+            
