@@ -42,8 +42,10 @@ class Stream:
         self.resps = {}
         self.bots = {}
         for sym in self.symbols:
+            #Declare Alg and Broker
             self.bots[sym['symbol']] = {"alg": self.alg(), "freq": sym['freq'], "last": datetime.now().timestamp()}
             self.bots[sym['symbol']]['alg'].setup(binance_stream.Broker(sym['symbol'], sym['balance'], self.client), self.fm, config_data=sym)
+            #Cache first set of klines
             for k, v in self.load.items():
               self.client.update_klines(sym['symbol'], k, v)
 
@@ -72,8 +74,6 @@ class Stream:
             try:
                 time.sleep(self.wait)
                 ready_bots = self.pick()
-                if ready_bots:
-                    self.client.generic_update()
                 self.update(ready_bots)
                 self.fire(ready_bots)
                 self.evaluate()
@@ -85,7 +85,8 @@ class Stream:
         return dict(list(filter(lambda item: self.__is_ready(item[1]), self.bots.items())))
 
     def update(self, bots):
-        pass
+        if len(bots) != 0:
+            self.client.generic_update()
 
     def fire(self, bots):
         for k, v in bots.items():

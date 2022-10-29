@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 import math
 import copy
 VERSION = "v1.0.3"
-print(f"binance_stream running {VERSION}")
+print(f"binance_stream (polybinance) running {VERSION}")
 
 class Client:
-  def __init__ (self, api, secret, symbols, fm):
+  def __init__ (self, api, secret, symbols, fm, balance):
     self.spot = Spot(api, secret, show_limit_usage=True)
 
     self.quotes = {}
@@ -14,7 +14,7 @@ class Client:
     self.positions = {}
     self.orders = {}
     self.trades = {}
-
+    self.full_bal = balance
     self.pos_cut = {}
     self.fuel = 0
     self.weight = 0
@@ -32,8 +32,11 @@ class Client:
     self.updatables = copy.deepcopy(symbols)
     self.block = False
     self.quote_asset = 'USDT'
-
+    self.all_orders = {}
     self.fm = fm
+    self.cut_len = 604800
+    self.all_orders = {}
+    self.cut_time=0
 
   def setup (self):
     self.update_exchange()
@@ -67,6 +70,7 @@ class Client:
         self.updatables.append(argv[0])
 
       resp = self.spot.new_order(*argv, **kwargs)
+      self.write_stats(resp['orderId'])
       return resp
     except Exception as e:
       self.fm.log('binance_logs', str(e))
@@ -77,18 +81,12 @@ class Client:
     self.update_quote() #2
     self.update_balances() #10
     self.update_cut()
-  def update_cut(self):
-    filename = "binance_positions"
-    try:
-        positions = self.fm.load(filename)
-        if positions['time'] < (datetime.now - timedelta(days=7)).timestamp():
-            return
-    except FileNotFoundError:
-        pass
 
-    positions = {"time": datetime.now().timestamp(), "positions": self.positions}
-    self.pos_cut = positions
-    self.fm.save(positions, filename)
+  def update_cut(self):
+    now = datetime.now().timestamp()
+    if self.reserved_acc.cut_time + self.cut_len < now:
+        new_balance = {asset: self.positions[asset]['full'] for asset in self.positions.keys()}
+        self.reserved_acc.cut(now, new_balance)
 
   def symbol_update(self, symbol=None):
     try:
@@ -97,6 +95,17 @@ class Client:
         self.ping() #1
         self.block=True
       if symbol in self.updatables:
+        #Prepare all_orders
+        resp = self.spot.get_orders(symbol, startTime=self.cut_time*1000)
+        self.update_weights(resp)
+        self.all_orders[symbol] = resp['data']
+
+        stats = self.read_stats(symbol)
+        self.positions[symbol] = stats['positions']
+        self.trades[symbol] = stats['trades']
+        self.orders[symbol] = stats['open_orders']
+        self.positions[self.quote_asset] = self.reserved_acc.content['balance'][self.quote_asset] + stats['pos_diff']
+        return
         self.update_orders(symbol) #5
         self.update_trades(symbol) #10
         self.updatables.remove(symbol)
@@ -136,15 +145,19 @@ class Client:
     self.orders[symbol] = orders['data']
 
   def update_trades(self, symbol):
-    trades = self.spot.my_trades(symbol)
-    self.update_weight(trades)
+    #Obsolete
+    orders = self.spot.get_orders(symbol, startTime = self.cut_time)
+    self.all_orders[self.symbol] = orders['data']
+    self.update_weight(orders)
+    trades = [order for order in orders['data'] if order['status'] == 'FILLED']
+    self.trades[symbol] = trades
 
-    self.trades[symbol] = trades['data']
-
+  #Updates bid/ask/price for every ticker present in binance.com
   def update_quote(self):
     depths = self.spot.book_ticker(symbols=self.symbols)
     prices = self.spot.ticker_price(symbols=self.symbols)
     for v in depths['data']:
+      #price key is empty unchanged for now
       entry = {'price': float(self.quotes[v['symbol']]['price']), 
                'bidPrice': float(v['bidPrice']), 
                'bidQty': float(v['bidQty']), 
@@ -152,6 +165,7 @@ class Client:
                'askQty': float(v['askQty'])}
                
       self.quotes[v['symbol']] = entry
+    #price key will be updated here
     for v in prices['data']:
       self.quotes[v['symbol']]['price'] = float(v['price'])
 
@@ -166,7 +180,7 @@ class Client:
       free = self.round_qty(float(bal['free']), bal['asset'] + self.quote_asset, key='symbol', notional=True)
       locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
       full = free + locked
-      self.positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
+      self.full_positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
   
     self.changed_assets()
 
@@ -189,17 +203,19 @@ class Client:
       return 0
 
   def changed_assets(self):
+    positions = self.full_positions
     if self.positions_buffer == {}:
-      self.positions_buffer = copy.deepcopy(self.positions)
+      self.positions_buffer = copy.deepcopy(positions)
 
-    elif self.positions_buffer != self.positions:
-      for asset in self.positions.keys():
-        if asset in self.positions_buffer.keys() and self.positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset:
+    elif self.positions_buffer != positions:
+      not_matching = lambda asset: positions[asset] != self.positions_buffer[asset] and asset != self.quote_asset
+      for asset in positions.keys():
+        if asset in self.positions_buffer.keys() and not_mathing(asset):
           symbol = asset + self.quote_asset
           if symbol not in self.updatables:
             self.updatables.append(asset + self.quote_asset)
 
-      self.positions_buffer = copy.deepcopy(self.positions)
+      self.positions_buffer = copy.deepcopy(positions)
     else:
       pass
       #print('No change')
@@ -221,6 +237,34 @@ class Client:
 
   def reset_weights(self):
     self.weight_hist = [-1]
+
+  def read_stats(self, symbol):
+    orderId = self.reserved_acc.content['orders']
+    init_balance = self.reserved_acc.content['balance'][symbol]
+    cut_time = self.reserved_acc.content['time']
+
+    position = {'full':init_balance, 'free':0, 'locked':0}
+    trades = []
+    open_orders = []
+    pos_diff = 0
+    #self.all_orders
+    #balance has to be full only
+    for order in self.all_orders[symbol]:
+        if order['orderId'] in orderId and order['time'] >= cut_time * 1000:
+            status = order['status']
+            if status in ['NEW']:
+                open_orders.append(order)
+                position['locked'] += int(order['qty'])
+            elif status in ['FILLED', 'PARTIALLY_FILLED']:
+                trades.append(order)
+                mult = (1 if order['isBuyer'] else -1)
+                pos_diff += order['cummulativeQuoteQty'] * mult
+                position['full'] += int(order['origQty']) * mult
+    position['free'] = position['full'] - position['locked']
+    return {"position":position, "trades":trades, "open_orders":open_orders, "diff":pos_diff}
+
+
+
 
 class Broker:
 
@@ -261,6 +305,7 @@ class Broker:
             filter(lambda x: x['side'] == 'SELL', self.client.orders[self.symbol]))
 
         #Balance update
+        """
         buys = list(filter(lambda x: x['isBuyer'], self.trades))
         spent = sum([float(buy['quoteQty']) for buy in buys])
         sells = list(filter(lambda x: not x['isBuyer'], self.trades))
@@ -271,14 +316,13 @@ class Broker:
                      for ord in self.open_orders['BUY']])
         free = full - locked
         self.balance = {'full': full, 'free': free, 'locked': locked}
-
+        """
         #New full balance update
         self.balance = self.client.positions[self.quote_asset]
 
         #Position Update
         asset = self.symbol[:-len(self.quote_asset)]
-        self.position = position
-        #self.position = self.client.positions[asset]
+        self.position = self.client.positions[asset]
 
 
     def buy(self, _type, qty, limit_price=None):
