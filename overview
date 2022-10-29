@@ -1,0 +1,17 @@
+self.pos_cut
+self.cut_time
+
+self.quotes
+self.position
+self.full_position
+self.klines
+self.trades
+
+self.block used for generic update after a trade
+
+
+stats schema
+time <int>
+orders int[]
+balance {}[]
+
