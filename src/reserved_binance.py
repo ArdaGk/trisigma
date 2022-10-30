@@ -35,7 +35,7 @@ class ReservedSpot (Spot):
         if 'orderId' in resp.keys():
             self.orderIds.append(resp['orderId'])
             self.__save()
-        self.all_orders = super().get_orders(args[0])
+        self.all_orders = super().get_orders(args[0])['data']
         return resp
 
     def get_open_orders (self, *args, **kwargs):
@@ -58,7 +58,7 @@ class ReservedSpot (Spot):
                 continue
             symbol = asset + quote_asset
             print(f"{symbol} get_orders (change detected)")
-            self.all_orders[symbol] = super().get_orders(symbol)
+            self.all_orders[symbol] = super().get_orders(symbol)['data']
 
 
         balance=[]
@@ -76,7 +76,7 @@ class ReservedSpot (Spot):
                     continue
                 else:
                     print(f"{symbol} get_orders (init)")
-                    self.all_orders[symbol] = super().get_orders(symbol)
+                    self.all_orders[symbol] = super().get_orders(symbol)['data']
             orders = self.all_orders[symbol]
             #cut balance is zero
             #orders are up to date
