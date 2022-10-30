@@ -5,3 +5,4 @@ gspread.json
 !setup.py
 !docs/source/*.py
 !src/*.py
+!test/manual-binance/*.py

@@ -21,6 +21,7 @@ class Stream:
         if self.platform.lower() in ["binance", "binance.com"]:
             self.api_key = conf["api_key"]
             self.secret_key = conf["secret_key"]
+            self.label = conf['label']
             self.setup = self.__binance_setup
         elif self.platform.lower() in ["ibkr-real", "ib-real", "ibkr-paper", "ib-paper"]:
             self.setup = self.__ibkr_setup
@@ -36,7 +37,7 @@ class Stream:
         self.start()
 
     def __binance_setup(self, *argv):
-        self.client = binance_stream.Client(self.api_key, self.secret_key, [sym['symbol'] for sym in self.symbols], self.fm)
+        self.client = binance_stream.Client(self.api_key, self.secret_key, [sym['symbol'] for sym in self.symbols], self.fm, label=self.label)
         self.wait = 1
         self.init = (datetime.now() - timedelta(days=1)).timestamp()
         self.resps = {}

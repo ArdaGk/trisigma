@@ -1,0 +1,32 @@
+Things to watch out for
+negative balance position error --> compare the bal/pos with the real binance
+access to pear balances maybe???
+shrinking the trades to as specific time frame might cause this error, the cutting line has to be when the position was zero
+
+Binance use all orders as open orders and merge the open_orders and trades stast. Update the data from the general orders.
+Delete unnnecessary variables
+
+stats_read
+    I: orders, stats(orderIds)
+    O: open_orders, trades, balances
+
+    Fields:
+        orderId (primary)
+        side
+        qty
+        type
+        status
+
+stats_write
+    append the order id on every trade
+
+update_cut
+
+update_trades for pos storage
+
+add them in buy/sell
+
+__save (order)
+    check if its valid ("time")
+    save to [label]_stats.json's open orders
+    

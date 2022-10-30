@@ -3,13 +3,13 @@ from datetime import datetime, timedelta
 from .reserved_binance import ReservedSpot
 import math
 import copy
-VERSION = "v1.0.4"
+VERSION = "v1.1.0"
 print(f"binance_stream running {VERSION}")
 
 class Client:
-  def __init__ (self, api, secret, symbols, fm):
+  def __init__ (self, api, secret, symbols, fm, label="NoLabel"):
     self.spot = Spot(api, secret, show_limit_usage=True)
-    self.spot = ReservedSpot(api, secret, show_limit_usage=True, label="test", fm=fm)
+    self.spot = ReservedSpot(api, secret, show_limit_usage=True, label=label, fm=fm)
     self.quotes = {}
     self.klines = {}
     self.positions = {}
