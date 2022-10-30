@@ -98,7 +98,7 @@ class ReservedSpot (Spot):
                         quote_locked+=qty*price
             entry = {"asset": bal['asset'], "free":full-locked, "locked":locked}
             balance.append(entry)
-        balance.append({"asset": quote_asset, "free":quote-quote_locked, "locked":quote_locked})
+        balance.append({"asset": quote_asset, "free":self.init_capital + quote-quote_locked, "locked":quote_locked})
         resp['data']['balances'] = balance
         return resp
 
