@@ -50,4 +50,4 @@ class Alg (Algorithm):
             CLR = "\x1B[0K"
             output = UP + plain.replace('\n', CLR+"\n")
             self.lines_printed = lns
-        print(self.lines_printed)
+        print(self.lines_printed + f"/{len(output.splitlines())}")
