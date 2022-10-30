@@ -175,7 +175,7 @@ class Client:
 
       return output
     except IndexError as a:
-      return 0
+      return num
 
   def changed_assets(self):
     if self.positions_buffer == {}:
