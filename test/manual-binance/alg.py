@@ -16,22 +16,25 @@ class Alg (Algorithm):
         self.display()
 
     def display (self):
-        line = '\n' + ('='*20) + '\n'
-        frames = []
+        line = '\n' + ('='*30) + '\n'
+        frames = [f"=========== REPORT ============\nDate:\t{self.broker.get_time()}\nBalance:\t${self.broker.get_balance()['full']}"]
         for k, v in Globals.variables.items():
             try:
                 symbol = k
                 price = v['price']
                 pos = v['position']
-                elements = [f"symbol:\t{k}",
-                 f"price:\t{price}",
+                elements = [f"symbol:\t\t{k}",
+                 f"price:\t\t{price}",
                  f"position:\t{pos['full']} ({pos['free']}+{pos['locked']})",
                  f"open buys:\t{len(v['open_orders']['BUY'])}",
                  f"open sells:\t{len(v['open_orders']['SELL'])}",
-                 f"trades:\t{v['trades_len']}"]
+                 f"trades:\t\t{v['trades_len']}"]
                 frame = '\n'.join(elements)
                 frames.append(frame)
             except Exception as exc:
                 print(exc)
         output = line.join(frames)
+        UP = '\033[1A'
+        CLEAR = '\x1b[2K'
         print(output)
+        print(UP,end=CLEAR)
