@@ -3,6 +3,8 @@ negative balance position error --> compare the bal/pos with the real binance
 access to pear balances maybe???
 shrinking the trades to as specific time frame might cause this error, the cutting line has to be when the position was zero
 
+Globals symbol data must be under variables key
+
 Binance use all orders as open orders and merge the open_orders and trades stast. Update the data from the general orders.
 
 stats_read
