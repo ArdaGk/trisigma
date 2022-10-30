@@ -5,6 +5,12 @@ class Alg (Algorithm):
 
     def start (self):
         self.lines_printed = 0
+        self.globals['price'] = self.broker.get_price()
+        self.globals['position'] = self.broker.get_position()
+        self.globals['open_orders'] = self.broker.get_open_orders()
+        self.globals['trades_len'] = len(self.broker.get_trades())
+        self.set_globals()
+     
     def update (self):
         pass
     def late_update (self):
