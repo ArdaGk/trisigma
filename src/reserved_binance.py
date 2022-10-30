@@ -70,7 +70,7 @@ class ReservedSpot (Spot):
                 continue
             symbol = bal['asset'] + quote_asset
             if symbol not in self.all_orders.keys():
-                if bal['free'] + bal['locked'] == 0:
+                if float(bal['free']) + float(bal['locked']) == 0:
                     entry = {"asset": bal['asset'], "free":0, "locked":0}
                     balance.append(entry)
                     continue
