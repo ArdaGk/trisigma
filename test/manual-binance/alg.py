@@ -32,5 +32,7 @@ class Alg (Algorithm):
                  f"trades:\t{v['trades_len']}"]
                 frame = '\n'.join(elements)
                 frames.append(frame)
+            except Exception as exc:
+                print(exc)
         output = line.join(frames)
         print(output)
