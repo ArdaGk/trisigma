@@ -39,7 +39,7 @@ class Alg (Algorithm):
                 frame = '\n'.join(elements)
                 frames.append(frame)
             except Exception as exc:
-                print(exc)
+                pass
         plain = line.join(frames)
         lns = len(plain.splitlines())
         if self.lines_printed == 0:
@@ -50,4 +50,4 @@ class Alg (Algorithm):
             CLR = "\x1B[0K"
             output = UP + plain.replace('\n', CLR+"\n")
             self.lines_printed = lns
-        print(output)
+        print(self.lines_printed)
