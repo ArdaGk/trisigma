@@ -13,7 +13,7 @@ import copy
 #self.ignore = ["BNB"] for slicing in the future
 #needs label passed
 class ReservedSpot (Spot):
-    def __init__ (self, *args, **kwargs, label="generic", fm=None, start_balance=300):
+    def __init__ (self, *args, label="generic", fm=None, start_balance=300, **kwargs):
         super().__init__(*args, **kwargs)
         self.label = label
         self.fm = fm
@@ -74,7 +74,7 @@ class ReservedSpot (Spot):
                     entry = {"asset": bal['asset'], "free":0, "locked":0}
                     balance.append(entry)
                     continue
-                else
+                else:
                     print(f"{symbol} get_orders (init)")
                     self.all_orders[symbol] = super().get_orders(symbol)
             orders = self.all_orders[symbol] 
@@ -92,7 +92,7 @@ class ReservedSpot (Spot):
                 if order['status'] == "NEW":
                     if sign == -1: #LIMIT SELL
                         locked+=(float(order['origQty']) - float(order['executedQty']))
-                     if sign == 1: #LIMIT BUY
+                    if sign == 1: #LIMIT BUY
                         qty = float(order['origQty']) - float(order['executedQty'])
                         price = float(order['price'])
                         quote_locked+=qty*price
@@ -125,7 +125,7 @@ class ReservedSpot (Spot):
             data = self.fm.load(self.filename)
             self.orderIds = data['orderids']
             self.all_orders = data['all_orders']
-            self.old_balance = date['old_balance']           
+            self.old_balance = data['old_balance']           
         except FileNotFoundError:
             self.orderIds = []
             self.all_orders = {}
