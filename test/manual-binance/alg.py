@@ -12,6 +12,7 @@ class Alg (Algorithm):
         self.globals['position'] = self.broker.get_position()
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
+        self.set_globals()
         self.display()
 
     def display (self):
