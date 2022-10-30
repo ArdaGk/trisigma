@@ -19,7 +19,8 @@ class Alg (Algorithm):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
-        self.display()
+        if self.broker.symbol == 'LINKUSDT':
+            self.display()
 
     def display (self):
         line = '\n' + ('='*30) + '\n'
@@ -48,4 +49,5 @@ class Alg (Algorithm):
             UP = f"\x1B[{self.lines_printed+1}A"
             CLR = "\x1B[0K"
             output = UP + plain.replace('\n', CLR+"\n")
+            self.lines_printed = lns
         print(output)
