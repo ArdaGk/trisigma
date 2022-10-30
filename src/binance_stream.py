@@ -1,6 +1,6 @@
 from binance.spot import Spot
 from datetime import datetime, timedelta
-from reserved_binance import ReservedSpot
+from .reserved_binance import ReservedSpot
 import math
 import copy
 VERSION = "v1.0.3"
