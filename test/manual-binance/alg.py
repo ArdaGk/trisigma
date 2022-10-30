@@ -4,7 +4,7 @@ from trisigma import *
 class Alg (Algorithm):
 
     def start (self):
-        pass
+        self.lines_printed = 0
     def update (self):
         pass
     def late_update (self):
@@ -33,8 +33,13 @@ class Alg (Algorithm):
                 frames.append(frame)
             except Exception as exc:
                 print(exc)
-        output = line.join(frames)
-        UP = '\033[1A'
-        CLEAR = '\x1b[2K'
+        plain = line.join(frames)
+        lns = len(plain.splitlines())
+        if self.lines_printed == 0:
+            self.lines_printed = lns
+            output = plain
+        else:
+            UP = f"\x1B[{self.lines_printed+1}A"
+            CLR = "\x1B[0K"
+            output = UP + plain.replace('\n', CLR+"\n")
         print(output)
-        [print(UP,end=CLEAR) for i in range(len(output.splitlines())*2)]
