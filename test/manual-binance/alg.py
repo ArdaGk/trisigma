@@ -1,4 +1,4 @@
-rom trisigma import *
+from trisigma import *
 
 
 class Alg (Algorithm):
