@@ -1,7 +1,4 @@
 from trisigma import *
-from reporter import Reporter
-from trisigma.stream import Stream
-import os
 
 
 class Alg (Algorithm):
