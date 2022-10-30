@@ -18,10 +18,10 @@ class ReservedSpot (Spot):
         self.label = label
         self.fm = fm
         self.init_capital=start_balance
+        self.filename = f"{self.label}_reserved_acc"
         self.__load()
 
         self.filt = lambda arr: [x for x in arr if x['orderId'] in self.orderIds]
-        self.filename = f"{self.label}_reserved_acc"
     def cancel_order (self, *args, **kwargs):
         resp = super().cancel_order(*args, **kwargs)
         return resp
