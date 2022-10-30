@@ -37,4 +37,4 @@ class Alg (Algorithm):
         UP = '\033[1A'
         CLEAR = '\x1b[2K'
         print(output)
-        [print(UP,end=CLEAR) for i in range(output.splitlines())]
+        [print(UP,end=CLEAR) for i in range(len(output.splitlines()))]
