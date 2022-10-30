@@ -101,7 +101,6 @@ class ReservedSpot (Spot):
 
         quote_bal = {"asset": quote_asset, "free":self.init_capital + quote-quote_locked, "locked":quote_locked}
         balance.append(quote_bal)
-        print(quote_bal)
         resp['data']['balances'] = balance
         return resp
 
