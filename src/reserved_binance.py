@@ -77,11 +77,12 @@ class ReservedSpot (Spot):
                 else:
                     print(f"{symbol} get_orders (init)")
                     self.all_orders[symbol] = super().get_orders(symbol)
-            orders = self.all_orders[symbol] 
+            orders = self.all_orders[symbol]
             #cut balance is zero
             #orders are up to date
             full=0
             locked=0
+            print(orders)
             for order in orders:
                 if order['orderId'] not in self.orderIds:
                     continue
