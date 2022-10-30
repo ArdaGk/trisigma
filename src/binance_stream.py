@@ -149,14 +149,14 @@ class Client:
     acc_info = self.spot.account()
     self.update_weight(acc_info)
     self.acc_info = acc_info
-
+    input(acc_info)
     for bal in acc_info['data']['balances']:
       free = self.round_qty(float(bal['free']), bal['asset'] + self.quote_asset, key='symbol', notional=True)
       locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
       full = free + locked
       self.positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
       if bal['asset'] == 'USDT':
-        print(full + free)
+        print(bal['free'])
     self.changed_assets()
 
   def round_qty(self, num, symbol, key='baseAsset', notional=False):
