@@ -49,6 +49,8 @@ class ReservedSpot (Spot):
         return filtered
 
     def account (self, *args, **kwargs):
+        print(args)
+        print(kwargs)
         resp = super().account(*args, **kwargs)
         #Update all_orders
         executions = self.__get_executions(resp['data']['balances'])
