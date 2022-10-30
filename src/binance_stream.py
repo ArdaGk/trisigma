@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from .reserved_binance import ReservedSpot
 import math
 import copy
-VERSION = "v1.0.3"
+VERSION = "v1.0.4"
 print(f"binance_stream running {VERSION}")
 
 class Client:
