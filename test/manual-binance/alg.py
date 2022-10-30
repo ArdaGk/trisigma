@@ -16,7 +16,7 @@ class Alg (Algorithm):
         self.display()
 
     def display (self):
-        line = '='*25
+        line = '\n' + ('='*20) + '\n'
         frames = []
         for k, v in Globals.variables.items():
             try:
@@ -31,7 +31,6 @@ class Alg (Algorithm):
                  f"trades:\t{v['trades_len']}"]
                 frame = '\n'.join(elements)
                 frames.append(frame)
-                print(f"frames: {frames}")
             except Exception as exc:
                 print(exc)
         output = line.join(frames)
