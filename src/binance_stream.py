@@ -9,7 +9,7 @@ print(f"binance_stream running {VERSION}")
 class Client:
   def __init__ (self, api, secret, symbols, fm):
     self.spot = Spot(api, secret, show_limit_usage=True)
-    self.spot = ReservedSpot(api, secret, show_limit_usage=True, label="test", fm=self.fm)
+    self.spot = ReservedSpot(api, secret, show_limit_usage=True, label="test", fm=fm)
     self.quotes = {}
     self.klines = {}
     self.positions = {}
