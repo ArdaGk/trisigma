@@ -36,5 +36,6 @@ class Alg (Algorithm):
         output = line.join(frames)
         UP = '\033[1A'
         CLEAR = '\x1b[2K'
-        print(output)
+
         print(UP,end=CLEAR)
+        print(output)
