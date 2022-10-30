@@ -155,7 +155,8 @@ class Client:
       locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
       full = free + locked
       self.positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
-  
+      if bal['asset'] == 'USDT':
+        print(full + free)
     self.changed_assets()
 
   def round_qty(self, num, symbol, key='baseAsset', notional=False):
