@@ -82,7 +82,6 @@ class ReservedSpot (Spot):
             #orders are up to date
             full=0
             locked=0
-            print(orders)
             for order in orders:
                 if order['orderId'] not in self.orderIds:
                     continue
