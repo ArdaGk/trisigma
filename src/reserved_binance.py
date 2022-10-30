@@ -103,6 +103,7 @@ class ReservedSpot (Spot):
         balance.append(quote_bal)
         print(quote_bal)
         resp['data']['balances'] = balance
+        input(resp)
         return resp
 
     def __get_executions (self, account):
