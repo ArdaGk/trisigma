@@ -1,4 +1,4 @@
-from trisigma import *
+rom trisigma import *
 
 
 class Alg (Algorithm):
@@ -17,7 +17,7 @@ class Alg (Algorithm):
     def display (self):
         line = '='*25
         frames = []
-        for k, v in Globals.items():
+        for k, v in Globals.variables.items():
             try:
                 symbol = k
                 price = v['price']
