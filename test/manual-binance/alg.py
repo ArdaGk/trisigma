@@ -1,5 +1,5 @@
 from trisigma import *
-
+import os
 
 class Alg (Algorithm):
 
@@ -10,9 +10,23 @@ class Alg (Algorithm):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
-     
+
     def update (self):
-        pass
+        msg = os.getenv(self.label + "_COMMAND")
+        if msg != None:
+            parts = msg.lower().split()
+            if parts[0] == self.broker.symbol:
+                typ  = parts[1]
+                side = parts[2]
+                amount = parts[3]
+                limit = None if typ == "market" else parts[4]
+                funcs = {"buy": self.broker.buy,
+                        "quote_buy": self.broker.quote_buy,
+                        "sell": self.broker.sell,
+                        "quote_sell": self.broker.quote_sell}
+                funcs[side](typ, amount, limit_price=limit)
+
+
     def late_update (self):
         self.globals['price'] = self.broker.get_price()
         self.globals['position'] = self.broker.get_position()
@@ -41,6 +55,8 @@ class Alg (Algorithm):
             except Exception as exc:
                 pass
         plain = line.join(frames)
+        print(plain)
+        return
         lns = len(plain.splitlines())
         if self.lines_printed == 0:
             self.lines_printed = lns
@@ -50,4 +66,3 @@ class Alg (Algorithm):
             CLR = "\x1B[0K"
             output = UP + plain.replace('\n', CLR+"\n")
             self.lines_printed = lns
-        print(self.lines_printed + f"/{len(output.splitlines())}")
