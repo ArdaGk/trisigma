@@ -32,8 +32,9 @@ class Algorithm:
         except Disconnected as exc:
             return "disconnect"
 
-    def setup(self, broker, fm, master=None, auto_broker = True, config_data = {}):
+    def setup(self, broker, fm, master=None, auto_broker = True, config_data = {}, label = "unlabeled"):
         self.alg_stat = 'init'
+        self.label = label
         self.stats = {}
         self.event_handler = BaseListener()
         self.broker = broker

@@ -44,7 +44,7 @@ class Stream:
         self.bots = {}
         for sym in self.symbols:
             self.bots[sym['symbol']] = {"alg": self.alg(), "freq": sym['freq'], "last": datetime.now().timestamp()}
-            self.bots[sym['symbol']]['alg'].setup(binance_stream.Broker(sym['symbol'], sym['balance'], self.client), self.fm, config_data=sym)
+            self.bots[sym['symbol']]['alg'].setup(binance_stream.Broker(sym['symbol'], sym['balance'], self.client), self.fm, config_data=sym, label = self.label)
             for k, v in self.load.items():
               self.client.update_klines(sym['symbol'], k, v)
 
