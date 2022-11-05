@@ -534,7 +534,7 @@ class Sock:
             Sock.__enabled = False
 
         resp = [q['func']() for q in Sock.__queries if Sock.__match(data, q)]
-        c.send(resp.encode())
+        c.send(json.dumps(resp).encode())
 class Globals:
     variables = {}
 
