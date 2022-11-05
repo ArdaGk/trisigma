@@ -10,22 +10,22 @@ class Alg (Algorithm):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
-        Sock.add("hello", lambda: "hi")
-        Sock.add(f"hello {self.broker.symbol}", lambda: "wassup")
-    def update (self):
-        msg = os.getenv(self.label + "_COMMAND")
-        if msg != None:
+        Sock.add(f"{self.label} {self.broker.symbol}", action, re=True)
+
+    def action (self, msg):
+        try:
             parts = msg.lower().split()
-            if parts[0] == self.broker.symbol:
-                typ  = parts[1]
-                side = parts[2]
-                amount = parts[3]
-                limit = None if typ == "market" else parts[4]
-                funcs = {"buy": self.broker.buy,
-                        "quote_buy": self.broker.quote_buy,
-                        "sell": self.broker.sell,
-                        "quote_sell": self.broker.quote_sell}
-                funcs[side](typ, amount, limit_price=limit)
+            typ  = parts[2]
+            side = parts[3]
+            amount = int(parts[4])
+            limit = None if typ == "market" else int(parts[5])
+            funcs = {"buy": self.broker.buy,
+                    "quote_buy": self.broker.quote_buy,
+                    "sell": self.broker.sell,
+                    "quote_sell": self.broker.quote_sell}
+            funcs[side](typ, amount, limit_price=limit)
+        except Exception as exc:
+            print(exc)
 
 
     def late_update (self):
