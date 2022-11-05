@@ -533,7 +533,7 @@ class Sock:
         if data == '/kill':
             Sock.__enabled = False
 
-        resp = [q['func']() for q in Sock.__queries if Sock.__match(data, q)]
+        resp = [q['func'](data) for q in Sock.__queries if Sock.__match(data, q)]
         c.send(json.dumps(resp).encode())
 class Globals:
     variables = {}
