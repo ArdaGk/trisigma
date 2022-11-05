@@ -1,8 +1,9 @@
 from trisigma.stream import Stream
 from alg import Alg
 import os
+import sys
 DATA_PATH = os.path.join(os.getcwd(), "appdata/")
-LABEL = "UNLABELED"
+LABEL = sys.argv[1]
 API_KEY = os.getenv("BINANCE_API")
 SECRET_KEY = os.getenv("BINANCE_SECRET")
 

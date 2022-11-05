@@ -10,7 +10,8 @@ class Alg (Algorithm):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
-
+        Sock.add("hello", lambda: "hi")
+        Sock.add(f"hello {self.broker.symbol}", lambda: "wassup")
     def update (self):
         msg = os.getenv(self.label + "_COMMAND")
         if msg != None:

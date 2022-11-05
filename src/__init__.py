@@ -470,16 +470,23 @@ class Plot:
 
 class Sock:
 
-    __queries = {}
+    __queries = []
     __enabled = False
     __port = 3003
     __n = 5
+    __match = lambda msg, q: (q['re'] and re.search(q['query'], msg)) or (not q['re'] and q['query'] == msg)
+    def add(query, func, re=False):
+        """Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.
+        :param query: The message that will trigger the function.
+        :type query: string
+        :param func: The function that should be called whenever the proper message is received.
+        :type func: function
+        :parap re: (Optional) Enables regex search the query (default: False)
+        """
 
-    def add(query, func):
-        if query != Sock.__queries.keys():
-            Sock.__queries[query] = [func]
-        elif func not in Sock.__queries[query]:
-            Sock.__queries[query].append(func)
+        entry = {"query": query, "func": func, "re":re}
+        if entry not in Sock.__queries:
+            Sock.__queries.append(entry)
         else:
             return 'Already exist!'
 
@@ -488,6 +495,14 @@ class Sock:
             listener.start()
 
     def send(msg, timeout=5.0, port=None):
+        """Sends a message in the socket
+        :param msg: Content of the message
+        :type msg: string
+        :param timeout: (Optional) timeout (default: 5.0)
+        :type timeout: float
+        :param port: (Optional) the port to send a message from (default: 3003, this is the port that is used by the listener).
+        :type port: int
+        """
         try:
             if port == None:
                 port = Sock.__port
@@ -513,17 +528,13 @@ class Sock:
             threading.Thread(target=Sock.__respond, args=(c, addr)).start()
 
     def __respond(c, addr):
-
         data = c.recv(1024).decode()
 
         if data == '/kill':
             Sock.__enabled = False
 
-        elif data in Sock.__queries.keys():
-            resp = [func() for func in Sock.__queries[data]][0]
-            c.send(resp.encode())
-            time.sleep(0.1)
-
+        resp = [q['func']() for q in Sock.__queries if Sock.__match(data, q)]
+        c.send(resp.encode())
 class Globals:
     variables = {}
 
