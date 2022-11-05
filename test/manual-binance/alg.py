@@ -10,7 +10,7 @@ class Alg (Algorithm):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
-        Sock.add(f"{self.label} {self.broker.symbol}", action, re=True)
+        Sock.add(f"{self.label} {self.broker.symbol}", self.action, re=True)
 
     def action (self, msg):
         try:
