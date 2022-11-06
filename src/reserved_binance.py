@@ -32,7 +32,7 @@ class ReservedSpot (Spot):
 
     def new_order (self, *args, **kwargs):
         resp = super().new_order(*args, **kwargs)
-        if 'orderId' in resp.keys():
+        if 'orderId' in resp['data'].keys():
             self.orderIds.append(resp['orderId'])
             self.__save()
         self.all_orders[args[0]] = super().get_orders(args[0])['data']
@@ -120,7 +120,9 @@ class ReservedSpot (Spot):
                     continue
             print(f"new execution: {k}")
             output.append(k)
+        self.old_balance = new_balance
         return output
+
 
     def __save(self):
         data = {"orderIds": self.orderIds, "all_orders":self.all_orders, "old_balance":self.old_balance}
