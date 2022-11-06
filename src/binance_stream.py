@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from .reserved_binance import ReservedSpot
 import math
 import copy
-VERSION = "v1.1.1"
+from .options import get_option
+VERSION = "v1.1.2"
 print(f"binance_stream running {VERSION}")
 
 class Client:
@@ -69,6 +70,9 @@ class Client:
       resp = self.spot.new_order(*argv, **kwargs)
       return resp
     except Exception as e:
+
+      if get_option("debug"):
+        raise e
       self.fm.log('binance_logs', str(e))
       self.fm.log('binance_logs_extra', str(argv))
       self.fm.log('binance_logs_extra', str(kwargs))
@@ -90,6 +94,8 @@ class Client:
         self.update_trades(symbol) #10
         self.updatables.remove(symbol)
     except Exception as e:
+      if get_option("debug"):
+        raise e
       self.fm.log('binance_logs_update', str(e))
 
   def ping(self):
@@ -174,6 +180,7 @@ class Client:
       return output
     except IndexError as a:
       return num
+
 
   def changed_assets(self):
     if self.positions_buffer == {}:
