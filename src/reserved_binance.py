@@ -35,7 +35,7 @@ class ReservedSpot (Spot):
         if 'orderId' in resp.keys():
             self.orderIds.append(resp['orderId'])
             self.__save()
-        self.all_orders = super().get_orders(args[0])['data']
+        self.all_orders[args[0]] = super().get_orders(args[0])['data']
         return resp
 
     def get_open_orders (self, *args, **kwargs):
