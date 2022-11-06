@@ -72,6 +72,7 @@ class Client:
       self.fm.log('binance_logs', str(e))
       self.fm.log('binance_logs_extra', str(argv))
       self.fm.log('binance_logs_extra', str(kwargs))
+      return str(e)
 
   def generic_update(self):
     self.update_quote() #2
