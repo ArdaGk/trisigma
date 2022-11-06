@@ -130,9 +130,9 @@ class ReservedSpot (Spot):
     def __load(self):
         try:
             data = self.fm.load(self.filename)
-            self.orderIds = data['orderids']
+            self.orderIds = data['orderIds']
             self.all_orders = data['all_orders']
-            self.old_balance = data['old_balance']           
+            self.old_balance = data['old_balance']
         except FileNotFoundError:
             self.orderIds = []
             self.all_orders = {}
