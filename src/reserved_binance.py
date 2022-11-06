@@ -33,7 +33,7 @@ class ReservedSpot (Spot):
     def new_order (self, *args, **kwargs):
         resp = super().new_order(*args, **kwargs)
         if 'orderId' in resp['data'].keys():
-            self.orderIds.append(resp['orderId'])
+            self.orderIds.append(resp['data']['orderId'])
             self.__save()
         self.all_orders[args[0]] = super().get_orders(args[0])['data']
         return resp
