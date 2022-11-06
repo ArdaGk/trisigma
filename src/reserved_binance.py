@@ -40,13 +40,16 @@ class ReservedSpot (Spot):
 
     def get_open_orders (self, *args, **kwargs):
         resp = super().get_open_orders(*args, **kwargs)
-        filtered = self.filt(resp)
-        return filtered
+        filtered = self.filt(resp['data'])
+        resp['data'] = filtered
+        return resp
+
 
     def my_trades (self, *args, **kwargs):
         resp = super().my_trades(*args, **kwargs)
-        filtered = self.filt(resp)
-        return filtered
+        filtered = self.filt(resp['data'])
+        resp['data'] = filtered
+        return resp
 
     def account (self, *args, **kwargs):
         resp = super().account(*args, **kwargs)
