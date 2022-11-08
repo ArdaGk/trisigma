@@ -27,7 +27,14 @@ class ReservedSpot (Spot):
         return resp
 
     def cancel_open_orders (self, *args, **kwargs):
-        resp = super().cancel_open_orders(*args, **kwargs)
+        orders = self.get_open_orders(args[0])
+        all_resps = [self.cancel_order(args[0], o['orderId'] for o in orders['data']]
+        weight = orders['limit_usage']['x-mbx-used-weight']
+        data = []
+        for r in all_resps:
+            weight += float(r['limit_usage']['x-mbx-used-weight'])
+            data.append(r['data'])
+        resp = {'data': data, 'limit_usage':{'x-mbx-used-weight': str(weight), 'x-mbx-used-weight-1m': str(weight)}}
         return resp
 
     def new_order (self, *args, **kwargs):
