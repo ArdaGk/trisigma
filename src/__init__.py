@@ -306,7 +306,8 @@ class Trail:
 
         self.last_trail = -1
 
-
+    def is_active(self):
+        return self.active
 
     def set_peak (self, peak):
         self.last_trail = self.trail

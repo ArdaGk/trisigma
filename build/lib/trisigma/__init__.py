@@ -274,7 +274,7 @@ class Trail:
         self.is_active = lambda: self.active
         self.is_locked = lambda: self.locked
     def __call__(self):
-        """This object must be called whenever the trail must be updated with the new price"""
+        """This object must be called in order to update the trail based on the new price"""
         if self.active:
             if not self.locked:
                 price = self.broker.get_price()
@@ -306,7 +306,8 @@ class Trail:
 
         self.last_trail = -1
 
-
+    def is_active(self):
+        return self.active
 
     def set_peak (self, peak):
         self.last_trail = self.trail
