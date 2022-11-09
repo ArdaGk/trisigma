@@ -485,7 +485,7 @@ class Sock:
         :type func: function
         :parap re: (Optional) Enables regex search the query (default: False)
         """
-
+        print("new event")
         entry = {"query": query, "func": func, "re":re}
         if entry not in Sock.__queries:
             Sock.__queries.append(entry)
