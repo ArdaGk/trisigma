@@ -485,7 +485,6 @@ class Sock:
         :type func: function
         :parap re: (Optional) Enables regex search the query (default: False)
         """
-        print("new event")
         entry = {"query": query, "func": func, "re":re}
         if entry not in Sock.__queries:
             Sock.__queries.append(entry)
@@ -522,15 +521,14 @@ class Sock:
         Sock.__enabled = True
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        port = 0
         for i in range(Sock.__max_port):
             try:
-                port = Sock.__port + i
-                s.bind(('', port))
+                Sock.__port+=1
+                s.bind(('', Sock.__port))
             except OSError:
                 continue
-            return
-        print("listening on port " + str(port))
+            break
+        print("listening on port " + str(Sock.__port))
         s.listen(Sock.__n)
         while Sock.__enabled:
             c, addr = s.accept()
