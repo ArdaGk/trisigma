@@ -522,12 +522,15 @@ class Sock:
         Sock.__enabled = True
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        port = 0
         for i in range(Sock.__max_port):
             try:
-                s.bind(('', Sock.__port + i))
+                port = Sock.__port + i
+                s.bind(('', port))
             except OSError:
                 continue
             return
+        print("listening on port " + str(port))
         s.listen(Sock.__n)
         while Sock.__enabled:
             c, addr = s.accept()
