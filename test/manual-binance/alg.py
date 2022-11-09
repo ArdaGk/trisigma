@@ -11,13 +11,13 @@ class Alg (Algorithm):
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
         Sock.add(f"{self.label} {self.broker.symbol}", self.action, re=True)
-        if self.broker.symbol == "LINKUSDT":
-            resp = self.broker.sell("market", 2)
-            print(resp)
 
     def action (self, msg):
         try:
             parts = msg.lower().split()
+            if parts[2].lower() == "cancel":
+                self.broker.cancel_all()
+                return
             typ  = parts[2]
             side = parts[3]
             amount = int(parts[4])
