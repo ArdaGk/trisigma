@@ -43,7 +43,10 @@ class Algorithm:
         self.master = master
         self.auto_broker = auto_broker
         self.config_data = config_data
-
+        Sock.add("pause", self.pause)
+        Sock.add("resume", self.resume)
+        Sock.add("sellall", self.empty)
+        Sock.add("hello": lambda: "Hi")
     def call_builtins(self, name):
         try:
             getattr(self, name)()
@@ -73,11 +76,13 @@ class Algorithm:
 
     def pause(self):
         self.alg_stat = 'paused'
-        return 'Paused'
+        self.empty()
+        return 'Paused, assets are sold and open orders are canceled.'
+
 
     def resume(self):
         self.alg_stat = 'running'
-        return 'Resumed'
+        return 'Bot can now trade.'
 
     def empty(self):
         self.broker.cancel_all('BUY')
