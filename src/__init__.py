@@ -474,6 +474,7 @@ class Sock:
     __queries = []
     __enabled = False
     __port = 3003
+    __max_port = 10
     __n = 5
     __match = lambda msg, q: (q['re'] and re.search(q['query'], msg)) or (not q['re'] and q['query'] == msg)
     def add(query, func, re=False):
@@ -521,9 +522,13 @@ class Sock:
         Sock.__enabled = True
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind(('', Sock.__port))
+        for i in range(Sock.__max_port):
+            try:
+                s.bind(('', Sock.__port + i))
+            except OSError:
+                continue
+            return
         s.listen(Sock.__n)
-
         while Sock.__enabled:
             c, addr = s.accept()
             threading.Thread(target=Sock.__respond, args=(c, addr)).start()
