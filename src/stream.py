@@ -4,7 +4,7 @@ from . import ibkr
 import time
 import threading
 from trisigma.filemanager import FileManager
-
+from trisigma import Sock
 
 class Stream:
     def __init__(self, conf=None, **kwargs):
@@ -46,7 +46,8 @@ class Stream:
             self.bots[sym['symbol']]['alg'].setup(binance_stream.Broker(sym['symbol'], sym['balance'], self.client), self.fm, config_data=sym)
             for k, v in self.load.items():
               self.client.update_klines(sym['symbol'], k, v)
-
+        Sock.add("pause", self.pause)
+        Sock.add("resume", self.resume)
     def __ibkr_setup(self, *argv):
         self.client = ibkr.Client()
         time.sleep(1)
@@ -67,7 +68,6 @@ class Stream:
                 self.client.load_ohlc(sym['symbol'], v, k)
 
     def start(self):
-
         while datetime.now().timestamp() < self.end_time:
             try:
                 time.sleep(self.wait)
@@ -99,6 +99,18 @@ class Stream:
 
     def evaluate(self):
         pass
+
+    def pause (self):
+        resp = []
+        for bot in self.bots.values():
+            resp.append(bot['alg'].pause())
+        return resp
+
+    def resume (self):
+        resp = []
+        for bot in self.bots.values():
+            resp.append(bot['alg'].resume())
+        return resp
 
     def __is_ready(self, bot):
         now = datetime.now().timestamp()

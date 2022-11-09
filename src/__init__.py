@@ -43,10 +43,10 @@ class Algorithm:
         self.master = master
         self.auto_broker = auto_broker
         self.config_data = config_data
-        Sock.add("pause", self.pause)
-        Sock.add("resume", self.resume)
-        Sock.add("sellall", self.empty)
-        Sock.add("hello", lambda: "Hi")
+        Sock.add(self.symbol + " pause", self.pause)
+        Sock.add(self.symbol + " resume", self.resume)
+        Sock.add(self.symbol + " sellall", self.empty)
+        Sock.add(self.symbol + " hello", lambda: "Hi")
     def call_builtins(self, name):
         try:
             getattr(self, name)()
@@ -77,18 +77,18 @@ class Algorithm:
     def pause(self):
         self.alg_stat = 'paused'
         self.empty()
-        return 'Paused, assets are sold and open orders are canceled.'
+        return f'{self.symbol} paused, assets are sold and open orders are canceled.'
 
 
     def resume(self):
         self.alg_stat = 'running'
-        return 'Bot can now trade.'
+        return f'{self.symbol} bot can now trade.'
 
     def empty(self):
-        self.broker.cancel_all('BUY')
-        self.broker.cancel_all('SELL')
+        self.broker.cancel_all()
+        self.broker.cancel_all()
         self.broker.sell('MARKET', self.broker.get_position()['free'])
-        return 'Sold'
+        return f'{self.symbol}s sold'
 
     def save_globals(self):
         Globals.set(self.symbol, self.globals)
