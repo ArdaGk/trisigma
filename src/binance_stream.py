@@ -1,14 +1,16 @@
 from binance.spot import Spot
 from datetime import datetime, timedelta
+from .reserved_binance import ReservedSpot
 import math
 import copy
-VERSION = "v1.0.2"
+from .options import get_option
+VERSION = "v1.1.2"
 print(f"binance_stream running {VERSION}")
 
 class Client:
-  def __init__ (self, api, secret, symbols, fm):
+  def __init__ (self, api, secret, symbols, fm, label="NoLabel"):
     self.spot = Spot(api, secret, show_limit_usage=True)
-
+    self.spot = ReservedSpot(api, secret, show_limit_usage=True, label=label, fm=fm)
     self.quotes = {}
     self.klines = {}
     self.positions = {}
@@ -44,10 +46,14 @@ class Client:
       self.trades[sym] = {}
 
   def cancel (self, symbol, orderId):
-    self.spot.cancel_order(symbol, orderId=orderId)
+    if symbol not in self.updatables:
+        self.updatables.append(symbol)
+    return self.spot.cancel_order(symbol, orderId=orderId)
 
   def cancel_all (self, symbol):
-    self.spot.cancel_open_orders(symbol)
+    if symbol not in self.updatables:
+        self.updatables.append(symbol)
+    return self.spot.cancel_open_orders(symbol)
 
   def trade(self, *argv, **kwargs):
     try:
@@ -68,9 +74,13 @@ class Client:
       resp = self.spot.new_order(*argv, **kwargs)
       return resp
     except Exception as e:
+
+      if get_option("debug"):
+        raise e
       self.fm.log('binance_logs', str(e))
       self.fm.log('binance_logs_extra', str(argv))
       self.fm.log('binance_logs_extra', str(kwargs))
+      return str(e)
 
   def generic_update(self):
     self.update_quote() #2
@@ -88,6 +98,8 @@ class Client:
         self.update_trades(symbol) #10
         self.updatables.remove(symbol)
     except Exception as e:
+      if get_option("debug"):
+        raise e
       self.fm.log('binance_logs_update', str(e))
 
   def ping(self):
@@ -148,13 +160,11 @@ class Client:
     acc_info = self.spot.account()
     self.update_weight(acc_info)
     self.acc_info = acc_info
-
     for bal in acc_info['data']['balances']:
       free = self.round_qty(float(bal['free']), bal['asset'] + self.quote_asset, key='symbol', notional=True)
       locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
       full = free + locked
       self.positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
-  
     self.changed_assets()
 
   def round_qty(self, num, symbol, key='baseAsset', notional=False):
@@ -173,7 +183,8 @@ class Client:
 
       return output
     except IndexError as a:
-      return 0
+      return num
+
 
   def changed_assets(self):
     if self.positions_buffer == {}:
@@ -212,7 +223,7 @@ class Client:
 class Broker:
 
     def __init__(self, symbol, balance, client, label=None):
-        self.client = client
+        self.client = client 
         self.symbol = symbol
         self.quote_asset = 'USDT'
         self.start_balance = balance
@@ -264,12 +275,20 @@ class Broker:
         asset = self.symbol[:-len(self.quote_asset)]
         self.position = self.client.positions[asset]
 
+    def __can_trade (self, qty, price, side):
+        if side == "BUY":
+            return qty*price <= self.balance['free']
+        elif side == 'SELL':
+            return qty <= self.position['free']
 
     def buy(self, _type, qty, limit_price=None):
-      if _type == 'MARKET':
-        return self.client.trade(self.symbol, 'BUY', _type, quantity=qty)
-      elif _type == 'LIMIT':
-        return self.client.trade(self.symbol, 'BUY', _type, quantity=qty, price=limit_price, timeInForce='GTC')
+        price = self.get_price() if limit_price == None else limit_price
+        if not self.__can_trade(qty, price, 'BUY'):
+            return {"err":"insufficient balance"}
+        if _type == 'MARKET':
+            return self.client.trade(self.symbol, 'BUY', _type, quantity=qty)
+        elif _type == 'LIMIT':
+            return self.client.trade(self.symbol, 'BUY', _type, quantity=qty, price=limit_price, timeInForce='GTC')
 
     def quote_buy(self, _type, quote_price, limit_price=None):
         if _type == 'MARKET':
@@ -280,10 +299,13 @@ class Broker:
             return self.buy('LIMIT', qty, limit_price)
 
     def sell(self, _type, qty, limit_price=None):
-      if _type == 'MARKET':
-        return self.client.trade(self.symbol, 'SELL', _type, quantity=qty)
-      elif _type == 'LIMIT':
-        return self.client.trade(self.symbol, 'SELL', _type, quantity=qty, price=limit_price, timeInForce='GTC')
+        price = self.get_price() if limit_price == None else limit_price
+        if not self.__can_trade(qty, price, 'SELL'):
+             return {"err":"insufficient balance"}
+        if _type == 'MARKET':
+             return self.client.trade(self.symbol, 'SELL', _type, quantity=qty)
+        elif _type == 'LIMIT':
+             return self.client.trade(self.symbol, 'SELL', _type, quantity=qty, price=limit_price, timeInForce='GTC')
 
     def quote_sell(self, _type, quote_price, limit_price=None):
         if _type == 'MARKET':
