@@ -271,7 +271,7 @@ class Broker:
         asset = self.symbol[:-len(self.quote_asset)]
         self.position = self.client.positions[asset]
 
-    def __can_trade (qty, price, side):
+    def __can_trade (self, qty, price, side):
         if side == "BUY":
             return qty*price <= self.balance['free']
         elif side == 'SELL':
