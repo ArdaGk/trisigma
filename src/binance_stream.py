@@ -46,10 +46,10 @@ class Client:
       self.trades[sym] = {}
 
   def cancel (self, symbol, orderId):
-    self.spot.cancel_order(symbol, orderId=orderId)
+    return self.spot.cancel_order(symbol, orderId=orderId)
 
   def cancel_all (self, symbol):
-    self.spot.cancel_open_orders(symbol)
+    return self.spot.cancel_open_orders(symbol)
 
   def trade(self, *argv, **kwargs):
     try:
