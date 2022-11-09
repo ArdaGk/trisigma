@@ -8,4 +8,4 @@ class Messenger:
     def send (self, msg):
        self.sock.send(msg.encode())
        resp = self.sock.recv(1024)
-       return reps
+       return resp
