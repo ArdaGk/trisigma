@@ -104,13 +104,13 @@ class Stream:
         resp = []
         for bot in self.bots.values():
             resp.append(bot['alg'].pause())
-        return resp
+        return '\n'.join(resp)
 
     def resume (self):
         resp = []
         for bot in self.bots.values():
             resp.append(bot['alg'].resume())
-        return resp
+        return '\n'.join(resp)
 
     def __is_ready(self, bot):
         now = datetime.now().timestamp()
