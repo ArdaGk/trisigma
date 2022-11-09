@@ -104,12 +104,14 @@ class Stream:
         resp = []
         for bot in self.bots.values():
             resp.append(bot['alg'].pause())
+        print("stream paused")
         return '\n'.join(resp)
 
     def resume (self):
         resp = []
         for bot in self.bots.values():
             resp.append(bot['alg'].resume())
+        print("stream resumed")
         return '\n'.join(resp)
 
     def __is_ready(self, bot):
