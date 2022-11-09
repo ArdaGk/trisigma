@@ -16,8 +16,7 @@ class Alg (Algorithm):
         try:
             parts = msg.lower().split()
             if parts[2].lower() == "cancel":
-                self.broker.cancel_all()
-                return
+                return self.broker.cancel_all()
             typ  = parts[2]
             side = parts[3]
             amount = int(parts[4])
