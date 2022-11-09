@@ -295,6 +295,7 @@ class Broker:
             return self.buy('LIMIT', qty, limit_price)
 
     def sell(self, _type, qty, limit_price=None):
+        price = self.get_price() if limit_price == None else limit_price
         if not self.__can_trade(qty, price, 'SELL'):
              return {"err":"insufficient balance"}
         if _type == 'MARKET':
