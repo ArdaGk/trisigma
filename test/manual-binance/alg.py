@@ -44,7 +44,7 @@ class Alg (Algorithm):
 
     def display (self):
         line = '\n' + ('='*30) + '\n'
-        frames = [f"=========== REPORT ===========\nDate:\t\t{self.broker.get_time()}\nBalance:\t${self.broker.get_balance()['full']}"]
+        frames = [f"=========== REPORT ===========\nDate:\t\t{self.broker.get_time()}\nBalance:\t${self.broker.get_balance()['full']} ({self.broker.get_balance()['locked']})"]
         for k, v in Globals.variables.items():
             try:
                 symbol = k
