@@ -219,7 +219,7 @@ class Client:
 class Broker:
 
     def __init__(self, symbol, balance, client, label=None):
-        self.client = client
+        self.client = client 
         self.symbol = symbol
         self.quote_asset = 'USDT'
         self.start_balance = balance
@@ -271,12 +271,20 @@ class Broker:
         asset = self.symbol[:-len(self.quote_asset)]
         self.position = self.client.positions[asset]
 
+    def __can_trade (qty, price, side):
+        if side == "BUY":
+            return qty*price <= self.balance['free']
+        elif side == 'SELL':
+            return qty <= self.position['free']
 
     def buy(self, _type, qty, limit_price=None):
-      if _type == 'MARKET':
-        return self.client.trade(self.symbol, 'BUY', _type, quantity=qty)
-      elif _type == 'LIMIT':
-        return self.client.trade(self.symbol, 'BUY', _type, quantity=qty, price=limit_price, timeInForce='GTC')
+        price = self.get_price() if limit_price == None else limit_price
+        if not self.__can_trade(qty, price, 'BUY'):
+            return {"err":"insufficient balance"}
+        if _type == 'MARKET':
+            return self.client.trade(self.symbol, 'BUY', _type, quantity=qty)
+        elif _type == 'LIMIT':
+            return self.client.trade(self.symbol, 'BUY', _type, quantity=qty, price=limit_price, timeInForce='GTC')
 
     def quote_buy(self, _type, quote_price, limit_price=None):
         if _type == 'MARKET':
@@ -287,10 +295,12 @@ class Broker:
             return self.buy('LIMIT', qty, limit_price)
 
     def sell(self, _type, qty, limit_price=None):
-      if _type == 'MARKET':
-        return self.client.trade(self.symbol, 'SELL', _type, quantity=qty)
-      elif _type == 'LIMIT':
-        return self.client.trade(self.symbol, 'SELL', _type, quantity=qty, price=limit_price, timeInForce='GTC')
+        if not self.__can_trade(qty, price, 'SELL'):
+             return {"err":"insufficient balance"}
+        if _type == 'MARKET':
+             return self.client.trade(self.symbol, 'SELL', _type, quantity=qty)
+        elif _type == 'LIMIT':
+             return self.client.trade(self.symbol, 'SELL', _type, quantity=qty, price=limit_price, timeInForce='GTC')
 
     def quote_sell(self, _type, quote_price, limit_price=None):
         if _type == 'MARKET':

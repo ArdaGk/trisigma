@@ -19,6 +19,8 @@ class ReservedSpot (Spot):
         self.fm = fm
         self.init_capital=start_balance
         self.filename = f"{self.label}_reserved_acc"
+        self.balances = {}
+        self.quote_asset = 'USDT'
         self.__load()
 
         self.filt = lambda arr: [x for x in arr if x['orderId'] in self.orderIds]
@@ -62,7 +64,7 @@ class ReservedSpot (Spot):
         resp = super().account(*args, **kwargs)
         #Update all_orders
         executions = self.__get_executions(resp['data']['balances'])
-        quote_asset = 'USDT'
+        quote_asset = self.quote_asset
         for asset in executions:
             if asset == quote_asset:
                 continue
@@ -108,9 +110,10 @@ class ReservedSpot (Spot):
                         quote_locked+=qty*price
             entry = {"asset": bal['asset'], "free":full-locked, "locked":locked}
             balance.append(entry)
-
+            self.balances[bal['asset']] = entry
         quote_bal = {"asset": quote_asset, "free":self.init_capital + quote-quote_locked, "locked":quote_locked}
         balance.append(quote_bal)
+        self.balances[quote_asset] = quote_bal
         resp['data']['balances'] = balance
         return resp
 
@@ -129,7 +132,6 @@ class ReservedSpot (Spot):
             output.append(k)
         self.old_balance = new_balance
         return output
-
 
     def __save(self):
         data = {"orderIds": self.orderIds, "all_orders":self.all_orders, "old_balance":self.old_balance}
