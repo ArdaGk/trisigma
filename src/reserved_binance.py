@@ -31,7 +31,7 @@ class ReservedSpot (Spot):
     def cancel_open_orders (self, *args, **kwargs):
         orders = self.get_open_orders(args[0])
         all_resps = [self.cancel_order(args[0], orderId=o['orderId']) for o in orders['data']]
-        weight = orders['limit_usage']['x-mbx-used-weight']
+        weight = float(orders['limit_usage']['x-mbx-used-weight'])
         data = []
         for r in all_resps:
             weight += float(r['limit_usage']['x-mbx-used-weight'])
