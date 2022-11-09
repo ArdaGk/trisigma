@@ -11,6 +11,9 @@ class Alg (Algorithm):
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.set_globals()
         Sock.add(f"{self.label} {self.broker.symbol}", self.action, re=True)
+        if self.broker.symbol == "LINKUSDT":
+            resp = self.broker.sell("market", 2)
+            print(resp)
 
     def action (self, msg):
         try:
@@ -23,9 +26,11 @@ class Alg (Algorithm):
                     "quote_buy": self.broker.quote_buy,
                     "sell": self.broker.sell,
                     "quote_sell": self.broker.quote_sell}
-            funcs[side](typ, amount, limit_price=limit)
-        except Exception as exc:
+            resp = funcs[side](typ.upper(), amount, limit_price=limit)
+            return resp
+        except Exception  as exc:
             print(exc)
+            print(parts)
 
 
     def late_update (self):
