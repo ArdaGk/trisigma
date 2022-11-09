@@ -46,7 +46,7 @@ class Algorithm:
         Sock.add("pause", self.pause)
         Sock.add("resume", self.resume)
         Sock.add("sellall", self.empty)
-        Sock.add("hello": lambda: "Hi")
+        Sock.add("hello", lambda: "Hi")
     def call_builtins(self, name):
         try:
             getattr(self, name)()
