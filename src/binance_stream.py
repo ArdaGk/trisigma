@@ -46,9 +46,13 @@ class Client:
       self.trades[sym] = {}
 
   def cancel (self, symbol, orderId):
+    if symbol not in self.updatables:
+        self.updatables.append(symbol)
     return self.spot.cancel_order(symbol, orderId=orderId)
 
   def cancel_all (self, symbol):
+    if symbol not in self.updatables:
+        self.updatables.append(symbol)
     return self.spot.cancel_open_orders(symbol)
 
   def trade(self, *argv, **kwargs):
