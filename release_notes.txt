@@ -1,9 +1,8 @@
 Plotting in __init__ removed
 __init__ components moved to trisigma.components
 Name Algorithm changed to Strategy
-Trail encapsulated
 Fixes in fm
-Polybinance
 ibkr fixed
 test on random data
 Webull
+requirement fixes, plotly gspread removal
