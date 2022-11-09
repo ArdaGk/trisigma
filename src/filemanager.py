@@ -9,7 +9,7 @@ class FileManager:
         """Constructor for Filemanager
         :param base_path: the dir where data should be stores.
         """
-        default = os.path.join(os.getcwd(), "algdata")
+        default = os.path.join(os.getcwd(), "appdata")
         self.dir = {}
         if os.name == 'nt':
             self.sep = '\\'
@@ -22,6 +22,8 @@ class FileManager:
         else:
             print(f'OS not supported: {os.name}')
             return None
+        if base_path[-1] != self.sep:
+            base_path+=self.sep
         if base_path[-1] != self.sep:
            base_path = basepath + self.sep
         self.__setup(base_path)
