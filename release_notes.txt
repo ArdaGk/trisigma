@@ -1,8 +1,15 @@
-Plotting in __init__ removed
-__init__ components moved to trisigma.components
-Name Algorithm changed to Strategy
-Fixes in fm
-ibkr fixed
+ibkr must be fixed, tested
 test on random data
 Webull
-requirement fixes, plotly gspread removal
+pot manager
+tuner.py needs to be refactored
+
+
+Plot removed
+Gspread removed
+yahoo removed
+ports removed
+cloud storage removed
+sheets.py removed
+sock messenger removed !!! Binance Server has to be updated
+

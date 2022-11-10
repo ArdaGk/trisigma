@@ -7,7 +7,17 @@ import sys
 #market.json symbols must be dict
 #Validate test returns via manual backtest
 class Tuner:
-    def __init__ (self, fm, tuning_conf, alg, label='default', end_func = (lambda _id, output:(_id,output)), max_child=-1, offset=0):
+    """This class will take a Strategy object and backtest it multiple times with different hyper parameters to find the best combination"""
+    def __init__ (self, fm, tuning_conf, alg, label='unlabeled', end_func = (lambda _id, output:(_id,output)), max_child=-1, offset=0):
+        """Constructor for Tuner
+        :param fm: The Filemanager object that will be used to store the details.
+        :type fm: <trisigma.filemanager.FileManager>
+        :param tuning_conf: config details for the tuning.
+        :type tuning_conf: <dict>
+        :param alg: the Strategy object that will be optimized.
+        :type alg: <trisigma.Strategy>
+        :param label: A name for the tuning job. default: "unlabeled"
+        """
         self.max_child = multiprocessing.cpu_count() if max_child == -1 else max_child
         self.fm = fm
         self.tuning_conf = tuning_conf
@@ -24,6 +34,7 @@ class Tuner:
         self.offset = offset
 
     def launch (self):
+        """This method starts the tuning"""
         try:
             keys = []
             for i in range(self.size):

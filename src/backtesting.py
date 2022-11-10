@@ -8,6 +8,12 @@ import trisigma.scraper as scraper
 
 class Backtesting:
     def __init__(self, conf=None, fm=None, **kwargs):
+        """Constructor for backtesting
+        :param conf: config details
+        :type conf: <dict>
+        :param fm: Filemanager object. this will be used to store the market data and other details of the result.
+        :type fm: <trisigma.filemanager.FileManager>
+        """ 
         conf = conf | kwargs
         self.conf = conf
         self.alg = conf['alg']
@@ -47,6 +53,9 @@ class Backtesting:
         #self.data.loc[self.data['symbol'] == 'UNIUSDT'].iloc[0]['time'] + self.delta
         self.start = {sym['symbol']: self.data.loc[self.data['symbol'] == sym['symbol']].iloc[0]['time'] + self.delta for sym in self.conf['symbols']}
     def run(self, step = 1):
+        """Starts the backtesting
+        :param step: (Optional) how many ticks to skip in each check, for example, in a 5 minute interval backtest, step=2 means to check every 10 minutes, (default: step=1)
+        """
         for row in self.data.iterrows():
             if row[0] % step == 0:
                 if row[1]['time'].to_pydatetime() > self.start[row[1]['symbol']]:

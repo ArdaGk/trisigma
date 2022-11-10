@@ -6,8 +6,13 @@ import threading
 from trisigma.filemanager import FileManager
 from trisigma import Sock
 
-class Stream:
+class LiveTest:
+    """This is the class that will connect a Strategy object to a brokerage firm"""
     def __init__(self, conf=None, **kwargs):
+        """Constructor for LiveTest
+        :param conf: config details for the live test.
+        :type conf: <dict>
+        """
         conf = conf | kwargs
         self.symbols = conf['symbols']
         #self.intervals = conf['intervals']
@@ -30,6 +35,7 @@ class Stream:
             self.port = ports['TWS'][self.platform.split('-')[1].upper()]
 
     def connect(self, *argv):
+        """Starts the live test. This function will require additional arguments depending on the platform of choice"""
         #Some initial setup
         self.setup(*argv)
 
