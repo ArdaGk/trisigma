@@ -5,28 +5,57 @@ Trisigma
     :maxdepth: 2
     :caption: Contents:
 
-    stream
-    backtesting
-    scraper
-    filemanager
-    pots
-    time_utils
-    evaluation_utils
+    modules
  
-Trisigma is an event-driven algo-trading framework. Its object-oriented representation of strategies makes it possible to completely seperate the trading logic from its target market. As a result, strategies can run on any market/brokerage firm, backtested, and optimized without any additional tweaks.
+Structure
+~~~~~~~~
+Trisigma framework follows an adapter pattern to make backtesting and various brokerages accessible through the same interface. As a result, the trading strategy, as an object, can go live or backtested without needing to tweak. 
 
-Platforms
-^^^^
-- Binance.com
-- Binance.us
-- Interactive Brokers (paper and live trade)
+
+The goal of this architecture is to make backtesting a debugging tool that detects potential flaws in the code before going live.
+
 Main Features
-^^^^^
+~~~~~~~~~~~~
 - Binance.com, Binance.us and Interactive Brokers integration
 - Webull, Yahoo Finance and Binance historic data scraper.
 - Backtesting and Strategy Optimizer.
 - Google Sheets and Google Cloud Storage integration.
 - Slack Channel Integration.
+ 
+Platforms
+~~~~~~~~
+- Binance.com
+- Binance.us
+- Interactive Brokers (paper and live trade)
 
-   
+Quickstart
+---------
+``pip install trisigma``
 
+Usage
+-----
+.. highlight:: python
+Template for Binance live testing:
+::
+    from trisigma import Strategy
+    from trisigma.livetest import LiveTest
+
+    class FirstAlgo (Strategy):
+        def setup (self): #This method will be called once the bot is launched.
+            pass
+        def update (self): #This method will be called at every interval.
+            pass
+
+    CONF = {'strategy':FirstAlgo,
+            'load': {'15m': 96*2, '1w': 5},
+            'freq': '5s',
+            'platform': 'binance',
+            'symbols': [{"symbol": "LINKSDT"}, {"symbol": "ETHUSDT"}],
+            'api_key': "<api_key>",
+            'secret_key': "<secret_key>",
+            'label':"some_label",
+            'fm': "./botdata/"}
+
+Template is made up of two parts:
+    1. **Strategy**: This is where the strategy details are specified. ``trisigma.Strategy``` class contains the necessary methods to access market data or send signals.
+    2. **Configuration** This is where the testing details are specified. Some of these details include the brokerage (IBKR or Binance), tickers, credentials and path to save the data.
