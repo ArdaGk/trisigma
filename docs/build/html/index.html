@@ -19,7 +19,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="stream" href="stream.html" /> 
+    <link rel="next" title="docs" href="modules.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="stream.html" title="stream"
+          <a href="modules.html" title="docs"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">trisigma  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Trisigma</a></li> 
@@ -48,23 +48,15 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="stream.html">stream</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backtesting.html">backtesting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scraper.html">scraper</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filemanager.html">filemanager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pots.html">pots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="time_utils.html">time_utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="evaluation_utils.html">evaluation_utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">docs</a><ul class="simple">
+</ul>
+</li>
 </ul>
 </div>
-<p>Trisigma is an event-driven algo-trading framework. Its object-oriented representation of strategies makes it possible to completely seperate the trading logic from its target market. As a result, strategies can run on any market/brokerage firm, backtested, and optimized without any additional tweaks.</p>
-<section id="platforms">
-<h2>Platforms<a class="headerlink" href="#platforms" title="Permalink to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Binance.com</p></li>
-<li><p>Binance.us</p></li>
-<li><p>Interactive Brokers (paper and live trade)</p></li>
-</ul>
+<section id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
+<p>Trisigma framework follows an adapter pattern to make backtesting and various brokerages accessible through the same interface. As a result, the trading strategy, as an object, can go live or backtested without needing to tweak.</p>
+<p>The goal of this architecture is to make backtesting a debugging tool that detects potential flaws in the code before going live.</p>
 </section>
 <section id="main-features">
 <h2>Main Features<a class="headerlink" href="#main-features" title="Permalink to this heading">¶</a></h2>
@@ -75,6 +67,49 @@
 <li><p>Google Sheets and Google Cloud Storage integration.</p></li>
 <li><p>Slack Channel Integration.</p></li>
 </ul>
+</section>
+<section id="platforms">
+<h2>Platforms<a class="headerlink" href="#platforms" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Binance.com</p></li>
+<li><p>Binance.us</p></li>
+<li><p>Interactive Brokers (paper and live trade)</p></li>
+</ul>
+<section id="quickstart">
+<h3>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">trisigma</span></code></p>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h3>
+<p>Template for Binance live testing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">trisigma</span> <span class="kn">import</span> <span class="n">Strategy</span>
+<span class="kn">from</span> <span class="nn">trisigma.livetest</span> <span class="kn">import</span> <span class="n">LiveTest</span>
+
+<span class="k">class</span> <span class="nc">FirstAlgo</span> <span class="p">(</span><span class="n">Strategy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setup</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#This method will be called once the bot is launched.</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">update</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#This method will be called at every interval.</span>
+        <span class="k">pass</span>
+
+<span class="n">CONF</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span><span class="n">FirstAlgo</span><span class="p">,</span>
+        <span class="s1">&#39;load&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;15m&#39;</span><span class="p">:</span> <span class="mi">96</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="s1">&#39;5s&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;platform&#39;</span><span class="p">:</span> <span class="s1">&#39;binance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKSDT&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;ETHUSDT&quot;</span><span class="p">}],</span>
+        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s2">&quot;&lt;api_key&gt;&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;secret_key&#39;</span><span class="p">:</span> <span class="s2">&quot;&lt;secret_key&gt;&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span><span class="s2">&quot;some_label&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;fm&#39;</span><span class="p">:</span> <span class="s2">&quot;./botdata/&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Template is made up of two parts:</dt><dd><ol class="arabic simple">
+<li><p><strong>Strategy</strong>: This is where the strategy details are specified. <code class="docutils literal notranslate"><span class="pre">trisigma.Strategy`</span></code> class contains the necessary methods to access market data or send signals.</p></li>
+<li><p><strong>Configuration</strong> This is where the testing details are specified. Some of these details include the brokerage (IBKR or Binance), tickers, credentials and path to save the data.</p></li>
+</ol>
+</dd>
+</dl>
+</section>
 </section>
 </section>
 
@@ -89,8 +124,13 @@
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Trisigma</a><ul>
-<li><a class="reference internal" href="#platforms">Platforms</a></li>
+<li><a class="reference internal" href="#structure">Structure</a></li>
 <li><a class="reference internal" href="#main-features">Main Features</a></li>
+<li><a class="reference internal" href="#platforms">Platforms</a><ul>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -98,8 +138,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="stream.html"
-                          title="next chapter">stream</a></p>
+    <p class="topless"><a href="modules.html"
+                          title="next chapter">docs</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -132,7 +172,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="stream.html" title="stream"
+          <a href="modules.html" title="docs"
              >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">trisigma  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Trisigma</a></li> 

@@ -4,22 +4,6 @@ src package
 Submodules
 ----------
 
-src.alg\_events module
-----------------------
-
-.. automodule:: src.alg_events
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.alg\_exceptions module
---------------------------
-
-.. automodule:: src.alg_exceptions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 src.backtesting module
 ----------------------
 
@@ -36,10 +20,10 @@ src.binance\_stream module
    :undoc-members:
    :show-inheritance:
 
-src.cloud\_storage module
--------------------------
+src.broker module
+-----------------
 
-.. automodule:: src.cloud_storage
+.. automodule:: src.broker
    :members:
    :undoc-members:
    :show-inheritance:
@@ -60,22 +44,6 @@ src.filemanager module
    :undoc-members:
    :show-inheritance:
 
-src.ibkr module
----------------
-
-.. automodule:: src.ibkr
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-src.pots module
----------------
-
-.. automodule:: src.pots
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 src.scraper module
 ------------------
 
@@ -84,10 +52,10 @@ src.scraper module
    :undoc-members:
    :show-inheritance:
 
-src.sheets module
------------------
+src.slack module
+----------------
 
-.. automodule:: src.sheets
+.. automodule:: src.slack
    :members:
    :undoc-members:
    :show-inheritance:
@@ -108,6 +76,14 @@ src.time\_utils module
    :undoc-members:
    :show-inheritance:
 
+src.toolkit module
+------------------
+
+.. automodule:: src.toolkit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.tuner module
 ----------------
 
@@ -116,18 +92,20 @@ src.tuner module
    :undoc-members:
    :show-inheritance:
 
-src.yahoo module
-----------------
-
-.. automodule:: src.yahoo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 
-.. automodule:: src
+.. automodule:: src.test
    :members:
    :undoc-members:
    :show-inheritance:
+
+Test2
+----
+.. autoclass:: src.stream.LiveTest
+   :members: 
+   :inherited-members:
+   :exclude-members:
+   :special-members: __init__
+
+

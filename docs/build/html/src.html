@@ -18,8 +18,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="src" href="modules.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -30,11 +29,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="modules.html" title="src"
-             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">src</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">src package</a></li> 
       </ul>
     </div>  
@@ -49,53 +44,1013 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="src-alg-events-module">
-<h2>src.alg_events module<a class="headerlink" href="#src-alg-events-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.backtesting">
+<span id="src-backtesting-module"></span><h2>src.backtesting module<a class="headerlink" href="#module-src.backtesting" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.backtesting.Backtesting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.backtesting.</span></span><span class="sig-name descname"><span class="pre">Backtesting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Backtesting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Backtesting.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Backtesting.load_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Backtesting.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Backtesting.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the backtesting
+:param step: (Optional) how many ticks to skip in each check, for example, in a 5 minute interval backtest, step=2 means to check every 10 minutes, (default: step=1)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Backtesting.set_klines">
+<span class="sig-name descname"><span class="pre">set_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_row</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Backtesting.set_klines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Backtesting.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Backtesting.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.backtesting.Broker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.backtesting.</span></span><span class="sig-name descname"><span class="pre">Broker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.backtesting.Broker.balance">
+<span class="sig-name descname"><span class="pre">balance</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#src.backtesting.Broker.balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.buy">
+<span class="sig-name descname"><span class="pre">buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.buy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.cancel_all">
+<span class="sig-name descname"><span class="pre">cancel_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.cancel_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_asks">
+<span class="sig-name descname"><span class="pre">get_asks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_asks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_balance">
+<span class="sig-name descname"><span class="pre">get_balance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_bids">
+<span class="sig-name descname"><span class="pre">get_bids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_bids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_buy_price">
+<span class="sig-name descname"><span class="pre">get_buy_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_buy_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_ohlc">
+<span class="sig-name descname"><span class="pre">get_ohlc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_ohlc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_open_orders">
+<span class="sig-name descname"><span class="pre">get_open_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_open_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_sell_price">
+<span class="sig-name descname"><span class="pre">get_sell_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_sell_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.get_timestamp">
+<span class="sig-name descname"><span class="pre">get_timestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.on_trade">
+<span class="sig-name descname"><span class="pre">on_trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.on_trade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.quote_buy">
+<span class="sig-name descname"><span class="pre">quote_buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.quote_buy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.quote_sell">
+<span class="sig-name descname"><span class="pre">quote_sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.quote_sell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.backtesting.Broker.sell">
+<span class="sig-name descname"><span class="pre">sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.backtesting.Broker.sell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="src-alg-exceptions-module">
-<h2>src.alg_exceptions module<a class="headerlink" href="#src-alg-exceptions-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.binance_stream">
+<span id="src-binance-stream-module"></span><h2>src.binance_stream module<a class="headerlink" href="#module-src.binance_stream" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.binance_stream.Broker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.binance_stream.</span></span><span class="sig-name descname"><span class="pre">Broker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.buy">
+<span class="sig-name descname"><span class="pre">buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.buy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orderId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.cancel_all">
+<span class="sig-name descname"><span class="pre">cancel_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.cancel_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_asks">
+<span class="sig-name descname"><span class="pre">get_asks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_asks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_balance">
+<span class="sig-name descname"><span class="pre">get_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reserved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_bids">
+<span class="sig-name descname"><span class="pre">get_bids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_bids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_buy_price">
+<span class="sig-name descname"><span class="pre">get_buy_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_buy_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_ohlc">
+<span class="sig-name descname"><span class="pre">get_ohlc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_ohlc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_open_orders">
+<span class="sig-name descname"><span class="pre">get_open_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_open_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_sell_price">
+<span class="sig-name descname"><span class="pre">get_sell_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_sell_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">of_trade</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_timestamp">
+<span class="sig-name descname"><span class="pre">get_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">of_trade</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.get_trades">
+<span class="sig-name descname"><span class="pre">get_trades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.get_trades" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.on_trade">
+<span class="sig-name descname"><span class="pre">on_trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.on_trade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.quote_buy">
+<span class="sig-name descname"><span class="pre">quote_buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.quote_buy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.quote_sell">
+<span class="sig-name descname"><span class="pre">quote_sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.quote_sell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Broker.sell">
+<span class="sig-name descname"><span class="pre">sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Broker.sell" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.binance_stream.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.binance_stream.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'NoLabel'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orderId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.cancel_all">
+<span class="sig-name descname"><span class="pre">cancel_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.cancel_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.changed_assets">
+<span class="sig-name descname"><span class="pre">changed_assets</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.changed_assets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.generic_update">
+<span class="sig-name descname"><span class="pre">generic_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.generic_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.ping">
+<span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.ping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.reset_weights">
+<span class="sig-name descname"><span class="pre">reset_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.reset_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.round_qty">
+<span class="sig-name descname"><span class="pre">round_qty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'baseAsset'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.round_qty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.symbol_update">
+<span class="sig-name descname"><span class="pre">symbol_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.symbol_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.trade">
+<span class="sig-name descname"><span class="pre">trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">argv</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.trade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_balances">
+<span class="sig-name descname"><span class="pre">update_balances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_balances" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_exchange">
+<span class="sig-name descname"><span class="pre">update_exchange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_exchange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_klines">
+<span class="sig-name descname"><span class="pre">update_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_klines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_orders">
+<span class="sig-name descname"><span class="pre">update_orders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_orders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_quote">
+<span class="sig-name descname"><span class="pre">update_quote</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_quote" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_trades">
+<span class="sig-name descname"><span class="pre">update_trades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_trades" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.binance_stream.Client.update_weight">
+<span class="sig-name descname"><span class="pre">update_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.binance_stream.Client.update_weight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="src-backtesting-module">
-<h2>src.backtesting module<a class="headerlink" href="#src-backtesting-module" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="src-binance-stream-module">
-<h2>src.binance_stream module<a class="headerlink" href="#src-binance-stream-module" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="src-cloud-storage-module">
-<h2>src.cloud_storage module<a class="headerlink" href="#src-cloud-storage-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.broker">
+<span id="src-broker-module"></span><h2>src.broker module<a class="headerlink" href="#module-src.broker" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.broker.Broker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.broker.</span></span><span class="sig-name descname"><span class="pre">Broker</span></span><a class="headerlink" href="#src.broker.Broker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.buy">
+<span class="sig-name descname"><span class="pre">buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.buy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buy a certain quantity from an asset.
+:param _type: “LIMIT” or “MARKET”
+:param qty: quantity
+:param limit_price: Limit price for _type=”LIMIT”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orderId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel an existing open order
+:param orderId: the order id which to cancel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.cancel_all">
+<span class="sig-name descname"><span class="pre">cancel_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.cancel_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel every open order</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_asks">
+<span class="sig-name descname"><span class="pre">get_asks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_asks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the best ask</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_balance">
+<span class="sig-name descname"><span class="pre">get_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reserved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the balance (quote asset) of the account</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_bids">
+<span class="sig-name descname"><span class="pre">get_bids</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_bids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the best bid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_buy_price">
+<span class="sig-name descname"><span class="pre">get_buy_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_buy_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the buy price based on the best ask</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_ohlc">
+<span class="sig-name descname"><span class="pre">get_ohlc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_ohlc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns previous candles
+:param interval: candle interval eg. “1h”
+:param lookback: how many candles to return
+:type lookback: &lt;int&gt;</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_open_orders">
+<span class="sig-name descname"><span class="pre">get_open_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_open_orders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of open orders</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the position including those that are locked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the price of the symbol</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_sell_price">
+<span class="sig-name descname"><span class="pre">get_sell_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_sell_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the sell price based on the best bid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the time as &lt;datetime&gt;</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_timestamp">
+<span class="sig-name descname"><span class="pre">get_timestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the timestamp as an &lt;int&gt;</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_trades">
+<span class="sig-name descname"><span class="pre">get_trades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_trades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the trade history</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.on_trade">
+<span class="sig-name descname"><span class="pre">on_trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.on_trade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if there was a trade since the last time this function is called, (this is NOT a pure function, if it returns True, the new trade will be stored)
+:param side: (Optional) checks a specific side:  ‘BUY’, ‘SELL’, ‘all’ (default).
+:param _type: (Optional) checks a specific order typeL ‘MARKET’, ‘LIMIT’, ‘all’ (default).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.quote_buy">
+<span class="sig-name descname"><span class="pre">quote_buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.quote_buy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buy an asset with a quote price.
+:param _type: “LIMIT” or “MARKET”
+:param quote_price: amount of asset to purchase with the quote price.
+:param limit_price” limit price for _type=”LIMIT”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.quote_sell">
+<span class="sig-name descname"><span class="pre">quote_sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.quote_sell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sell an asset with a quote price.
+:param _type: “LIMIT” or “MARKET”
+:param quote_price: amount of asset to sell with the quote price.
+:param limit_price” limit price for _type=”LIMIT”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.sell">
+<span class="sig-name descname"><span class="pre">sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.sell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sell a certain quantity from an asset.
+:param _type: “LIMIT” or “MARKET”
+:param qty: quantity
+:param limit_price: Limit price for _type=”LIMIT”</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="src-evaluation-utils-module">
 <h2>src.evaluation_utils module<a class="headerlink" href="#src-evaluation-utils-module" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="src-filemanager-module">
-<h2>src.filemanager module<a class="headerlink" href="#src-filemanager-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.filemanager">
+<span id="src-filemanager-module"></span><h2>src.filemanager module<a class="headerlink" href="#module-src.filemanager" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.filemanager.FileManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.filemanager.</span></span><span class="sig-name descname"><span class="pre">FileManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.add_ext">
+<span class="sig-name descname"><span class="pre">add_ext</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.add_ext" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'var'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a variable in “algdata/data/var” that was previously saved.
+:param name: name of the json file (without .json extension)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a message to a log file. (stored in algdata/logs/)
+:param name: name of the log file (without extension)
+:param data: text to append
+:type data: &lt;str&gt;</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.filemanager.FileManager.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'var'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a variable in “algdata/data/var/” as a json file.
+:param output: variable that will be saved.
+:param name: file name (without extension)</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="src-ibkr-module">
-<h2>src.ibkr module<a class="headerlink" href="#src-ibkr-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.scraper">
+<span id="src-scraper-module"></span><h2>src.scraper module<a class="headerlink" href="#module-src.scraper" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.scraper.Binance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">Binance</span></span><a class="headerlink" href="#src.scraper.Binance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Binance.get_klines">
+<span class="sig-name descname"><span class="pre">get_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Binance.get_klines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the candlesticks of the symbol
+:param symbol: symbol and quote asset eg. “LINKUSDT”
+:param lookback: the number of candles
+:param interval: interval for candles
+:type intetrval: &lt;str&gt;</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Binance.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Binance.get_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current price of the symbol</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.scraper.Webull">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">Webull</span></span><a class="headerlink" href="#src.scraper.Webull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Webull.get_klines_day">
+<span class="sig-name descname"><span class="pre">get_klines_day</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.get_klines_day" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Webull.get_klines_min">
+<span class="sig-name descname"><span class="pre">get_klines_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.get_klines_min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Webull.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.get_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.scraper.Webull.headers">
+<span class="sig-name descname"><span class="pre">headers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Referer':</span> <span class="pre">'https',</span> <span class="pre">'User-Agent':</span> <span class="pre">'Mozilla/5.0</span> <span class="pre">(Macintosh;</span> <span class="pre">Intel</span> <span class="pre">Mac</span> <span class="pre">OS</span> <span class="pre">X</span> <span class="pre">10_15_7)</span> <span class="pre">AppleWebKit/537.36</span> <span class="pre">(KHTML,</span> <span class="pre">like</span> <span class="pre">Gecko)</span> <span class="pre">Chrome/94.0.4606.81</span> <span class="pre">Safari/537.36',</span> <span class="pre">'app':</span> <span class="pre">'global',</span> <span class="pre">'device-type':</span> <span class="pre">'Web',</span> <span class="pre">'did':</span> <span class="pre">'25970a42e9a34894955769aaea8f5600',</span> <span class="pre">'hl':</span> <span class="pre">'en',</span> <span class="pre">'locale':</span> <span class="pre">'eng',</span> <span class="pre">'os':</span> <span class="pre">'web',</span> <span class="pre">'osv':</span> <span class="pre">'Mozilla/5.0</span> <span class="pre">(Macintosh;</span> <span class="pre">Intel</span> <span class="pre">Mac</span> <span class="pre">OS</span> <span class="pre">X</span> <span class="pre">10_15_7)</span> <span class="pre">AppleWebKit/537.36</span> <span class="pre">(KHTML,</span> <span class="pre">like</span> <span class="pre">Gecko)</span> <span class="pre">Chrome/94.0.4606.81</span> <span class="pre">Safari/537.36',</span> <span class="pre">'ph':</span> <span class="pre">'MacOS</span> <span class="pre">Chrome',</span> <span class="pre">'platform':</span> <span class="pre">'web',</span> <span class="pre">'reqid':</span> <span class="pre">'6c3f0dfbe2bf452e824d9b00d0e8452a',</span> <span class="pre">'sec-ch-ua':</span> <span class="pre">'&quot;Chromium&quot;;v=&quot;94&quot;,</span> <span class="pre">&quot;Google</span> <span class="pre">Chrome&quot;;v=&quot;94&quot;,</span> <span class="pre">&quot;;Not</span> <span class="pre">A</span> <span class="pre">Brand&quot;;v=&quot;99&quot;',</span> <span class="pre">'sec-ch-ua-mobile':</span> <span class="pre">'?0',</span> <span class="pre">'sec-ch-ua-platform':</span> <span class="pre">'&quot;macOS&quot;',</span> <span class="pre">'tz':</span> <span class="pre">'America/Chicago',</span> <span class="pre">'ver':</span> <span class="pre">'3.37.7'}</span></em><a class="headerlink" href="#src.scraper.Webull.headers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.scraper.Webull.tickermap">
+<span class="sig-name descname"><span class="pre">tickermap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.tickermap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.scraper.binance">
+<span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">binance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.binance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.scraper.clmultimin">
+<span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">clmultimin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tickeridn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tidn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.clmultimin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.scraper.tickermap">
+<span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">tickermap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.tickermap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.scraper.webull">
+<span class="sig-prename descclassname"><span class="pre">src.scraper.</span></span><span class="sig-name descname"><span class="pre">webull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.webull" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="src-pots-module">
-<h2>src.pots module<a class="headerlink" href="#src-pots-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.slack">
+<span id="src-slack-module"></span><h2>src.slack module<a class="headerlink" href="#module-src.slack" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.slack.Slack">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.slack.</span></span><span class="sig-name descname"><span class="pre">Slack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.slack.Slack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class sends messages in a slack channel</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.slack.Slack.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.slack.Slack.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a message in a channel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> – content of the message</p></li>
+<li><p><strong>channel</strong> – (Optional if there is already a default channel specified)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="src-scraper-module">
-<h2>src.scraper module<a class="headerlink" href="#src-scraper-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.stream">
+<span id="src-stream-module"></span><h2>src.stream module<a class="headerlink" href="#module-src.stream" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.stream.LiveTest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.stream.</span></span><span class="sig-name descname"><span class="pre">LiveTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the class that will connect a Strategy object to a brokerage firm</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the live test. This function will require additional arguments depending on the platform of choice</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.fire">
+<span class="sig-name descname"><span class="pre">fire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bots</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.fire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.pause" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.pick">
+<span class="sig-name descname"><span class="pre">pick</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.pick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.resume">
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.resume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bots</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="src-sheets-module">
-<h2>src.sheets module<a class="headerlink" href="#src-sheets-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.time_utils">
+<span id="src-time-utils-module"></span><h2>src.time_utils module<a class="headerlink" href="#module-src.time_utils" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.time_utils.ceil">
+<span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">ceil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.ceil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a ceil rounding to the given date.
+|    eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-29:00-00-00&gt;
+|        date = &lt;2022-10-28:23-53-13&gt;, interval = “2d” –&gt; &lt;2022-10-30:00-00-00&gt;
+:param date: the date that will be rounded.
+:type date: &lt;datetime.datetime&gt; or &lt;int&gt; (as a timestamp)
+:param interval: the interval that will be used to round the date.
+:type interval: &lt;str&gt;
+:param delta: (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the next Wednesday, instead of Monday.
+:type delta: &lt;datetime.timedelta&gt;</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.time_utils.floor">
+<span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.floor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a floor rounding to the given date.
+|   eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-28:23-45-00&gt;
+|       date = &lt;2022-10-28:23-53-13&gt;, interval = “1d” –&gt; &lt;2022-10-28:00-00-00&gt;
+:param date: the date that will be rounded.
+:type date: &lt;datetime.datetime&gt; or &lt;int&gt; (as a timestamp)
+:param interval: the interval that will be used to round the date.
+:type interval: &lt;str&gt;
+:param delta: (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the last Wednesday, instead of Monday.
+:type delta: &lt;datetime.timedelta&gt;</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.time_utils.to_timestamp">
+<span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">to_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.to_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string interval into int seconds, eg. “1m” –&gt; 60, “2d” –&gt; 172800
+:param rng: interval</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.time_utils.to_timestamp_split">
+<span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">to_timestamp_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.to_timestamp_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string interval into a tuple where the 1st index represents the coefficient, and the 2nd index is the time unit represented in seconds
+|    eg. “1m” –&gt; (1, 60)
+|        “2d” –&gt; (2, 172800)
+:param rng: interval</p>
+</dd></dl>
+
 </section>
-<section id="src-stream-module">
-<h2>src.stream module<a class="headerlink" href="#src-stream-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.toolkit">
+<span id="src-toolkit-module"></span><h2>src.toolkit module<a class="headerlink" href="#module-src.toolkit" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.Alarm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Alarm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is a class that can be used to trigger functions in different intervals.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Alarm.static">
+<span class="sig-name descname"><span class="pre">static</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Alarm.static" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternative constructor that  will keep track of the interval staticly.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.toolkit.Alarm.statics">
+<span class="sig-name descname"><span class="pre">statics</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#src.toolkit.Alarm.statics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.Globals">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Globals</span></span><a class="headerlink" href="#src.toolkit.Globals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Globals.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Globals.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Globals.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Globals.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Globals.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Globals.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.toolkit.Globals.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#src.toolkit.Globals.variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.Sock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Sock</span></span><a class="headerlink" href="#src.toolkit.Sock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Sock.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.
+:param query: The message that will trigger the function.
+:type query: string
+:param func: The function that should be called whenever the proper message is received.
+:type func: function
+:parap re: (Optional) Enables regex search the query (default: False)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Sock.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a message in the socket
+:param msg: Content of the message
+:type msg: string
+:param timeout: (Optional) timeout (default: 5.0)
+:type timeout: float
+:param port: (Optional) the port to send a message from (default: 3003, this is the port that is used by the listener).
+:type port: int</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.SocketMessenger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">SocketMessenger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.SocketMessenger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Sends messages through local socket</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.SocketMessenger.send">
+<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.SocketMessenger.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the message
+:param msg: content of the message.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.Traces">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Traces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class can be used to set regions defined by traces</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.get_region">
+<span class="sig-name descname"><span class="pre">get_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.get_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the region that the price is at</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.get_traces">
+<span class="sig-name descname"><span class="pre">get_traces</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.get_traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns traces</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.here_since">
+<span class="sig-name descname"><span class="pre">here_since</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.here_since" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if price been in the given reagon for a specified amount of time
+:param region: The region of the price
+“param duration: How long in seconds should the price be in this region.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.is_inside">
+<span class="sig-name descname"><span class="pre">is_inside</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.is_inside" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks wether if the price was inside the given region within the given candlesticks
+:param region:
+:param ohlc: Candlesticks as a list of dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.on_change">
+<span class="sig-name descname"><span class="pre">on_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.on_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Traces.set_traces">
+<span class="sig-name descname"><span class="pre">set_traces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_traces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.set_traces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set new traces
+:param new_traces: new traces as dict, key is the name value is the price point
+:type new_traces: &lt;dict&gt;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.toolkit.Trail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Trail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class can be used to create trailling loss orders</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.activate">
+<span class="sig-name descname"><span class="pre">activate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activates the trail. When activated, trigger functions like on_hit() will be usable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.deactivate">
+<span class="sig-name descname"><span class="pre">deactivate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivates the trail. When deactivated, trigger functions like on_hit will always return False.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.is_active">
+<span class="sig-name descname"><span class="pre">is_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.is_active" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.lock">
+<span class="sig-name descname"><span class="pre">lock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>When locked, trail will remain the same even if price changes.
+:param value: (Optional) lockes the trail at a specific value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.on_change">
+<span class="sig-name descname"><span class="pre">on_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.on_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if trails last movement is in the same direction as &lt;dir&gt;/
+:param dir: “higher”, or “lower”,
+:type dir: string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.on_hit">
+<span class="sig-name descname"><span class="pre">on_hit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.on_hit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the price hit the trail</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the trail to the current price * perc
+:param target_price: float (Optional)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.set_peak">
+<span class="sig-name descname"><span class="pre">set_peak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.set_peak" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.toolkit.Trail.unlock">
+<span class="sig-name descname"><span class="pre">unlock</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.unlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>When unlocked, trail will be reset to its original value. Trail value will change as price goes beyond the percentage.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.toolkit.pretty_print">
+<span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">pretty_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.pretty_print" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="src-time-utils-module">
-<h2>src.time_utils module<a class="headerlink" href="#src-time-utils-module" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="src-tuner-module">
-<h2>src.tuner module<a class="headerlink" href="#src-tuner-module" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="src-yahoo-module">
-<h2>src.yahoo module<a class="headerlink" href="#src-yahoo-module" title="Permalink to this heading">¶</a></h2>
+<section id="module-src.tuner">
+<span id="src-tuner-module"></span><h2>src.tuner module<a class="headerlink" href="#module-src.tuner" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.tuner.Tuner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">Tuner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label='unlabeled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_func=&lt;function</span> <span class="pre">Tuner.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_child=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class will take a Strategy object and backtest it multiple times with different hyper parameters to find the best combination</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.create_conf">
+<span class="sig-name descname"><span class="pre">create_conf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.create_conf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.fire">
+<span class="sig-name descname"><span class="pre">fire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.fire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.get_combinations">
+<span class="sig-name descname"><span class="pre">get_combinations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.get_combinations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.get_key">
+<span class="sig-name descname"><span class="pre">get_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.get_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.interruption">
+<span class="sig-name descname"><span class="pre">interruption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.interruption" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.launch">
+<span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.launch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method starts the tuning</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.next_id">
+<span class="sig-name descname"><span class="pre">next_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.next_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.tuner.baseN">
+<span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">baseN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0123456789abcdefghijklmnopqrstuvwxyz'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.baseN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.tuner.mangle">
+<span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">mangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.mangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-contents">
 <h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="test2">
+<h2>Test2<a class="headerlink" href="#test2" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.stream.</span></span><span class="sig-name descname"><span class="pre">LiveTest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the class that will connect a Strategy object to a brokerage firm</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.stream.LiveTest.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.stream.LiveTest.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for LiveTest</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conf</strong> (<em>&lt;dict&gt;</em>) – config details for the live test.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">argv</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the live test. This function will require additional arguments depending on the platform of choice</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -111,31 +1066,243 @@
     <ul>
 <li><a class="reference internal" href="#">src package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#src-alg-events-module">src.alg_events module</a></li>
-<li><a class="reference internal" href="#src-alg-exceptions-module">src.alg_exceptions module</a></li>
-<li><a class="reference internal" href="#src-backtesting-module">src.backtesting module</a></li>
-<li><a class="reference internal" href="#src-binance-stream-module">src.binance_stream module</a></li>
-<li><a class="reference internal" href="#src-cloud-storage-module">src.cloud_storage module</a></li>
+<li><a class="reference internal" href="#module-src.backtesting">src.backtesting module</a><ul>
+<li><a class="reference internal" href="#src.backtesting.Backtesting"><code class="docutils literal notranslate"><span class="pre">Backtesting</span></code></a><ul>
+<li><a class="reference internal" href="#src.backtesting.Backtesting.load_data"><code class="docutils literal notranslate"><span class="pre">Backtesting.load_data()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Backtesting.run"><code class="docutils literal notranslate"><span class="pre">Backtesting.run()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Backtesting.set_klines"><code class="docutils literal notranslate"><span class="pre">Backtesting.set_klines()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Backtesting.setup"><code class="docutils literal notranslate"><span class="pre">Backtesting.setup()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.backtesting.Broker"><code class="docutils literal notranslate"><span class="pre">Broker</span></code></a><ul>
+<li><a class="reference internal" href="#src.backtesting.Broker.balance"><code class="docutils literal notranslate"><span class="pre">Broker.balance</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.buy"><code class="docutils literal notranslate"><span class="pre">Broker.buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.cancel"><code class="docutils literal notranslate"><span class="pre">Broker.cancel()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.cancel_all"><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_asks"><code class="docutils literal notranslate"><span class="pre">Broker.get_asks()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_balance"><code class="docutils literal notranslate"><span class="pre">Broker.get_balance()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_bids"><code class="docutils literal notranslate"><span class="pre">Broker.get_bids()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_buy_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_buy_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_ohlc"><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_open_orders"><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_position"><code class="docutils literal notranslate"><span class="pre">Broker.get_position()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_sell_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_sell_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_time"><code class="docutils literal notranslate"><span class="pre">Broker.get_time()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.get_timestamp"><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.on_trade"><code class="docutils literal notranslate"><span class="pre">Broker.on_trade()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.quote_buy"><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.quote_sell"><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell()</span></code></a></li>
+<li><a class="reference internal" href="#src.backtesting.Broker.sell"><code class="docutils literal notranslate"><span class="pre">Broker.sell()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.binance_stream">src.binance_stream module</a><ul>
+<li><a class="reference internal" href="#src.binance_stream.Broker"><code class="docutils literal notranslate"><span class="pre">Broker</span></code></a><ul>
+<li><a class="reference internal" href="#src.binance_stream.Broker.buy"><code class="docutils literal notranslate"><span class="pre">Broker.buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.cancel"><code class="docutils literal notranslate"><span class="pre">Broker.cancel()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.cancel_all"><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_asks"><code class="docutils literal notranslate"><span class="pre">Broker.get_asks()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_balance"><code class="docutils literal notranslate"><span class="pre">Broker.get_balance()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_bids"><code class="docutils literal notranslate"><span class="pre">Broker.get_bids()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_buy_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_buy_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_ohlc"><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_open_orders"><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_position"><code class="docutils literal notranslate"><span class="pre">Broker.get_position()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_sell_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_sell_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_time"><code class="docutils literal notranslate"><span class="pre">Broker.get_time()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_timestamp"><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.get_trades"><code class="docutils literal notranslate"><span class="pre">Broker.get_trades()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.on_trade"><code class="docutils literal notranslate"><span class="pre">Broker.on_trade()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.quote_buy"><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.quote_sell"><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Broker.sell"><code class="docutils literal notranslate"><span class="pre">Broker.sell()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.binance_stream.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li><a class="reference internal" href="#src.binance_stream.Client.cancel"><code class="docutils literal notranslate"><span class="pre">Client.cancel()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.cancel_all"><code class="docutils literal notranslate"><span class="pre">Client.cancel_all()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.changed_assets"><code class="docutils literal notranslate"><span class="pre">Client.changed_assets()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.generic_update"><code class="docutils literal notranslate"><span class="pre">Client.generic_update()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.ping"><code class="docutils literal notranslate"><span class="pre">Client.ping()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.reset_weights"><code class="docutils literal notranslate"><span class="pre">Client.reset_weights()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.round_qty"><code class="docutils literal notranslate"><span class="pre">Client.round_qty()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.setup"><code class="docutils literal notranslate"><span class="pre">Client.setup()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.symbol_update"><code class="docutils literal notranslate"><span class="pre">Client.symbol_update()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.trade"><code class="docutils literal notranslate"><span class="pre">Client.trade()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_balances"><code class="docutils literal notranslate"><span class="pre">Client.update_balances()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_exchange"><code class="docutils literal notranslate"><span class="pre">Client.update_exchange()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_klines"><code class="docutils literal notranslate"><span class="pre">Client.update_klines()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_orders"><code class="docutils literal notranslate"><span class="pre">Client.update_orders()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_quote"><code class="docutils literal notranslate"><span class="pre">Client.update_quote()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_trades"><code class="docutils literal notranslate"><span class="pre">Client.update_trades()</span></code></a></li>
+<li><a class="reference internal" href="#src.binance_stream.Client.update_weight"><code class="docutils literal notranslate"><span class="pre">Client.update_weight()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.broker">src.broker module</a><ul>
+<li><a class="reference internal" href="#src.broker.Broker"><code class="docutils literal notranslate"><span class="pre">Broker</span></code></a><ul>
+<li><a class="reference internal" href="#src.broker.Broker.buy"><code class="docutils literal notranslate"><span class="pre">Broker.buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.cancel"><code class="docutils literal notranslate"><span class="pre">Broker.cancel()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.cancel_all"><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_asks"><code class="docutils literal notranslate"><span class="pre">Broker.get_asks()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_balance"><code class="docutils literal notranslate"><span class="pre">Broker.get_balance()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_bids"><code class="docutils literal notranslate"><span class="pre">Broker.get_bids()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_buy_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_buy_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_ohlc"><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_open_orders"><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_position"><code class="docutils literal notranslate"><span class="pre">Broker.get_position()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_sell_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_sell_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_time"><code class="docutils literal notranslate"><span class="pre">Broker.get_time()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_timestamp"><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_trades"><code class="docutils literal notranslate"><span class="pre">Broker.get_trades()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.on_trade"><code class="docutils literal notranslate"><span class="pre">Broker.on_trade()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.quote_buy"><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.quote_sell"><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.sell"><code class="docutils literal notranslate"><span class="pre">Broker.sell()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#src-evaluation-utils-module">src.evaluation_utils module</a></li>
-<li><a class="reference internal" href="#src-filemanager-module">src.filemanager module</a></li>
-<li><a class="reference internal" href="#src-ibkr-module">src.ibkr module</a></li>
-<li><a class="reference internal" href="#src-pots-module">src.pots module</a></li>
-<li><a class="reference internal" href="#src-scraper-module">src.scraper module</a></li>
-<li><a class="reference internal" href="#src-sheets-module">src.sheets module</a></li>
-<li><a class="reference internal" href="#src-stream-module">src.stream module</a></li>
-<li><a class="reference internal" href="#src-time-utils-module">src.time_utils module</a></li>
-<li><a class="reference internal" href="#src-tuner-module">src.tuner module</a></li>
-<li><a class="reference internal" href="#src-yahoo-module">src.yahoo module</a></li>
+<li><a class="reference internal" href="#module-src.filemanager">src.filemanager module</a><ul>
+<li><a class="reference internal" href="#src.filemanager.FileManager"><code class="docutils literal notranslate"><span class="pre">FileManager</span></code></a><ul>
+<li><a class="reference internal" href="#src.filemanager.FileManager.add_ext"><code class="docutils literal notranslate"><span class="pre">FileManager.add_ext()</span></code></a></li>
+<li><a class="reference internal" href="#src.filemanager.FileManager.append"><code class="docutils literal notranslate"><span class="pre">FileManager.append()</span></code></a></li>
+<li><a class="reference internal" href="#src.filemanager.FileManager.get_time"><code class="docutils literal notranslate"><span class="pre">FileManager.get_time()</span></code></a></li>
+<li><a class="reference internal" href="#src.filemanager.FileManager.load"><code class="docutils literal notranslate"><span class="pre">FileManager.load()</span></code></a></li>
+<li><a class="reference internal" href="#src.filemanager.FileManager.log"><code class="docutils literal notranslate"><span class="pre">FileManager.log()</span></code></a></li>
+<li><a class="reference internal" href="#src.filemanager.FileManager.save"><code class="docutils literal notranslate"><span class="pre">FileManager.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.scraper">src.scraper module</a><ul>
+<li><a class="reference internal" href="#src.scraper.Binance"><code class="docutils literal notranslate"><span class="pre">Binance</span></code></a><ul>
+<li><a class="reference internal" href="#src.scraper.Binance.get_klines"><code class="docutils literal notranslate"><span class="pre">Binance.get_klines()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.Binance.get_price"><code class="docutils literal notranslate"><span class="pre">Binance.get_price()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.scraper.Webull"><code class="docutils literal notranslate"><span class="pre">Webull</span></code></a><ul>
+<li><a class="reference internal" href="#src.scraper.Webull.get_klines_day"><code class="docutils literal notranslate"><span class="pre">Webull.get_klines_day()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.Webull.get_klines_min"><code class="docutils literal notranslate"><span class="pre">Webull.get_klines_min()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.Webull.get_price"><code class="docutils literal notranslate"><span class="pre">Webull.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.Webull.headers"><code class="docutils literal notranslate"><span class="pre">Webull.headers</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.Webull.tickermap"><code class="docutils literal notranslate"><span class="pre">Webull.tickermap()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.scraper.binance"><code class="docutils literal notranslate"><span class="pre">binance()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.clmultimin"><code class="docutils literal notranslate"><span class="pre">clmultimin()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.tickermap"><code class="docutils literal notranslate"><span class="pre">tickermap()</span></code></a></li>
+<li><a class="reference internal" href="#src.scraper.webull"><code class="docutils literal notranslate"><span class="pre">webull()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.slack">src.slack module</a><ul>
+<li><a class="reference internal" href="#src.slack.Slack"><code class="docutils literal notranslate"><span class="pre">Slack</span></code></a><ul>
+<li><a class="reference internal" href="#src.slack.Slack.send"><code class="docutils literal notranslate"><span class="pre">Slack.send()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.stream">src.stream module</a><ul>
+<li><a class="reference internal" href="#src.stream.LiveTest"><code class="docutils literal notranslate"><span class="pre">LiveTest</span></code></a><ul>
+<li><a class="reference internal" href="#src.stream.LiveTest.connect"><code class="docutils literal notranslate"><span class="pre">LiveTest.connect()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.evaluate"><code class="docutils literal notranslate"><span class="pre">LiveTest.evaluate()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.fire"><code class="docutils literal notranslate"><span class="pre">LiveTest.fire()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.pause"><code class="docutils literal notranslate"><span class="pre">LiveTest.pause()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.pick"><code class="docutils literal notranslate"><span class="pre">LiveTest.pick()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.resume"><code class="docutils literal notranslate"><span class="pre">LiveTest.resume()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.start"><code class="docutils literal notranslate"><span class="pre">LiveTest.start()</span></code></a></li>
+<li><a class="reference internal" href="#src.stream.LiveTest.update"><code class="docutils literal notranslate"><span class="pre">LiveTest.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.time_utils">src.time_utils module</a><ul>
+<li><a class="reference internal" href="#src.time_utils.ceil"><code class="docutils literal notranslate"><span class="pre">ceil()</span></code></a></li>
+<li><a class="reference internal" href="#src.time_utils.floor"><code class="docutils literal notranslate"><span class="pre">floor()</span></code></a></li>
+<li><a class="reference internal" href="#src.time_utils.to_timestamp"><code class="docutils literal notranslate"><span class="pre">to_timestamp()</span></code></a></li>
+<li><a class="reference internal" href="#src.time_utils.to_timestamp_split"><code class="docutils literal notranslate"><span class="pre">to_timestamp_split()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.toolkit">src.toolkit module</a><ul>
+<li><a class="reference internal" href="#src.toolkit.Alarm"><code class="docutils literal notranslate"><span class="pre">Alarm</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.Alarm.static"><code class="docutils literal notranslate"><span class="pre">Alarm.static()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Alarm.statics"><code class="docutils literal notranslate"><span class="pre">Alarm.statics</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.Globals"><code class="docutils literal notranslate"><span class="pre">Globals</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.Globals.get"><code class="docutils literal notranslate"><span class="pre">Globals.get()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Globals.save"><code class="docutils literal notranslate"><span class="pre">Globals.save()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Globals.set"><code class="docutils literal notranslate"><span class="pre">Globals.set()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Globals.variables"><code class="docutils literal notranslate"><span class="pre">Globals.variables</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.Sock"><code class="docutils literal notranslate"><span class="pre">Sock</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.Sock.add"><code class="docutils literal notranslate"><span class="pre">Sock.add()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Sock.send"><code class="docutils literal notranslate"><span class="pre">Sock.send()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.SocketMessenger"><code class="docutils literal notranslate"><span class="pre">SocketMessenger</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.SocketMessenger.send"><code class="docutils literal notranslate"><span class="pre">SocketMessenger.send()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.Traces"><code class="docutils literal notranslate"><span class="pre">Traces</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.Traces.get_region"><code class="docutils literal notranslate"><span class="pre">Traces.get_region()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Traces.get_traces"><code class="docutils literal notranslate"><span class="pre">Traces.get_traces()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Traces.here_since"><code class="docutils literal notranslate"><span class="pre">Traces.here_since()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Traces.is_inside"><code class="docutils literal notranslate"><span class="pre">Traces.is_inside()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Traces.on_change"><code class="docutils literal notranslate"><span class="pre">Traces.on_change()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Traces.set_traces"><code class="docutils literal notranslate"><span class="pre">Traces.set_traces()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.Trail"><code class="docutils literal notranslate"><span class="pre">Trail</span></code></a><ul>
+<li><a class="reference internal" href="#src.toolkit.Trail.activate"><code class="docutils literal notranslate"><span class="pre">Trail.activate()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.deactivate"><code class="docutils literal notranslate"><span class="pre">Trail.deactivate()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.is_active"><code class="docutils literal notranslate"><span class="pre">Trail.is_active()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.lock"><code class="docutils literal notranslate"><span class="pre">Trail.lock()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.on_change"><code class="docutils literal notranslate"><span class="pre">Trail.on_change()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.on_hit"><code class="docutils literal notranslate"><span class="pre">Trail.on_hit()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.reset"><code class="docutils literal notranslate"><span class="pre">Trail.reset()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.set_peak"><code class="docutils literal notranslate"><span class="pre">Trail.set_peak()</span></code></a></li>
+<li><a class="reference internal" href="#src.toolkit.Trail.unlock"><code class="docutils literal notranslate"><span class="pre">Trail.unlock()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.toolkit.pretty_print"><code class="docutils literal notranslate"><span class="pre">pretty_print()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-src.tuner">src.tuner module</a><ul>
+<li><a class="reference internal" href="#src.tuner.Tuner"><code class="docutils literal notranslate"><span class="pre">Tuner</span></code></a><ul>
+<li><a class="reference internal" href="#src.tuner.Tuner.create_conf"><code class="docutils literal notranslate"><span class="pre">Tuner.create_conf()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.fire"><code class="docutils literal notranslate"><span class="pre">Tuner.fire()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.get_combinations"><code class="docutils literal notranslate"><span class="pre">Tuner.get_combinations()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.get_key"><code class="docutils literal notranslate"><span class="pre">Tuner.get_key()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.interruption"><code class="docutils literal notranslate"><span class="pre">Tuner.interruption()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.launch"><code class="docutils literal notranslate"><span class="pre">Tuner.launch()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.next_id"><code class="docutils literal notranslate"><span class="pre">Tuner.next_id()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#src.tuner.baseN"><code class="docutils literal notranslate"><span class="pre">baseN()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.mangle"><code class="docutils literal notranslate"><span class="pre">mangle()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#test2">Test2</a><ul>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">LiveTest</span></code></a><ul>
+<li><a class="reference internal" href="#src.stream.LiveTest.__init__"><code class="docutils literal notranslate"><span class="pre">LiveTest.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">LiveTest.connect()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="modules.html"
-                          title="previous chapter">src</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -167,11 +1334,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="modules.html" title="src"
-             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">src package</a></li> 
       </ul>
     </div>
