@@ -2,6 +2,7 @@ class Slack:
     """This class sends messages in a slack channel"""
     def __init__ (self, token, default_channel=None):
         """Constructor
+
         :param token: slack token
         :param default_channel: (Optional) sets a default channel. If left blank, then the channel must be specified in every send() function instead.
         """
@@ -10,6 +11,7 @@ class Slack:
 
     def send (self, msg, channel=None):
         """Sends a message in a channel
+
         :param msg: content of the message
         :param channel: (Optional if there is already a default channel specified)
         """

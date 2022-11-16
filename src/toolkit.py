@@ -354,9 +354,9 @@ class SocketMessenger:
         """Sends the message
         :param msg: content of the message.
         """
-       self.sock.send(msg.encode())
-       resp = self.sock.recv(1024)
-       return resp.decode()
+        self.sock.send(msg.encode())
+        resp = self.sock.recv(1024)
+        return resp.decode()
 
 def pretty_print(var, sort_keys=False, indent=4):
     lines = json.dumps(var, sort_keys=sort_keys, indent=indent).splitlines()

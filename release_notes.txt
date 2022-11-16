@@ -3,7 +3,7 @@ test on random data
 Webull
 pot manager
 tuner.py needs to be refactored
-
+setup and 'strategy' and livetest
 
 Plot removed
 Gspread removed

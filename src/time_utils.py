@@ -21,8 +21,8 @@ def to_timestamp(rng):
 
 def to_timestamp_split(rng):
     """Converts a string interval into a tuple where the 1st index represents the coefficient, and the 2nd index is the time unit represented in seconds
-    eg. "1m" --> (1, 60)
-        "2d" --> (2, 172800)
+    |    eg. "1m" --> (1, 60)
+    |        "2d" --> (2, 172800)
     :param rng: interval
     """
     rng = rng.lower()
@@ -41,8 +41,8 @@ def to_timestamp_split(rng):
 
 def floor(date, interval, delta=None):
     """Makes a floor rounding to the given date.
-    eg. date = <2022-10-28:23-53-13>, interval = "15m" --> <2022-10-28:23-45-00>
-        date = <2022-10-28:23-53-13>, interval = "1d" --> <2022-10-28:00-00-00>
+    |   eg. date = <2022-10-28:23-53-13>, interval = "15m" --> <2022-10-28:23-45-00>
+    |       date = <2022-10-28:23-53-13>, interval = "1d" --> <2022-10-28:00-00-00>
     :param date: the date that will be rounded.
     :type date: <datetime.datetime> or <int> (as a timestamp)
     :param interval: the interval that will be used to round the date.
@@ -69,8 +69,8 @@ def floor(date, interval, delta=None):
 
 def ceil(date, interval, delta=None):
     """Makes a ceil rounding to the given date.
-    eg. date = <2022-10-28:23-53-13>, interval = "15m" --> <2022-10-29:00-00-00>
-        date = <2022-10-28:23-53-13>, interval = "2d" --> <2022-10-30:00-00-00>
+    |    eg. date = <2022-10-28:23-53-13>, interval = "15m" --> <2022-10-29:00-00-00>
+    |        date = <2022-10-28:23-53-13>, interval = "2d" --> <2022-10-30:00-00-00>
     :param date: the date that will be rounded.
     :type date: <datetime.datetime> or <int> (as a timestamp)
     :param interval: the interval that will be used to round the date.

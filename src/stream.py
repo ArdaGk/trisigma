@@ -10,6 +10,7 @@ class LiveTest:
     """This is the class that will connect a Strategy object to a brokerage firm"""
     def __init__(self, conf=None, **kwargs):
         """Constructor for LiveTest
+
         :param conf: config details for the live test.
         :type conf: <dict>
         """
