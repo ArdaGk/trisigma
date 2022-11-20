@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Hyper Parameter Optimization &#8212; trisigma  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Deployment" href="deploy.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deploy.html" title="Deployment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hyper Parameter Optimization</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="hyper-parameter-optimization">
+<h1>Hyper Parameter Optimization<a class="headerlink" href="#hyper-parameter-optimization" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.tuner.Tuner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">Tuner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label='unlabeled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_func=&lt;function</span> <span class="pre">Tuner.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_child=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class will take a Strategy object and backtest it multiple times with different hyper parameters to find the best combination</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label='unlabeled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_func=&lt;function</span> <span class="pre">Tuner.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_child=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for Tuner</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fm</strong> (<em>&lt;trisigma.filemanager.FileManager&gt;</em>) – The Filemanager object that will be used to store the details.</p></li>
+<li><p><strong>tuning_conf</strong> (<em>dict</em>) – config details for the tuning.</p></li>
+<li><p><strong>algo</strong> (<em>trisigma.Strategy</em>) – the Strategy object that will be optimized.</p></li>
+<li><p><strong>label</strong> – A name for the tuning job. default: “unlabeled”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.tuner.Tuner.launch">
+<span class="sig-name descname"><span class="pre">launch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner.launch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method starts the tuning</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this heading">¶</a></h2>
+<p>config.json</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;trailling_stop_loss_perc&quot;</span><span class="p">:[</span><span class="mf">0.99</span><span class="p">,</span><span class="w"> </span><span class="mf">0.985</span><span class="p">,</span><span class="mf">0.98</span><span class="p">,</span><span class="w"> </span><span class="mf">0.975</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;capital_dist&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mf">0.99</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.75</span><span class="p">,</span><span class="w"> </span><span class="mf">0.24</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mf">0.50</span><span class="p">,</span><span class="w"> </span><span class="mi">49</span><span class="p">]],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;profit_perc&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.02</span><span class="p">,</span><span class="w"> </span><span class="mf">0.03</span><span class="p">,</span><span class="w"> </span><span class="mf">0.04</span><span class="p">],</span><span class="w"></span>
+<span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;market&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;symbols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;LINKUSDT&quot;</span><span class="p">],</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">365</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nt">&quot;freq&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5m&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>main.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">firstalgo</span> <span class="kn">import</span> <span class="n">FirstAlgo</span>
+<span class="kn">from</span> <span class="nn">trisigma.tuning</span> <span class="kn">import</span> <span class="n">Tuner</span>
+
+<span class="n">FM</span> <span class="o">=</span> <span class="s2">&quot;./data/&quot;</span>
+<span class="n">CONF_FILE</span> <span class="o">=</span> <span class="s2">&quot;config.json&quot;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONF_FILE</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+<span class="n">tuner</span> <span class="o">=</span> <span class="n">Tuner</span><span class="p">(</span><span class="n">FM</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="n">FirstAlgo</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;firstTuning&quot;</span><span class="p">,</span> <span class="n">max_child</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">tuner</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>“parameters” key is where the hyper parameters should be stored. These will be accessible inside the Strategy object via <code class="docutils literal notranslate"><span class="pre">self.config_data[&quot;param_name&quot;]</span></code></p></li>
+<li><p>“market” keys determine the backtest market data.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Hyper Parameter Optimization</a><ul>
+<li><a class="reference internal" href="#src.tuner.Tuner"><code class="docutils literal notranslate"><span class="pre">Tuner</span></code></a><ul>
+<li><a class="reference internal" href="#src.tuner.Tuner.__init__"><code class="docutils literal notranslate"><span class="pre">Tuner.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#src.tuner.Tuner.launch"><code class="docutils literal notranslate"><span class="pre">Tuner.launch()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="deploy.html"
+                          title="previous chapter">Deployment</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tuning.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deploy.html" title="Deployment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hyper Parameter Optimization</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Arda Gok.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+    </div>
+  </body>
+</html>

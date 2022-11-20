@@ -16,7 +16,7 @@ class Backtesting:
         """ 
         conf = conf | kwargs
         self.conf = conf
-        self.alg = conf['alg']
+        self.alg = conf['strategy']
         self.symbols = [sym['symbol'] for sym in conf['symbols']]
         self.intervals = conf['intervals']
         self.lookback = timedelta(days=conf['lookback'])

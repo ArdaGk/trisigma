@@ -5,15 +5,11 @@ Trisigma
     :maxdepth: 2
     :caption: Contents:
 
-    modules
+    components
+    backtesting
+    deploy
+    tuning
  
-Structure
-~~~~~~~~
-Trisigma framework follows an adapter pattern to make backtesting and various brokerages accessible through the same interface. As a result, the trading strategy, as an object, can go live or backtested without needing to tweak. 
-
-
-The goal of this architecture is to make backtesting a debugging tool that detects potential flaws in the code before going live.
-
 Main Features
 ~~~~~~~~~~~~
 - Binance.com, Binance.us and Interactive Brokers integration

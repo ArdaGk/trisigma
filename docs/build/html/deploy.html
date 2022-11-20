@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Deployment &#8212; trisigma  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hyper Parameter Optimization" href="tuning.html" />
+    <link rel="prev" title="Backtesting" href="backtesting.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tuning.html" title="Hyper Parameter Optimization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="backtesting.html" title="Backtesting"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deployment</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this heading">¶</a></h1>
+<p>Simply import the algo into main.py. Parameters of the live test are passed as a “CONF” dictionary</p>
+<section id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this heading">¶</a></h2>
+<p>main.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">firstalgo</span> <span class="kn">import</span> <span class="n">FirstAlgo</span>
+<span class="kn">from</span> <span class="nn">trisigma.livetest</span> <span class="kn">import</span> <span class="n">LiveTest</span>
+
+<span class="n">CONF</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span><span class="n">FirstAlgo</span><span class="p">,</span>
+        <span class="s1">&#39;load&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;15m&#39;</span><span class="p">:</span> <span class="mi">96</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+        <span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="s1">&#39;5s&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;platform&#39;</span><span class="p">:</span> <span class="s1">&#39;binance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKSDT&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;ETHUSDT&quot;</span><span class="p">}],</span>
+        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s2">&quot;&lt;api_key&gt;&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;secret_key&#39;</span><span class="p">:</span> <span class="s2">&quot;&lt;secret_key&gt;&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span><span class="s2">&quot;some_label&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;fm&#39;</span><span class="p">:</span> <span class="s2">&quot;./botdata/&quot;</span><span class="p">}</span>
+
+<span class="n">live</span> <span class="o">=</span> <span class="n">LiveTest</span><span class="p">(</span><span class="n">CONF</span><span class="p">)</span>
+<span class="n">live</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="main-parameters">
+<h2>Main Parameters<a class="headerlink" href="#main-parameters" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>strategy</strong>: the algo as a class.</p></li>
+<li><p><strong>load</strong>: The range of the historic data that will be needed. The data within this range will be cached for quicker access.</p></li>
+<li><p><strong>freq</strong>: At what interval should the algo be called? Units: (s)econd, (m)inute, (h)our, (d)ay</p></li>
+<li><p><strong>platform</strong>: The trading platform. (binance/ibkr)</p></li>
+<li><p><strong>fm</strong>: The path where the data should be stored.</p></li>
+<li><p><strong>label</strong>: A name for the bot. Data will be stored under this name, and it will be needed for data recovery.</p></li>
+<li><p><strong>symbols</strong>: This is for the symbols that will be traded. Format: [{“symbol”: &lt;symbol&gt;},]. This is also where symbol-specific parameters can be declared; Any additional key  passed can be accessed within the algo via self.config_data[‘&lt;param_name&gt;’]</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="platform-specific-parameters">
+<h2>Platform-specific Parameters:<a class="headerlink" href="#platform-specific-parameters" title="Permalink to this heading">¶</a></h2>
+<section id="binance">
+<h3>Binance:<a class="headerlink" href="#binance" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>api_key</strong>: this can be generated from binance.com</p></li>
+<li><p><strong>secret_key</strong>: this can be generated from binance.com</p></li>
+</ul>
+</section>
+<section id="ibkr">
+<h3>IBKR:<a class="headerlink" href="#ibkr" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><strong>mode</strong>: Options: “ibg-real”, “ibg-paper”, “tws-real”, “tws-paper”.</p></li>
+<li><p><strong>addr</strong>: the IP address of the client. Put “127.0.0.1” if client is in the same machine.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Deployment</a><ul>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+<li><a class="reference internal" href="#main-parameters">Main Parameters</a></li>
+<li><a class="reference internal" href="#platform-specific-parameters">Platform-specific Parameters:</a><ul>
+<li><a class="reference internal" href="#binance">Binance:</a></li>
+<li><a class="reference internal" href="#ibkr">IBKR:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="backtesting.html"
+                          title="previous chapter">Backtesting</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="tuning.html"
+                          title="next chapter">Hyper Parameter Optimization</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/deploy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tuning.html" title="Hyper Parameter Optimization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="backtesting.html" title="Backtesting"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deployment</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Arda Gok.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+    </div>
+  </body>
+</html>

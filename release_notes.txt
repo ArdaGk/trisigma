@@ -4,6 +4,11 @@ Webull
 pot manager
 tuner.py needs to be refactored
 setup and 'strategy' and livetest
+evaluation_utils changed to metrics
+
+Code coverage
+unwebull
+
 
 Plot removed
 Gspread removed

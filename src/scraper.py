@@ -170,14 +170,21 @@ def binance(symbols, lookback, interval):
 
 class Binance:
     def get_price(symbol):
-        """Get the current price of the symbol"""
+        """Get the current price of the symbol
+
+        :param symbol: Symbol
+        :type symbol: string
+        """
         return -1
     def get_klines(symbol, lookback, interval):
         """Get the candlesticks of the symbol
+
         :param symbol: symbol and quote asset eg. "LINKUSDT"
+        :type symbol: string
         :param lookback: the number of candles
+        :type lookback: int
         :param interval: interval for candles
-        :type intetrval: <str>
+        :type intetrval: string
         """
         return binance([symbol], lookback, interval)
 
@@ -201,6 +208,11 @@ class Webull:
               'osv': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
 
   def get_price(symbol):
+    """Get the current price of the symbol.
+
+    :param symbol: Symbol
+    :type symbol: string
+    """
     url = f'https://quotes-gw.webullfintech.com/api/stock/tickerRealTime/getQuote?tickerId={tickermap(symbol)}&includeSecu=1&includeQuote=1&more=1'
     resp = requests.get(url)
     return float(resp.json()['close'])
@@ -237,6 +249,15 @@ class Webull:
 
 
   def get_klines_min(symbols, mins, days):
+    """Get the candlestick data at minute interval
+
+    :param symbols: Symbols.
+    :type symbols: string[]
+    :param mins: Coefficent for minutes. eg, 15 for 15 minutes.
+    :type mins: int
+    :param days: How many days of data?
+    :type days: int
+    """
     dfs = []
     for ticker in symbols:
       rng = math.ceil(390 * days / mins / 1199)

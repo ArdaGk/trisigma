@@ -539,25 +539,44 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.filemanager.FileManager.load">
 <span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'var'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load a variable in “algdata/data/var” that was previously saved.
-:param name: name of the json file (without .json extension)</p>
+<dd><p>Load a variable in “algdata/data/var” that was previously saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>string</em>) – name of the json file (without .json extension)</p></li>
+<li><p><strong>_dir</strong> (<em>string</em>) – If it needs to be stored in another folder, then the name of the foler should be specified here.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.filemanager.FileManager.log">
 <span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a message to a log file. (stored in algdata/logs/)
-:param name: name of the log file (without extension)
-:param data: text to append
-:type data: &lt;str&gt;</p>
+<dd><p>Append a message to a log file. (stored in algdata/logs/)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>string</em>) – Name of the log file (without extension)</p></li>
+<li><p><strong>data</strong> (<em>string</em>) – The message</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.filemanager.FileManager.save">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'var'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.filemanager.FileManager.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a variable in “algdata/data/var/” as a json file.
-:param output: variable that will be saved.
-:param name: file name (without extension)</p>
+<dd><p>Save a variable in “algdata/data/var/” as a json file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> (<em>string</em>) – variable that will be saved.</p></li>
+<li><p><strong>name</strong> (<em>string</em>) – file name (without extension)</p></li>
+<li><p><strong>_dir</strong> (<em>string</em>) – If it needs to be stored in another folder, then the name of the foler should be specified here.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -572,17 +591,27 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.scraper.Binance.get_klines">
 <span class="sig-name descname"><span class="pre">get_klines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lookback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Binance.get_klines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the candlesticks of the symbol
-:param symbol: symbol and quote asset eg. “LINKUSDT”
-:param lookback: the number of candles
-:param interval: interval for candles
-:type intetrval: &lt;str&gt;</p>
+<dd><p>Get the candlesticks of the symbol</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbol</strong> (<em>string</em>) – symbol and quote asset eg. “LINKUSDT”</p></li>
+<li><p><strong>lookback</strong> (<em>int</em>) – the number of candles</p></li>
+<li><p><strong>interval</strong> – interval for candles</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.scraper.Binance.get_price">
 <span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Binance.get_price" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the current price of the symbol</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>string</em>) – Symbol</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -599,12 +628,28 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.scraper.Webull.get_klines_min">
 <span class="sig-name descname"><span class="pre">get_klines_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">days</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.get_klines_min" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the candlestick data at minute interval</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>symbols</strong> (<em>string</em><em>[</em><em>]</em>) – Symbols.</p></li>
+<li><p><strong>mins</strong> (<em>int</em>) – Coefficent for minutes. eg, 15 for 15 minutes.</p></li>
+<li><p><strong>days</strong> (<em>int</em>) – How many days of data?</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.scraper.Webull.get_price">
 <span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.scraper.Webull.get_price" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the current price of the symbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>string</em>) – Symbol</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.scraper.Webull.headers">
@@ -653,8 +698,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>msg</strong> – content of the message</p></li>
-<li><p><strong>channel</strong> – (Optional if there is already a default channel specified)</p></li>
+<li><p><strong>msg</strong> (<em>string</em>) – content of the message</p></li>
+<li><p><strong>channel</strong> (<em>string</em>) – Optional only if there is already a default channel specified</p></li>
 </ul>
 </dd>
 </dl>
@@ -719,45 +764,71 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.time_utils.ceil">
 <span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">ceil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.ceil" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes a ceil rounding to the given date.
-|    eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-29:00-00-00&gt;
-|        date = &lt;2022-10-28:23-53-13&gt;, interval = “2d” –&gt; &lt;2022-10-30:00-00-00&gt;
-:param date: the date that will be rounded.
-:type date: &lt;datetime.datetime&gt; or &lt;int&gt; (as a timestamp)
-:param interval: the interval that will be used to round the date.
-:type interval: &lt;str&gt;
-:param delta: (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the next Wednesday, instead of Monday.
-:type delta: &lt;datetime.timedelta&gt;</p>
+<dd><dl class="simple">
+<dt>Makes a ceil rounding to the given date.</dt><dd><dl class="simple">
+<dt>eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-29:00-00-00&gt; </dt><dd><p>date = &lt;2022-10-28:23-53-13&gt;, interval = “2d” –&gt; &lt;2022-10-30:00-00-00&gt;</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>&lt;datetime.datetime&gt;</em><em> or </em><em>&lt;int&gt;</em><em> (</em><em>as a timestamp</em><em>)</em>) – the date that will be rounded.</p></li>
+<li><p><strong>interval</strong> (<em>&lt;str&gt;</em>) – the interval that will be used to round the date.</p></li>
+<li><p><strong>delta</strong> (<em>&lt;datetime.timedelta&gt;</em>) – (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the next Wednesday, instead of Monday.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.time_utils.floor">
 <span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">floor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.floor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes a floor rounding to the given date.
-|   eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-28:23-45-00&gt;
-|       date = &lt;2022-10-28:23-53-13&gt;, interval = “1d” –&gt; &lt;2022-10-28:00-00-00&gt;
-:param date: the date that will be rounded.
-:type date: &lt;datetime.datetime&gt; or &lt;int&gt; (as a timestamp)
-:param interval: the interval that will be used to round the date.
-:type interval: &lt;str&gt;
-:param delta: (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the last Wednesday, instead of Monday.
-:type delta: &lt;datetime.timedelta&gt;</p>
+<dd><dl class="simple">
+<dt>Makes a floor rounding to the given date.</dt><dd><dl class="simple">
+<dt>eg. date = &lt;2022-10-28:23-53-13&gt;, interval = “15m” –&gt; &lt;2022-10-28:23-45-00&gt;</dt><dd><p>date = &lt;2022-10-28:23-53-13&gt;, interval = “1d” –&gt; &lt;2022-10-28:00-00-00&gt;</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>&lt;datetime.datetime&gt;</em><em> or </em><em>&lt;int&gt;</em><em> (</em><em>as a timestamp</em><em>)</em>) – the date that will be rounded.</p></li>
+<li><p><strong>interval</strong> (<em>&lt;str&gt;</em>) – the interval that will be used to round the date.</p></li>
+<li><p><strong>delta</strong> (<em>&lt;datetime.timedelta&gt;</em>) – (Optional) adds offset to the rounding. eg: interval=”1w”, delta=timedelta(days=2) will round to the last Wednesday, instead of Monday.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.time_utils.to_timestamp">
 <span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">to_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.to_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a string interval into int seconds, eg. “1m” –&gt; 60, “2d” –&gt; 172800
-:param rng: interval</p>
+<dd><p>Converts a string interval into int seconds, eg. “1m” –&gt; 60, “2d” –&gt; 172800</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rng</strong> (<em>string</em>) – interval</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.time_utils.to_timestamp_split">
 <span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">to_timestamp_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rng</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.to_timestamp_split" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts a string interval into a tuple where the 1st index represents the coefficient, and the 2nd index is the time unit represented in seconds
-|    eg. “1m” –&gt; (1, 60)
-|        “2d” –&gt; (2, 172800)
-:param rng: interval</p>
+<dd><dl class="simple">
+<dt>Converts a string interval into a tuple where the 1st index represents the coefficient, and the 2nd index is the time unit represented in seconds</dt><dd><dl class="simple">
+<dt>eg. “1m” –&gt; (1, 60)</dt><dd><p>“2d” –&gt; (2, 172800)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rng</strong> (<em>string</em>) – interval</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -772,6 +843,16 @@
 <dt class="sig sig-object py" id="src.toolkit.Alarm.static">
 <span class="sig-name descname"><span class="pre">static</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Alarm.static" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alternative constructor that  will keep track of the interval staticly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>broker</strong> (<em>trisigma.Broker</em>) – Broker object</p></li>
+<li><p><strong>interval</strong> (<em>string</em>) – The interval in which the target function should be triggered. Units: (seconds: s, minutes: m, days: d, weeks: w, years: y.</p></li>
+<li><p><strong>_id</strong> (<em>string</em>) – identifier for the alarm. If an id for the alarm already exist, then that alarm will be returned.</p></li>
+<li><p><strong>delta</strong> (<em>datetime.Timedelta</em>) – Amount of delay to add on each interval. eg. interval of “1w” with delta=timedelta(days=3) would mean “every Wednesday”.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -814,24 +895,31 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Sock.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.
-:param query: The message that will trigger the function.
-:type query: string
-:param func: The function that should be called whenever the proper message is received.
-:type func: function
-:parap re: (Optional) Enables regex search the query (default: False)</p>
+<dd><p>Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>string</em>) – The message that will trigger the function.</p></li>
+<li><p><strong>func</strong> (<em>function</em>) – The function that should be called whenever the proper message is received.</p></li>
+<li><p><strong>re</strong> (<em>bool</em>) – Enables regex search the query</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Sock.send">
 <span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.send" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sends a message in the socket
-:param msg: Content of the message
-:type msg: string
-:param timeout: (Optional) timeout (default: 5.0)
-:type timeout: float
-:param port: (Optional) the port to send a message from (default: 3003, this is the port that is used by the listener).
-:type port: int</p>
+<dd><p>Sends a message in the socket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>string</em>) – Content of the message</p></li>
+<li><p><strong>timeout</strong> (<em>float</em>) – timeout (default: 5.0)</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – the port to send a message from (default: 3003, this is the port that is used by the listener).</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -870,17 +958,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Traces.here_since">
 <span class="sig-name descname"><span class="pre">here_since</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.here_since" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if price been in the given reagon for a specified amount of time
-:param region: The region of the price
-“param duration: How long in seconds should the price be in this region.</p>
+<dd><p>Returns true if price been in the given reagon for a specified amount of time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>int</em>) – The region of the price</p></li>
+<li><p><strong>duration</strong> (<em>int</em>) – How long, in seconds, is the price expected to be in this region?</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Traces.is_inside">
 <span class="sig-name descname"><span class="pre">is_inside</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ohlc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.is_inside" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks wether if the price was inside the given region within the given candlesticks
-:param region:
-:param ohlc: Candlesticks as a list of dict</p>
+<dd><p>Checks wether if the price was inside the given region within the given candlesticks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>int</em>) – Region to check</p></li>
+<li><p><strong>ohlc</strong> (<em>dict</em><em>[</em><em>]</em>) – Candlesticks as a list of dict</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -891,9 +991,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Traces.set_traces">
 <span class="sig-name descname"><span class="pre">set_traces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_traces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Traces.set_traces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set new traces
-:param new_traces: new traces as dict, key is the name value is the price point
-:type new_traces: &lt;dict&gt;</p>
+<dd><p>Set new traces</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_traces</strong> (<em>dict</em>) – new traces as dict, key is the name value is the price point</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -918,21 +1021,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Trail.is_active">
 <span class="sig-name descname"><span class="pre">is_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.is_active" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns true of trail is active</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Trail.lock">
 <span class="sig-name descname"><span class="pre">lock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.lock" title="Permalink to this definition">¶</a></dt>
-<dd><p>When locked, trail will remain the same even if price changes.
-:param value: (Optional) lockes the trail at a specific value.</p>
+<dd><p>When locked, trail will remain the same even if price changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>float</em>) – lockes the trail at a specific value.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Trail.on_change">
 <span class="sig-name descname"><span class="pre">on_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.on_change" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns True if trails last movement is in the same direction as &lt;dir&gt;/
-:param dir: “higher”, or “lower”,
-:type dir: string</p>
+<dd><p>Returns True if trails last movement is in the same direction as &lt;dir&gt;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir</strong> (<em>string</em>) – “higher”, or “lower”,</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -944,8 +1055,12 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Trail.reset">
 <span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Trail.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resets the trail to the current price * perc
-:param target_price: float (Optional)</p>
+<dd><p>Resets the trail to the current price * perc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>target_price</strong> (<em>float</em>) – resets to target_price*perc instead of current_price*perc</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -971,7 +1086,7 @@
 <span id="src-tuner-module"></span><h2>src.tuner module<a class="headerlink" href="#module-src.tuner" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.tuner.Tuner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">Tuner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label='unlabeled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_func=&lt;function</span> <span class="pre">Tuner.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_child=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.tuner.</span></span><span class="sig-name descname"><span class="pre">Tuner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuning_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label='unlabeled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_func=&lt;function</span> <span class="pre">Tuner.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_child=-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.tuner.Tuner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class will take a Strategy object and backtest it multiple times with different hyper parameters to find the best combination</p>
 <dl class="py method">

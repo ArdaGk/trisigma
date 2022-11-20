@@ -8,22 +8,23 @@ import sys
 #Validate test returns via manual backtest
 class Tuner:
     """This class will take a Strategy object and backtest it multiple times with different hyper parameters to find the best combination"""
-    def __init__ (self, fm, tuning_conf, alg, label='unlabeled', end_func = (lambda _id, output:(_id,output)), max_child=-1, offset=0):
+    def __init__ (self, fm, tuning_conf, algo, label='unlabeled', end_func = (lambda _id, output:(_id,output)), max_child=-1, offset=0):
         """Constructor for Tuner
+
         :param fm: The Filemanager object that will be used to store the details.
         :type fm: <trisigma.filemanager.FileManager>
         :param tuning_conf: config details for the tuning.
-        :type tuning_conf: <dict>
-        :param alg: the Strategy object that will be optimized.
-        :type alg: <trisigma.Strategy>
+        :type tuning_conf: dict
+        :param algo: the Strategy object that will be optimized.
+        :type algo: trisigma.Strategy
         :param label: A name for the tuning job. default: "unlabeled"
         """
         self.max_child = multiprocessing.cpu_count() if max_child == -1 else max_child
         self.fm = fm
         self.tuning_conf = tuning_conf
-        self.alg = alg
+        self.alg = algo
         self.parameters = self.tuning_conf['parameters']
-        self.market = self.tuning_conf['medium']
+        self.market = self.tuning_conf['market']
         self.label = label
         self.end_func = end_func
         self.max_child = max_child
@@ -101,7 +102,7 @@ class Tuner:
 
         _id=key['variation_id']
         conf = {"freq": self.market['freq'], 
-                "lookback": self.market["range"], 
+                "lookback": self.market["length"], 
                 "symbols": symbols,
                 'variation_id': _id}
         conf = conf | source

@@ -6,8 +6,10 @@ from datetime import date, datetime
 class FileManager:
 
     def __init__ (self, base_path=None):
-        """Constructor for Filemanager
-        :param base_path: the dir where data should be stores.
+        """Constructor for FileManager
+
+        :param base_path: Data will be stored in this directory.
+        :type base_path: string
         """
         default = os.path.join(os.getcwd(), "appdata")
         self.dir = {}
@@ -46,9 +48,11 @@ class FileManager:
 
     def log(self, name, data):
         """Append a message to a log file. (stored in algdata/logs/)
-        :param name: name of the log file (without extension)
-        :param data: text to append
-        :type data: <str>
+
+        :param name: Name of the log file (without extension)
+        :type name: string
+        :param data: The message
+        :type data: string
         """
         name = self.add_ext(name, '.txt')
         with open(self.dir['log'] + name, 'a') as file:
@@ -56,8 +60,13 @@ class FileManager:
 
     def save(self, output, name, _dir="var"):
         """Save a variable in "algdata/data/var/" as a json file.
+
         :param output: variable that will be saved.
+        :type output: string
         :param name: file name (without extension)
+        :type name: string
+        :param _dir: If it needs to be stored in another folder, then the name of the foler should be specified here.
+        :type _dir: string
         """
         name = self.add_ext(name, '.json')
         with open(self.dir[_dir] + name, 'w') as file:
@@ -65,7 +74,11 @@ class FileManager:
 
     def load(self, name, _dir="var"):
         """Load a variable in "algdata/data/var" that was previously saved.
+
         :param name: name of the json file (without .json extension)
+        :type name: string
+        :param _dir: If it needs to be stored in another folder, then the name of the foler should be specified here.
+        :type _dir: string
         """
         name = self.add_ext(name, '.json')
         with open(self.dir[_dir] + name, 'r') as file:

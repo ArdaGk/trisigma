@@ -20,7 +20,9 @@ class Alarm:
 
     def __init__(self, broker, interval, delta=None):
         """Constructor method
+
         :param broker: Broker object
+        :type broker: trisigma.Broker
         :param interval: The interval in which the target function should be triggered. Units: (seconds: s, minutes: m, days: d, weeks: w, years: y.
         :type interval: string
         :param delta: Amount of delay to add on each interval. eg. interval of "1w" with delta=timedelta(days=3) would mean "every Wednesday".
@@ -49,7 +51,17 @@ class Alarm:
         return cond
 
     def static(broker, interval, _id, delta=None):
-        """Alternative constructor that  will keep track of the interval staticly."""
+        """Alternative constructor that  will keep track of the interval staticly.
+
+        :param broker: Broker object
+        :type broker: trisigma.Broker
+        :param interval: The interval in which the target function should be triggered. Units: (seconds: s, minutes: m, days: d, weeks: w, years: y.
+        :type interval: string
+        :param _id: identifier for the alarm. If an id for the alarm already exist, then that alarm will be returned.
+        :type _id: string
+        :param delta: Amount of delay to add on each interval. eg. interval of "1w" with delta=timedelta(days=3) would mean "every Wednesday".
+        :type delta: datetime.Timedelta
+        """ 
         if _id not in Alarm.statics.keys():
             Alarm.statics[_id] = Alarm(broker, interval, delta)
 
@@ -74,10 +86,14 @@ class Alarm:
 class Trail:
     """This class can be used to create trailling loss orders"""
     def __init__(self, broker, perc, save=False):
-        """Constructor
+        """Constructor for Trail object
+
         :param broker: broker object
+        :type broker: trisigma.Broker
         :param perc: The trailling percentage (0.0-1.0)
-        :param save: Whether to save the trail loss in a list for plotting:
+        :type perc: int
+        :param save: Whether to save the trail in a list for plotting:
+        :type save: bool
         """
         self.perc = perc
         self.broker = broker
@@ -113,7 +129,9 @@ class Trail:
 
     def reset(self, target_price=None):
         """Resets the trail to the current price * perc
-        :param target_price: float (Optional)
+
+        :param target_price: resets to target_price*perc instead of current_price*perc
+        :type target_price: float
         """
         perc = self.perc
         if target_price == None:
@@ -124,14 +142,18 @@ class Trail:
         self.last_trail = -1
 
     def is_active(self):
+        """Returns true of trail is active"""
         return self.active
 
     def set_peak (self, peak):
         self.last_trail = self.trail
         self.trail = peak * self.perc
+
     def lock(self, value=None):
         """When locked, trail will remain the same even if price changes.
-        :param value: (Optional) lockes the trail at a specific value.
+
+        :param value: lockes the trail at a specific value.
+        :type value: float
         """
         self.locked = True
         if value != None:
@@ -142,7 +164,8 @@ class Trail:
         self.locked=False
 
     def on_change(self, _dir): #Obsolete
-        """Returns True if trails last movement is in the same direction as <dir>/
+        """Returns True if trails last movement is in the same direction as <dir>
+
         :param dir: "higher", or "lower",
         :type dir: string
         """
@@ -167,7 +190,7 @@ class Trail:
 class Traces:
     """This class can be used to set regions defined by traces"""
     def __init__(self, broker):
-        """Constructor method"""
+        """Constructor for Traces object"""
         self.traces = {}
         self.labels = {}
         self.broker = broker
@@ -176,9 +199,8 @@ class Traces:
         self.hist = {}
         self.crossed_at = -1
 
-
     def __call__(self):
-        """Callin this magic function will update the region of the current price based on the traces."""
+        """Calling this magic method will update the region of the current price based on the traces."""
         price = self.broker.get_price()
         region = None
         size = len(self.traces.keys())
@@ -195,15 +217,19 @@ class Traces:
 
     def here_since (self, region, duration):
         """Returns true if price been in the given reagon for a specified amount of time
+
         :param region: The region of the price
-        "param duration: How long in seconds should the price be in this region.
+        :type region: int
+        :param duration: How long, in seconds, is the price expected to be in this region?
+        :type duration: int
         """
         return region == self.region and self.broker.get_timestamp() >= self.crossed_at + duration
 
     def set_traces(self, new_traces, save=None):
         """Set new traces
+
         :param new_traces: new traces as dict, key is the name value is the price point
-        :type new_traces: <dict>
+        :type new_traces: dict
         """
         self.traces = dict(sorted(new_traces.items(), key=lambda x: x[1]))
         if save != None:
@@ -219,8 +245,11 @@ class Traces:
 
     def is_inside(self, region, ohlc):
         """Checks wether if the price was inside the given region within the given candlesticks
-        :param region:
+
+        :param region: Region to check
+        :type region: int
         :param ohlc: Candlesticks as a list of dict
+        :type ohlc: dict[]
         """
         r = region + int(len(self.traces.keys()) / 2)
         s = region + int(len(self.traces.keys()) / 2) - 1
@@ -246,11 +275,13 @@ class Sock:
     __match = lambda msg, q: (q['re'] and re.search(q['query'], msg)) or (not q['re'] and q['query'] == msg)
     def add(query, func, re=False):
         """Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.
+
         :param query: The message that will trigger the function.
         :type query: string
         :param func: The function that should be called whenever the proper message is received.
         :type func: function
-        :parap re: (Optional) Enables regex search the query (default: False)
+        :param re: Enables regex search the query
+        :type re: bool
         """
         entry = {"query": query, "func": func, "re":re}
         if entry not in Sock.__queries:
@@ -264,11 +295,12 @@ class Sock:
 
     def send(msg, timeout=5.0, port=None):
         """Sends a message in the socket
+
         :param msg: Content of the message
         :type msg: string
-        :param timeout: (Optional) timeout (default: 5.0)
+        :param timeout: timeout (default: 5.0)
         :type timeout: float
-        :param port: (Optional) the port to send a message from (default: 3003, this is the port that is used by the listener).
+        :param port: the port to send a message from (default: 3003, this is the port that is used by the listener).
         :type port: int
         """
         try:
@@ -309,6 +341,7 @@ class Sock:
 
         resp = [q['func'](data) for q in Sock.__queries if Sock.__match(data, q)]
         c.send(json.dumps(resp).encode())
+
 class Globals:
     variables = {}
 

@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import numpy as np
 from . import Globals
 
-class Evaluate:
+class Metrics:
     def __init__ (self, broker, _id = "default"):
         self.broker = broker
         self.balance = broker.get_balance()['full']

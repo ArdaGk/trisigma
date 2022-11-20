@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Backtesting &#8212; trisigma  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deployment" href="deploy.html" />
+    <link rel="prev" title="Components" href="components.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deploy.html" title="Deployment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="components.html" title="Components"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Backtesting</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="backtesting">
+<h1>Backtesting<a class="headerlink" href="#backtesting" title="Permalink to this heading">¶</a></h1>
+<p>Simply import the algo into main.py. Parameters of the backtest are passed as a “CONF” dictionary</p>
+<section id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this heading">¶</a></h2>
+<p>main.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">firstalgo</span> <span class="kn">import</span> <span class="n">FirstAlgo</span>
+<span class="kn">from</span> <span class="nn">trisigma.backtesting</span> <span class="kn">import</span> <span class="n">Backtesting</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="n">CONF</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span><span class="n">FirstAlgo</span><span class="p">,</span>
+        <span class="s1">&#39;intervals&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;5m&#39;</span><span class="p">,</span> <span class="s1">&#39;1w&#39;</span><span class="p">,</span> <span class="s1">&#39;15m&#39;</span><span class="p">,</span> <span class="s1">&#39;1h&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;freq&#39;</span><span class="p">:</span> <span class="s1">&#39;5s&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lookback&#39;</span><span class="p">:</span> <span class="mi">365</span><span class="p">,</span>
+        <span class="s1">&#39;delta&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">),</span>
+        <span class="s1">&#39;balance&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="s1">&#39;symbols&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;LINKSDT&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="s2">&quot;ETHUSDT&quot;</span><span class="p">}],</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s2">&quot;1y_data&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s2">&quot;binance&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;fm&#39;</span><span class="p">:</span> <span class="s2">&quot;./data/&quot;</span><span class="p">}</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">Backtesting</span><span class="p">(</span><span class="n">CONF</span><span class="p">)</span>
+<span class="n">test</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>strategy</strong>: the algo as a class.</p></li>
+<li><p><strong>intervals</strong>: The candlestick intervals that will be needed. Unlike livetest, backtesting doesn’t require range for candles, this is all the candles from past will be cached.</p></li>
+<li><p><strong>freq</strong>: At what interval should the algo be called? This value has to be the smallest among those in the ‘intervals’.  Units: (s)econd, (m)inute, (h)our, (d)ay</p></li>
+<li><p><strong>lookback</strong>: How past should the backtest extend (in days)</p></li>
+<li><p><strong>delta</strong>: This is basically an offset for the backtest’s start time. For example, if the algo needs 2 weeks of past data in order to calculate SMA, then delta should be set totimedelta(days=14) in order to prevent IndexError.</p></li>
+<li><p><strong>symbols</strong>: This is for the symbols that will be traded. Format: [{“symbol”: &lt;symbol&gt;},]. This is also where symbol-specific parameters can be declared; Any additional key  passed can be accessed within the algo via self.config_data[‘&lt;param_name&gt;’]</p></li>
+<li><p><strong>name</strong>: (Optional), giving a name will automatically store the scraped market data in the disk. Next time the algo is backtested with the same name, market data in the disk will be used instead.</p></li>
+<li><p><strong>source</strong>: Source of market data. (binance/webull)</p></li>
+<li><p><strong>fm</strong>: The path where the data should be stored.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Backtesting</a><ul>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="components.html"
+                          title="previous chapter">Components</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="deploy.html"
+                          title="next chapter">Deployment</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/backtesting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deploy.html" title="Deployment"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="components.html" title="Components"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Backtesting</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Arda Gok.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+    </div>
+  </body>
+</html>

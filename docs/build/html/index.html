@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Trisigma &#8212; trisigma  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -19,7 +19,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="docs" href="modules.html" /> 
+    <link rel="next" title="Components" href="components.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,7 +31,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="modules.html" title="docs"
+          <a href="components.html" title="Components"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">trisigma  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Trisigma</a></li> 
@@ -48,16 +48,32 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">docs</a><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="components.html#trisigma-toolkit">trisigma.toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#trisigma-time-utils">trisigma.time_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#trisigma-scraper">trisigma.scraper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#trisigma-slack">trisigma.slack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html#trisigma-filemanager">trisigma.filemanager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backtesting.html">Backtesting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="backtesting.html#sample">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backtesting.html#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deploy.html">Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deploy.html#sample">Sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy.html#main-parameters">Main Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy.html#platform-specific-parameters">Platform-specific Parameters:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tuning.html">Hyper Parameter Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html#src.tuner.Tuner"><code class="docutils literal notranslate"><span class="pre">Tuner</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tuning.html#sample">Sample</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<section id="structure">
-<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this heading">¶</a></h2>
-<p>Trisigma framework follows an adapter pattern to make backtesting and various brokerages accessible through the same interface. As a result, the trading strategy, as an object, can go live or backtested without needing to tweak.</p>
-<p>The goal of this architecture is to make backtesting a debugging tool that detects potential flaws in the code before going live.</p>
-</section>
 <section id="main-features">
 <h2>Main Features<a class="headerlink" href="#main-features" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
@@ -124,7 +140,6 @@
     <h3><a href="#">Table of Contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Trisigma</a><ul>
-<li><a class="reference internal" href="#structure">Structure</a></li>
 <li><a class="reference internal" href="#main-features">Main Features</a></li>
 <li><a class="reference internal" href="#platforms">Platforms</a><ul>
 <li><a class="reference internal" href="#quickstart">Quickstart</a></li>
@@ -138,8 +153,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="modules.html"
-                          title="next chapter">docs</a></p>
+    <p class="topless"><a href="components.html"
+                          title="next chapter">Components</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -172,7 +187,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="modules.html" title="docs"
+          <a href="components.html" title="Components"
              >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">trisigma  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Trisigma</a></li> 
