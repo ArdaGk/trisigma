@@ -13,8 +13,9 @@ naming conventions has to be defined
 
 Code coverage
 unwebull
+Polybinance globals save must also include label
 
-
+Plugin
 Plot removed
 Gspread removed
 yahoo removed
