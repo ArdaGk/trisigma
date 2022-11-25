@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from . import binance_stream
 from . import ibkr
+from . import webull
 import time
 import threading
 from trisigma.filemanager import FileManager
@@ -23,17 +24,21 @@ class LiveTest:
         self.fm = FileManager() if 'fm' not in conf.keys() else FileManager(conf['fm'])
         self.platform = conf['platform']
         self.end_time = 10**12 if "end_time" not in conf.keys() else conf['end_time']
+        self.label = conf['label']
+        self.freq = conf['freq']
 
         if self.platform.lower() in ["binance", "binance.com"]:
             self.api_key = conf["api_key"]
             self.secret_key = conf["secret_key"]
-            self.label = conf['label']
             self.setup = self.__binance_setup
         elif self.platform.lower() in ["ibkr-real", "ib-real", "ibkr-paper", "ib-paper"]:
             self.setup = self.__ibkr_setup
             ports = {'TWS': {'LIVE': 7496, 'PAPER': 7497},
                     'IBG': {'LIVE': 4001, 'PAPER': 4002}}
             self.port = ports['TWS'][self.platform.split('-')[1].upper()]
+        elif self.platform.lower() in ['webull-paper', 'webull-real']
+            self.setup = self.__webull_setup
+            self.cred = conf['credentials']
 
     def connect(self, *argv):
         """Starts the live test. This function will require additional arguments depending on the platform of choice"""
@@ -56,6 +61,7 @@ class LiveTest:
               self.client.update_klines(sym['symbol'], k, v)
         Sock.add("pause", self.pause)
         Sock.add("resume", self.resume)
+
     def __ibkr_setup(self, *argv):
         self.client = ibkr.Client()
         time.sleep(1)
@@ -74,6 +80,19 @@ class LiveTest:
             #self.bots[sym['symbol']]['alg']
             for k, v in self.load.items():
                 self.client.load_ohlc(sym['symbol'], v, k)
+
+    def __webull_setup(self, *argv):
+        self.client = webull.Client(self.cred, self.label, self.fm)
+        self.wait = 1
+        self.init = (datetime.now() - timedelta(days=1)).timestamp()
+        self.resps = {}
+        self.bots = {}
+        for sym in self.symbols:
+            self.bots[sym['symbol']] = {"alg": self.alg(), "freq": self.freq, "last": datetime.now().timestamp()}
+            self.bots[sym['symbol']]['alg'].setup(webull.Broker(sym['symbol'], self.client), self.fm, config_data=sym, label = self.label)
+        Sock.add("pause", self.pause)
+        Sock.add("resume", self.resume)
+
 
     def start(self):
         while datetime.now().timestamp() < self.end_time:

@@ -5,6 +5,9 @@ pot manager
 tuner.py needs to be refactored
 setup and 'strategy' and livetest
 evaluation_utils changed to metrics
+Webull missing paper-live and symbols for client constructor
+Binance still using symbol based freq
+Binance passes balance for broker, __init__ signatures has to be identical
 
 Code coverage
 unwebull

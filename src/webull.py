@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from trisigma.time_utils import to_timestamp
+from trisigma.time_utils import to_timestamp, BadInterval
 
 #Access token expire error
 #Access via webull and rewrite over time
@@ -18,14 +18,18 @@ from trisigma.time_utils import to_timestamp
 #cancel single thread
 #other brokers might not have cancelall "side" option
 #Cant get above 4h
+#get_ohlc, pull_ohlc, get_klines requires heavy refactoring
 
 class Client:
-    def __init__ (self, cred, label):
+    def __init__ (self, cred, label, fm):
         self.label = label
         self.client = self.login(cred)
+        self.fm = fm
         self.quote = {}
         self.trades = {}
         self.account = {}
+        self.klines = {}
+        self.load = {}
 
     def login (self, cred):
         wb = paper_webull()
@@ -56,8 +60,12 @@ class Client:
         price = float(resp['close'])
         return {"price": price, "bid": bid, "ask": ask}
 
-    def get_candles (self):
-        pass
+    def get_market_data (self):
+        data = {}
+        for sym in self.symbols:
+            klines[sym] = {}
+            for k, v in self.load.items():
+                klines[sym][k] = self.pull_klines(sym, k, v)
 
     def get_trades (self):
         orders = wbo.wbo.get_history_orders(status="Filled",count=200)
@@ -102,8 +110,11 @@ class Client:
         except:
             print("No symbol is matched!")
 
-    def get_klines_min(ticker, interval, lookback):
-        mins = to_timestamp(interval) / 60
+    def pull_klines(ticker, interval, lookback):
+        mins, step = self.get_step(interval)
+        lookback*=step 
+        #needss df resample
+        #mins = to_timestamp(interval) / 60
         headers = { 'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
                 'device-type': 'Web',
                 'did': '25970a42e9a34894955769aaea8f5600',
@@ -198,7 +209,23 @@ class Client:
 
             return dff[-lookback:].reset_index(drop=True) 
 
+    def get_step (interval, duration=360):
+        duration = 360
+        factors = [5, 15, 30, 60, 120, 240]
+        mins = to_timestamp(interval) / 60
+        if mins >= 86400/60:
+            market_days = mins/(86400/60)
+            if market_days % 1 != 0:
+                raise BadInterval(f"interval: {interval} cannot be divided into days")
+            mins = market_days * duration
+            factors = [fac for fac in factors if duration % fac == 0]
 
+        coefs = [mins / fac for fac in factors]
+
+        for i, coef in enumerate(reversed(coefs)):
+            if coef % 1 == 0:
+                return (coef, factors[-(i+1)])
+        return -1
 
 
 class Broker:
@@ -305,7 +332,7 @@ class Broker:
         return self.__balance
 
     def get_ohlc(self, interval, lookback=1):
-        return self.client.get_klines_min(self.symbol, interval, lookback)
+        return self.client.klines[self.symbol][interval][:lookback]
 
     def get_price(self, lookback=1):
         return self.__price
