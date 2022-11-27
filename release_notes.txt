@@ -8,6 +8,8 @@ evaluation_utils changed to metrics
 Webull missing paper-live and symbols for client constructor
 Binance still using symbol based freq
 Binance passes balance for broker, __init__ signatures has to be identical
+webull-paper isnt declared in stream
+naming conventions has to be defined
 
 Code coverage
 unwebull
