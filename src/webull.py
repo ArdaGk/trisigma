@@ -21,7 +21,7 @@ from trisigma.time_utils import to_timestamp, BadInterval
 #get_ohlc, pull_ohlc, get_klines requires heavy refactoring
 
 class Client:
-    def __init__ (self, cred, label, fm):
+    def __init__ (self, cred, load, label, fm):
         self.label = label
         self.client = self.login(cred)
         self.fm = fm

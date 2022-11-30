@@ -90,18 +90,3 @@ class MonoAlgo:
     def get_algo(self):
         return self.algo
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return datetime.fromtimestamp(int(result))
