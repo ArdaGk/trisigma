@@ -4,7 +4,7 @@ import os
 import sys
 
 DATA_PATH = os.path.join(os.getcwd(), "appdata/")
-LABEL = sys.argv[1]
+LABEL = "UNLABELED" if len(sys.argv) == 1 else sys.argv[1]
 CREDENTIALS = os.getenv("WEBULL_TOKEN")
 SYMBOLS =  [{'symbol': 'AAPL'},
             {'symbol': 'AMZN'},
