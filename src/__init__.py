@@ -1,18 +1,6 @@
-import json
-import time
-import re
-import socket
-import threading
-import pandas as pd
-import plotly.graph_objects as go
-from datetime import datetime, timedelta
-from dateutil import tz
-from .alg_exceptions import Disconnected, AlgException, err
+from .alg_exceptions import Disconnected
 from .alg_events import BaseListener
-import requests
-import gspread
-import numpy as np
-
+from .toolkit import Sock
 
 class Strategy:
     shared_data = {"symbols": {}}
@@ -47,6 +35,7 @@ class Strategy:
         self.master = master
         self.auto_broker = auto_broker
         self.config_data = config_data
+        Strategy.shared_data[broker.symbol] = {}
         Sock.add(self.symbol + " pause", self.pause)
         Sock.add(self.symbol + " resume", self.resume)
         Sock.add(self.symbol + " sellall", self.empty)
@@ -92,9 +81,14 @@ class Strategy:
         return f'{self.symbol}s sold'
 
     def save_shared_data(self):
-        fm.save(Strategy.shared_data, f'{Strategy.__label}_shared_data')
-    def load_shared_data(self, path):
-        data = fm.load(f'{Strategy.__label}_shared_data')
+        self.fm.save(Strategy.shared_data, f'{Strategy.__label}_shared_data')
+
+    def load_shared_data(self):
+        data = self.fm.load(f'{Strategy.__label}_shared_data')
+        return data
+
+    def get_shared_data(self):
+        return Strategy.shared_data
 
     def bind(self, alg, auto=False):
         alg.setup(self.broker, self.fm, master=self, auto_broker=auto)

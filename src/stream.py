@@ -3,7 +3,7 @@ from . import binance_stream
 from . import ibkr
 from . import webull
 import time
-from time_utils import to_timestamp
+from .time_utils import to_timestamp
 import threading
 from trisigma.filemanager import FileManager
 from trisigma import Sock
@@ -23,7 +23,7 @@ class LiveTest:
         self.fm = FileManager() if 'fm' not in conf.keys() else FileManager(conf['fm'])
         self.platform = conf['platform']
         self.end_time = 10**12 if "end_time" not in conf.keys() else conf['end_time']
-        
+
         self.client = self.__get_client(conf)
         self.algos = self.__build_algos(conf['strategy'], self.client, conf['symbols'], conf['label'], conf['freq'], conf['fm'])
 
@@ -39,11 +39,11 @@ class LiveTest:
 
     def __get_client(self, conf):
         platform = conf['platform']
+        symbols = [sym_data['symbol'] for sym_data in conf['symbols']]
         if platform in ['binance']:
-            symbols = [sym_data['symbol'] for sym_data in conf['symbols']]
             return binance_stream.Client(conf['api_key'], conf['secret_key'], symbols, self.fm, conf['label'])
         elif platform in ['webull-paper']:
-            return webull.Client(conf['credentials'], conf['load'], self.fm , conf['label'])
+            return webull.Client(conf['credentials'], conf['load'], symbols, self.fm , conf['label'])
 
     def __get_broker(self):
         if self.platform in ['binance']:
@@ -55,7 +55,7 @@ class LiveTest:
         algos = []
         for sym_data in symbols:
             freq = main_freq if "freq" not in sym_data.keys() else sym_data['freq']
-            broker = self.__get_broker(sym_data['symbol'], client, label=label)
+            broker = self.__get_broker()(sym_data['symbol'], client, label=label)
             algo = MonoAlgo(strategy, broker, fm, sym_data, label, freq)
             algos.append(algo)
         return algos
@@ -63,14 +63,14 @@ class LiveTest:
         
     def pause (self):
         resp = []
-        for algo in self.algos.values():
+        for algo in self.algos:
             resp.append(algo.get_algo().pause())
         print("stream paused")
         return '\n'.join(resp)
 
     def resume (self):
         resp = []
-        for algo in self.algos.values():
+        for algo in self.algos:
             resp.append(algo.get_algo().resume())
         print("stream resumed")
         return '\n'.join(resp)

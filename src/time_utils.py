@@ -2,8 +2,8 @@ from datetime import datetime
 
 
 
-class BadInterval (Exception):
-   pass 
+class BadIntervalError (Exception):
+   pass
 
 def to_timestamp(rng):
     """Converts a string interval into int seconds, eg. "1m" --> 60, "2d" --> 172800

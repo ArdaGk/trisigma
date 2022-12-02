@@ -1,9 +1,3 @@
 __pycache__/
 gspread.json
 trisigma.egg-info/
-*.py
-*.out
-!setup.py
-!docs/source/*.py
-!src/*.py
-!test/manual-binance/*.py
