@@ -1,6 +1,5 @@
-from trisigma import Strategy
-from trisigma.toolkit import *
-import os
+from src import Strategy
+from src.toolkit import *
 
 class WebullTester (Strategy):
 
@@ -21,8 +20,8 @@ class WebullTester (Strategy):
                 return
             typ  = parts[2]
             side = parts[3]
-            amount = int(parts[4])
-            limit = None if typ == "market" else int(parts[5])
+            amount = float(parts[4])
+            limit = None if typ == "market" else float(parts[5])
             funcs = {"buy": self.broker.buy,
                     "quote_buy": self.broker.quote_buy,
                     "sell": self.broker.sell,

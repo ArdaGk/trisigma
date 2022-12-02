@@ -94,8 +94,8 @@ class Client:
             raise Exception(f"err, Unknown order type: {typ}")
         return order
 
-    def get_time (self):
-        return datetime.now()
+    def get_timestamp (self):
+        return datetime.now().timestamp()
 
     def ping (self, target="https://quotes-gw.webullfintech.com"):
         start = datetime.now().timestamp()
@@ -252,15 +252,15 @@ class Broker:
         self.client.update(self.symbol)
         trades = []
         open_orders = {"BUY":[], "SELL":[]}
-        position = {}
+        position = {"full": 0, "free": 0, "locked": 0}
         balance = {}
         translator = {"Working": "NEW", "LMT": "LIMIT", "MKT": "MARKET"}
 
         for order in self.client.account['openOrders']:
             sym = order['ticker']['symbol']
             if sym == self.symbol:
-                entry = {"orderId": float(order['orderId']),
-                        "time": float(order["createTime0"]),
+                entry = {"orderId": int(order['orderId']),
+                        "time": int(order["createTime0"]),
                         "symbol": sym,
                         "side": order['action'],
                         "price": float(order["lmtPrice"]),
@@ -297,7 +297,7 @@ class Broker:
                 free = float(mem['value'])
                 balance = {"full": free, "free": free, "locked": -1}
 
-        self.__time = self.client.get_time()
+        self.__timestamp = self.client.get_timestamp()
         self.__price = self.client.quotes[self.symbol]['price']
         self.__position = position
         self.__balance = balance
@@ -323,7 +323,7 @@ class Broker:
         return order
 
     def cancel(self, orderId):
-        self.client.cancel(self.symbol, orderId)
+        return self.client.cancel(self.symbol, orderId)
 
     def cancel_all(self, side='all'):
         orders = self.__open_orders['BUY'] + self.__open_orders['SELL'] if side == 'all' else self.__open_orders[side]
