@@ -19,6 +19,8 @@ class ReservedSpot (Spot):
         self.fm = fm
         self.init_capital=start_balance
         self.filename = f"{self.label}_reserved_acc"
+        self.balances = {}
+        self.quote_asset = 'USDT'
         self.__load()
 
         self.filt = lambda arr: [x for x in arr if x['orderId'] in self.orderIds]
@@ -27,34 +29,42 @@ class ReservedSpot (Spot):
         return resp
 
     def cancel_open_orders (self, *args, **kwargs):
-        resp = super().cancel_open_orders(*args, **kwargs)
+        orders = self.get_open_orders(args[0])
+        all_resps = [self.cancel_order(args[0], orderId=o['orderId']) for o in orders['data']]
+        weight = float(orders['limit_usage']['x-mbx-used-weight'])
+        data = []
+        for r in all_resps:
+            weight += float(r['limit_usage']['x-mbx-used-weight'])
+            data.append(r['data'])
+        resp = {'data': data, 'limit_usage':{'x-mbx-used-weight': str(weight), 'x-mbx-used-weight-1m': str(weight)}}
         return resp
 
     def new_order (self, *args, **kwargs):
         resp = super().new_order(*args, **kwargs)
-        if 'orderId' in resp.keys():
-            self.orderIds.append(resp['orderId'])
+        if 'orderId' in resp['data'].keys():
+            self.orderIds.append(resp['data']['orderId'])
             self.__save()
-        self.all_orders = super().get_orders(args[0])['data']
+        self.all_orders[args[0]] = super().get_orders(args[0])['data']
         return resp
 
     def get_open_orders (self, *args, **kwargs):
         resp = super().get_open_orders(*args, **kwargs)
-        filtered = self.filt(resp)
-        return filtered
+        filtered = self.filt(resp['data'])
+        resp['data'] = filtered
+        return resp
+
 
     def my_trades (self, *args, **kwargs):
         resp = super().my_trades(*args, **kwargs)
-        filtered = self.filt(resp)
-        return filtered
+        filtered = self.filt(resp['data'])
+        resp['data'] = filtered
+        return resp
 
     def account (self, *args, **kwargs):
-        print(args)
-        print(kwargs)
         resp = super().account(*args, **kwargs)
         #Update all_orders
         executions = self.__get_executions(resp['data']['balances'])
-        quote_asset = 'USDT'
+        quote_asset = self.quote_asset
         for asset in executions:
             if asset == quote_asset:
                 continue
@@ -100,9 +110,10 @@ class ReservedSpot (Spot):
                         quote_locked+=qty*price
             entry = {"asset": bal['asset'], "free":full-locked, "locked":locked}
             balance.append(entry)
-
+            self.balances[bal['asset']] = entry
         quote_bal = {"asset": quote_asset, "free":self.init_capital + quote-quote_locked, "locked":quote_locked}
         balance.append(quote_bal)
+        self.balances[quote_asset] = quote_bal
         resp['data']['balances'] = balance
         return resp
 
@@ -119,6 +130,7 @@ class ReservedSpot (Spot):
                     continue
             print(f"new execution: {k}")
             output.append(k)
+        self.old_balance = new_balance
         return output
 
     def __save(self):
@@ -127,9 +139,9 @@ class ReservedSpot (Spot):
     def __load(self):
         try:
             data = self.fm.load(self.filename)
-            self.orderIds = data['orderids']
+            self.orderIds = data['orderIds']
             self.all_orders = data['all_orders']
-            self.old_balance = data['old_balance']           
+            self.old_balance = data['old_balance']
         except FileNotFoundError:
             self.orderIds = []
             self.all_orders = {}

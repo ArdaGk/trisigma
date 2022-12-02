@@ -55,7 +55,7 @@ class LiveTest:
         algos = []
         for sym_data in symbols:
             freq = main_freq if "freq" not in sym_data.keys() else sym_data['freq']
-            broker = self.__get_broker()(sym_data['symbol'], client, label=label)
+            broker = self.__get_broker()(sym_data['symbol'], client)
             algo = MonoAlgo(strategy, broker, fm, sym_data, label, freq)
             algos.append(algo)
         return algos

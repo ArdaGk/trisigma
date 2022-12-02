@@ -32,7 +32,7 @@ class Client:
         self.symbols = symbols
         self.label = label
         self.fm = fm
-        self.quote = {}
+        self.quotes = {}
         self.trades = {}
         self.account = {}
         self.klines = {}
@@ -40,26 +40,25 @@ class Client:
 
     def login (self, cred):
         wb = paper_webull()
-        with open(cred, "r+") as f:
+        with open(cred, "r") as f:
             result = json.load(f)
             wb._refresh_token = result['refreshToken']
             wb._access_token = result['accessToken']
             wb._token_expire = result['tokenExpireTime']
             wb._uuid = result['uuid']
             n_result = wb.refresh_login()
-            print(n_result)
             result['refreshToken'] = n_result['refreshToken']
             result['accessToken'] = n_result['accessToken']
             result['tokenExpireTime'] = n_result['tokenExpireTime']
-            f.write(json.dumps(result))
-            wb.get_account_id()
+        with open(cred, "w") as f:
+            json.dump(result, f)
         return wb
 
     def update (self, symbol):
         self.account = self.wb.get_account()
         self.trades = self.get_trades()
         self.latency = self.ping()
-        self.quote[symbol] = self.get_quote(symbol)
+        self.quotes[symbol] = self.get_quote(symbol)
 
     def get_quote (self, symbol):
         resp = self.wb.get_quote(symbol)
@@ -273,6 +272,8 @@ class Broker:
 
                 open_orders[order['action']].append(entry)
 
+        if self.symbol not in self.client.trades.keys():
+            self.client.trades[self.symbol] = []
         for trd in self.client.trades[self.symbol]:
             entry = {"orderId": int(trd['orderId']),
                     "time": int(trd["filledTime0"]),
@@ -291,13 +292,13 @@ class Broker:
                 full = float(pos['position'])
                 position = {"full": full, "free": -1, "locked": -1}
 
-        for mem in self.client.get_account()['accountMembers']:
+        for mem in self.client.account['accountMembers']:
             if mem['key'] == 'usableCash':
                 free = float(mem['value'])
                 balance = {"full": free, "free": free, "locked": -1}
 
         self.__time = self.client.get_time()
-        self.__price = self.client.get_price(self.symbol) #not OK
+        self.__price = self.client.quotes[self.symbol]['price']
         self.__position = position
         self.__balance = balance
         self.__open_orders = open_orders

@@ -40,8 +40,7 @@ class WebullTester (Strategy):
         self.globals['open_orders'] = self.broker.get_open_orders()
         self.globals['trades_len'] = len(self.broker.get_trades())
         self.get_shared_data()[self.symbol] = self.globals
-        if self.broker.symbol == 'LINKUSDT':
-            self.display()
+        self.display()
 
     def display (self):
         line = '\n' + ('='*30) + '\n'
