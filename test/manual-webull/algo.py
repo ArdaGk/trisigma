@@ -30,10 +30,10 @@ class WebullTester (Strategy):
             return resp
         except Exception  as exc:
             print(exc)
-            print(parts)
 
 
     def late_update (self):
+        print(self.broker.get_ohlc("15m", 10))
         self.globals['price'] = self.broker.get_price()
         self.globals['position'] = self.broker.get_position()
         self.globals['open_orders'] = self.broker.get_open_orders()

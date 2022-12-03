@@ -16,7 +16,7 @@ SYMBOLS =  [{'symbol': 'AAPL'},
 
 conf = {'strategy': WebullTester,
     'load': {'15m': 96*2, '1w': 5},
-    'freq': '5s',
+    'freq': '10s',
     'platform': 'webull-paper',
     'symbols': SYMBOLS,
     'credentials': CREDENTIALS,
