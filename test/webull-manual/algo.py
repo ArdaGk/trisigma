@@ -13,6 +13,35 @@ class WebullTester (Strategy):
         Sock.add(f"{self.label} {self.broker.symbol}", self.action, re=True)
 
     def action (self, msg):
+        parts = msg.lower().split()[2:]
+        funcs = {"quote_buy": self.broker.quote_buy,
+                "quote_sell": self.broker.quote_sell,
+                "buy": self.broker.buy,
+                "sell": self.broker.sell}
+        resp = f"err, unknown command for {self.label}/{self.symbol}"
+        if parts[0] == "market":
+            func = funcs[parts[1]]
+            amount = parts[2]
+            resp = func("MARKET", amount)
+            print("market sell")
+        if parts[0] == "limit":
+            func = funcs[parts[1]]
+            amount = parts[2]
+            limit_price = float(parts[-1])
+            resp = func("LIMIT", amount, limit_price=limit_price)
+            print("limit")
+        if parts[0] == "cancel":
+            orderId = parts[1]
+            resp = self.broker.cancel(orderId)
+        if parts[0] == "cancel_all":
+            side = parts[1]
+            resp = self.broker.cancel_all(side=side)
+        return resp
+
+
+
+
+    def old_action (self, msg):
         try:
             parts = msg.lower().split()
             if parts[2].lower() == "cancel":
