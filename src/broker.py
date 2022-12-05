@@ -1,44 +1,52 @@
-from binance.spot import Spot
-from datetime import datetime, timedelta
-import math
-import copy
-
-
 class Broker:
 
     def __call__(self):
         """Updates broker attributes (price, position, balance, time)"""
         return
-    def buy(self, _type, qty, limit_price=None):
+    def buy(self, typ, qty, limit_price=None):
         """Buy a certain quantity from an asset.
-        :param _type: "LIMIT" or "MARKET"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param qty: quantity
-        :param limit_price: Limit price for _type="LIMIT"
+        :type qty: float
+        :param limit_price: Limit price if typ="LIMIT"
+        :type limit_price: float
         """
         return
-    def quote_buy(self, _type, quote_price, limit_price=None):
+    def quote_buy(self, typ, quote_price, limit_price=None):
         """Buy an asset with a quote price.
-        :param _type: "LIMIT" or "MARKET"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param quote_price: amount of asset to purchase with the quote price.
-        :param limit_price" limit price for _type="LIMIT"
+        :type quote_price: float
+        :param limit_price" limit price if typ="LIMIT"
         """
         return
-    def sell(self, _type, qty, limit_price=None):
+    def sell(self, typ, qty, limit_price=None):
         """Sell a certain quantity from an asset.
-        :param _type: "LIMIT" or "MARKET"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param qty: quantity
-        :param limit_price: Limit price for _type="LIMIT"
+        :type qty: float
+        :param limit_price: Limit price if typ="LIMIT"
         """
         return
-    def quote_sell(self, _type, quote_price, limit_price=None):
+    def quote_sell(self, typ, quote_price, limit_price=None):
         """Sell an asset with a quote price.
-        :param _type: "LIMIT" or "MARKET"
-        :param quote_price: amount of asset to sell with the quote price.
-        :param limit_price" limit price for _type="LIMIT"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
+        :param quote_price: amount of asset to purchase with the quote price.
+        :type quote_price: float
+        :param limit_price" limit price if typ="LIMIT"
         """
         return
     def cancel(self, orderId):
         """Cancel an existing open order
+
         :param orderId: the order id which to cancel.
         """
         return
@@ -63,9 +71,11 @@ class Broker:
 
     def get_ohlc(self, interval, lookback=1):
         """Returns previous candles
+
         :param interval: candle interval eg. "1h"
+        :type interval: string
         :param lookback: how many candles to return
-        :type lookback: <int>
+        :type lookback: int
         """
         return
 
@@ -99,7 +109,10 @@ class Broker:
 
     def on_trade(self, side='all', _type='all'):
         """Returns True if there was a trade since the last time this function is called, (this is NOT a pure function, if it returns True, the new trade will be stored)
-        :param side: (Optional) checks a specific side:  'BUY', 'SELL', 'all' (default).
-        :param _type: (Optional) checks a specific order typeL 'MARKET', 'LIMIT', 'all' (default).
+
+        :param side: Checks a specific side:  'BUY', 'SELL', 'all' (default).
+        :param side: string
+        :param typ: Checks a specific order type: 'MARKET', 'LIMIT', 'all' (default).
+        :param typ: string
         """
         return
