@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 import numpy as np
-from . import Globals
 
 class Evaluate:
     def __init__ (self, broker, _id = "default"):
@@ -9,8 +8,10 @@ class Evaluate:
 
         self.alloc_hist = []
         self._id = _id
+        """
         if _id not in Globals.variables.keys():
             Globals.variables[_id]={''}
+        """
 
     def get_return (self, trades, rng:timedelta = None):
         trades = self.broker.trades

@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from trisigma.time_utils import to_timestamp, BadIntervalError
+from trisigma.time_utils import to_timestamp, to_timestamp_split, BadIntervalError
 from webull import paper_webull
 import json
 import requests
@@ -36,7 +36,7 @@ class Client:
         self.trades = {}
         self.account = {}
         self.klines = {}
-        self.load = {}
+        self.load = load
 
     def login (self, cred):
         wb = paper_webull()
@@ -57,8 +57,9 @@ class Client:
     def update (self, symbol):
         self.account = self.wb.get_account()
         self.trades = self.get_trades()
-        self.latency = self.ping()
+        #self.latency = self.ping()
         self.quotes[symbol] = self.get_quote(symbol)
+        self.klines[symbol] = self.get_market_data(symbol)
 
     def get_quote (self, symbol):
         resp = self.wb.get_quote(symbol)
@@ -67,13 +68,11 @@ class Client:
         price = float(resp['close'])
         return {"price": price, "bid": bid, "ask": ask}
 
-    def get_market_data (self):
+    def get_market_data (self, symbol):
         data = {}
-        klines = {}
-        for sym in self.symbols:
-            klines[sym] = {}
-            for k, v in self.load.items():
-                klines[sym][k] = self.pull_klines(sym, k, v)
+        for k, v in self.load.items():
+            data[k] = self.pull_klines(symbol, k, v)
+        return data
 
     def get_trades (self):
         orders = self.wb.get_history_orders(status="Filled",count=200)
@@ -85,17 +84,17 @@ class Client:
             trades[order['ticker']['symbol']].append(order)
         return trades
 
-    def trade(self, symbol, typ, side, qty, limit_price = None):
+    def trade(self, symbol, typ, side, qty, limit_price = None, enforce = "GTC"):
         if typ in ['MARKET', 'MKT']:
             order = self.wb.place_order(stock=symbol, action=side, orderType="MKT", quant=qty)
         elif typ in ['LIMIT', 'LMT']:
-            order = self.wb.place_order(stock=symbol, action=side, orderType="LMT", price=limit_price, enforce = "DAY", quant=qty)
+            order = self.wb.place_order(stock=symbol, action=side, orderType="LMT", price=limit_price, enforce=enforce, quant=qty)
         else:
             raise Exception(f"err, Unknown order type: {typ}")
         return order
 
-    def get_time (self):
-        return datetime.now()
+    def get_timestamp (self):
+        return datetime.now().timestamp()
 
     def ping (self, target="https://quotes-gw.webullfintech.com"):
         start = datetime.now().timestamp()
@@ -121,10 +120,9 @@ class Client:
             print("No symbol is matched!")
 
     def pull_klines(self, ticker, interval, lookback):
-        mins, step = self.get_step(interval)
-        lookback*=step 
-        #needss df resample
-        #mins = to_timestamp(interval) / 60
+        step, mins = self.get_step(interval)
+        step_lookback= lookback*int(step)
+
         headers = { 'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
                 'device-type': 'Web',
                 'did': '25970a42e9a34894955769aaea8f5600',
@@ -143,23 +141,22 @@ class Client:
                 'ver': '3.37.7',
                 'osv': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'}
         
-        rng = (lookback // 1200) + 1
+        rng = (step_lookback // 1200) + 1
         dff = pd.DataFrame()
         tickerid = self.__tickermap(ticker)
         if ticker == "BTCUSD":
             tickerid = 950160802
-        mvar = 'm{}'.format(mins)
-
+        minvar = 'm{}'.format(int(mins))
+        tvar = '{}T'.format(mins) #Added later
         def clmultimin(tickeridn, tmin, tidn): return requests.get(
             'https://quotes-gw.webullfintech.com/api/quote/charts/query?tickerIds={}&type={}&count=1200&timestamp={}'.format(tickeridn, tmin, tidn), headers=headers).json()[0]['data']
-
-        for i in range(rng):
+        for i in range(int(rng)):
             try:
                 if i == 0:
                     d = datetime.now()
-                    txs = clmultimin(tickerid, mvar, int(datetime.timestamp(d)))
+                    txs = clmultimin(tickerid, minvar, int(datetime.timestamp(d)))
                 else:
-                    txs = clmultimin(tickerid, mvar, nd)
+                    txs = clmultimin(tickerid, minvar, nd)
                 l = []
                 for tx in txs[:-1]:
                     try:
@@ -189,40 +186,46 @@ class Client:
             except Exception as e:
                 print(e)
 
-            url = f"https://quotes-gw.webullfintech.com/api/quote/charts/query?tickerIds={tickerid}&type=d1&count=800"
-            headers = {
-            'access_token': 'dc_us1.1771c1462b7-ac3d4a4af93a491e936545d00ef9aa02'}
-            req = requests.get(url=url, headers=headers).json()
-            try:
-                dff['dayv'] = dff.index.date
-                dvar = int(req[0]['split'][0]['date'][:4])
-                mvar = int(req[0]['split'][0]['date'][5:7])
-                dyvar = int(req[0]['split'][0]['date'][9:])
-                svar = int(int(req[0]['split'][0]['splitTo']) /
-                        int(req[0]['split'][0]['splitFrom']))
-                dff['open'] = np.where(dff['dayv'] < date(
-                    dvar, mvar, dyvar), dff['open']/svar, dff['open'])
-                dff['close'] = np.where(dff['dayv'] < date(
-                    dvar, mvar, dyvar), dff['close']/svar, dff['close'])
-                dff['high'] = np.where(dff['dayv'] < date(
-                    dvar, mvar, dyvar), dff['high']/svar, dff['high'])
-                dff['low'] = np.where(dff['dayv'] < date(
-                    dvar, mvar, dyvar), dff['low']/svar, dff['low'])
-                dff.drop('dayv', axis=1, inplace=True)
-            except:
-                pass
-            dff = dff.reset_index(drop=True)[
-                ['timestamp', 'open', 'high', 'low', 'close', 'volume', "ticker"]]
-            #dff['timestamp'] = pd.to_datetime(dff['timestamp'])
-            dff = dff.rename(columns={'timestamp': "time",
-                            'ticker': "symbol"})
+        url = f"https://quotes-gw.webullfintech.com/api/quote/charts/query?tickerIds={tickerid}&type=d1&count=800"
+        headers = {
+        'access_token': 'dc_us1.1771c1462b7-ac3d4a4af93a491e936545d00ef9aa02'}
+        req = requests.get(url=url, headers=headers).json()
+        try:
+            dff['dayv'] = dff.index.date
+            dvar = int(req[0]['split'][0]['date'][:4])
+            mvar = int(req[0]['split'][0]['date'][5:7])
+            dyvar = int(req[0]['split'][0]['date'][9:])
+            svar = int(int(req[0]['split'][0]['splitTo']) /
+                    int(req[0]['split'][0]['splitFrom']))
+            dff['open'] = np.where(dff['dayv'] < date(
+                dvar, mvar, dyvar), dff['open']/svar, dff['open'])
+            dff['close'] = np.where(dff['dayv'] < date(
+                dvar, mvar, dyvar), dff['close']/svar, dff['close'])
+            dff['high'] = np.where(dff['dayv'] < date(
+                dvar, mvar, dyvar), dff['high']/svar, dff['high'])
+            dff['low'] = np.where(dff['dayv'] < date(
+                dvar, mvar, dyvar), dff['low']/svar, dff['low'])
+            dff.drop('dayv', axis=1, inplace=True)
+        except:
+            pass
+        dff = dff.reset_index(drop=True)[['timestamp', 'open', 'high', 'low', 'close', 'volume', "ticker"]]
+        dff = dff.rename(columns={'timestamp': "time_index",'ticker': "symbol"})
+        dff['time_index']-=mins*60
+        dff['time'] = dff['time_index']
+        dff['time_index'] = pd.to_datetime(dff['time_index'], unit='s')
 
-            return dff[-lookback:].reset_index(drop=True)
+        translator = {1: 'S', 60: 'MIN', 3600: 'H', 86400: 'D', 604800: 'W', 31536000:'Y'}
+        coef, sec = to_timestamp_split(interval)
+        translated_interval = f"{int(coef)}{translator[int(sec)]}"
+        dff = dff.set_index("time_index").resample(translated_interval).agg({'time': "first", 'open': 'first', 'high': 'max', 'low': 'min', 'close': 'last', 'volume': 'sum'}).reset_index(drop=True).dropna()
+        return dff[-lookback:].reset_index(drop=True)
 
     def get_step (self, interval, duration=360):
-        duration = 360
-        factors = [5, 15, 30, 60, 120, 240]
+        duration = 390
+        factors = [1, 5, 15, 30, 60, 120, 240]
         mins = to_timestamp(interval) / 60
+        if mins<5:
+          return (mins, 1)
         if mins >= 86400/60:
             market_days = mins/(86400/60)
             if market_days % 1 != 0:
@@ -252,26 +255,33 @@ class Broker:
         self.client.update(self.symbol)
         trades = []
         open_orders = {"BUY":[], "SELL":[]}
-        position = {}
+        position = {"full": 0, "free": 0, "locked": 0}
         balance = {}
         translator = {"Working": "NEW", "LMT": "LIMIT", "MKT": "MARKET"}
+        locked_cash = 0
 
+        #Get open_orders
         for order in self.client.account['openOrders']:
+            if order['status'] == "PendingCancel":
+                continue
             sym = order['ticker']['symbol']
+            if order['action'] == "BUY":
+                locked_cash += (float(order["totalQuantity"]) - float(order['filledQuantity'])) * float(order["lmtPrice"])
             if sym == self.symbol:
-                entry = {"orderId": float(order['orderId']),
-                        "time": float(order["createTime0"]),
+                entry = {"orderId": int(order['orderId']),
+                        "time": int(order["createTime0"]),
                         "symbol": sym,
                         "side": order['action'],
                         "price": float(order["lmtPrice"]),
                         "origQty": float(order["totalQuantity"]),
-                        "executedQty": float(order["filledQuantity"]),
+                        "filledQty": float(order["filledQuantity"]),
                         "status": translator[order["status"]],
                         "timeInForce": order["timeInForce"],
                         "type": translator[order['orderType']]}
 
                 open_orders[order['action']].append(entry)
 
+        #Get previous trades
         if self.symbol not in self.client.trades.keys():
             self.client.trades[self.symbol] = []
         for trd in self.client.trades[self.symbol]:
@@ -287,17 +297,22 @@ class Broker:
                     "commissionAsset": "USD"}
             trades.append(entry)
 
+        # Get position
         for pos in self.client.account['positions']:
             if pos['ticker']['symbol'] == self.symbol:
                 full = float(pos['position'])
-                position = {"full": full, "free": -1, "locked": -1}
+                locked = sum([order['origQty'] - order["filledQty"] for order in open_orders['SELL']])
+                free = full - locked
+                position = {"full": full, "free": free, "locked": locked}
 
+        #Get account balance (USD)
         for mem in self.client.account['accountMembers']:
             if mem['key'] == 'usableCash':
                 free = float(mem['value'])
-                balance = {"full": free, "free": free, "locked": -1}
+                full = free + locked_cash
+                balance = {"full": full, "free": free, "locked": locked_cash}
 
-        self.__time = self.client.get_time()
+        self.__timestamp = self.client.get_timestamp()
         self.__price = self.client.quotes[self.symbol]['price']
         self.__position = position
         self.__balance = balance
@@ -323,7 +338,7 @@ class Broker:
         return order
 
     def cancel(self, orderId):
-        self.client.cancel(self.symbol, orderId)
+        return self.client.cancel(self.symbol, orderId)
 
     def cancel_all(self, side='all'):
         orders = self.__open_orders['BUY'] + self.__open_orders['SELL'] if side == 'all' else self.__open_orders[side]

@@ -83,9 +83,11 @@ class MonoAlgo:
         self.freq = to_timestamp(freq)
         self.last_fire = -1
     def fire (self):
-        elapsed = datetime.now().timestamp() - self.last_fire
+        now = datetime.now().timestamp()
+        elapsed = now - self.last_fire
         if elapsed >= self.freq:
             self.algo()
+            self.last_fire = now
 
     def get_algo(self):
         return self.algo
