@@ -54,6 +54,7 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -64,9 +65,11 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="components.html#src.toolkit.Alarm.__call__">__call__() (src.toolkit.Alarm method)</a>
+      <li><a href="broker.html#src.broker.Broker.__call__">__call__() (src.broker.Broker method)</a>
 
       <ul>
+        <li><a href="components.html#src.toolkit.Alarm.__call__">(src.toolkit.Alarm method)</a>
+</li>
         <li><a href="components.html#src.toolkit.Traces.__call__">(src.toolkit.Traces method)</a>
 </li>
         <li><a href="components.html#src.toolkit.Trail.__call__">(src.toolkit.Trail method)</a>
@@ -96,7 +99,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="components.html#src.toolkit.Sock.add">add() (src.toolkit.Sock method)</a>
+      <li><a href="components.html#src.toolkit.Sock.add">add() (src.toolkit.Sock static method)</a>
 </li>
       <li><a href="components.html#src.toolkit.Alarm">Alarm (class in src.toolkit)</a>
 </li>
@@ -106,7 +109,15 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="components.html#src.time_utils.BadIntervalError">BadIntervalError</a>
+</li>
       <li><a href="components.html#src.scraper.Binance">Binance (class in src.scraper)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker">Broker (class in src.broker)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.buy">buy() (src.broker.Broker method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -114,6 +125,12 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.cancel">cancel() (src.broker.Broker method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.cancel_all">cancel_all() (src.broker.Broker method)</a>
+</li>
       <li><a href="components.html#src.time_utils.ceil">ceil() (in module src.time_utils)</a>
 </li>
   </ul></td>
@@ -142,21 +159,41 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.get_ask">get_ask() (src.broker.Broker method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_balance">get_balance() (src.broker.Broker method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_bid">get_bid() (src.broker.Broker method)</a>
+</li>
       <li><a href="components.html#src.scraper.Binance.get_klines">get_klines() (src.scraper.Binance method)</a>
 </li>
       <li><a href="components.html#src.scraper.Webull.get_klines_min">get_klines_min() (src.scraper.Webull method)</a>
 </li>
-      <li><a href="components.html#src.scraper.Binance.get_price">get_price() (src.scraper.Binance method)</a>
+      <li><a href="broker.html#src.broker.Broker.get_ohlc">get_ohlc() (src.broker.Broker method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_open_orders">get_open_orders() (src.broker.Broker method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_position">get_position() (src.broker.Broker method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.get_price">get_price() (src.broker.Broker method)</a>
 
       <ul>
+        <li><a href="components.html#src.scraper.Binance.get_price">(src.scraper.Binance method)</a>
+</li>
         <li><a href="components.html#src.scraper.Webull.get_price">(src.scraper.Webull method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="components.html#src.toolkit.Traces.get_region">get_region() (src.toolkit.Traces method)</a>
 </li>
+      <li><a href="broker.html#src.broker.Broker.get_time">get_time() (src.broker.Broker method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_timestamp">get_timestamp() (src.broker.Broker method)</a>
+</li>
       <li><a href="components.html#src.toolkit.Traces.get_traces">get_traces() (src.toolkit.Traces method)</a>
+</li>
+      <li><a href="broker.html#src.broker.Broker.get_trades">get_trades() (src.broker.Broker method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -219,6 +256,20 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="components.html#src.toolkit.Trail.on_hit">on_hit() (src.toolkit.Trail method)</a>
 </li>
+      <li><a href="broker.html#src.broker.Broker.on_trade">on_trade() (src.broker.Broker method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.quote_buy">quote_buy() (src.broker.Broker method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="broker.html#src.broker.Broker.quote_sell">quote_sell() (src.broker.Broker method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -235,10 +286,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="components.html#src.filemanager.FileManager.save">save() (src.filemanager.FileManager method)</a>
 </li>
+      <li><a href="broker.html#src.broker.Broker.sell">sell() (src.broker.Broker method)</a>
+</li>
       <li><a href="components.html#src.slack.Slack.send">send() (src.slack.Slack method)</a>
 
       <ul>
-        <li><a href="components.html#src.toolkit.Sock.send">(src.toolkit.Sock method)</a>
+        <li><a href="components.html#src.toolkit.Sock.send">(src.toolkit.Sock static method)</a>
 </li>
       </ul></li>
       <li><a href="components.html#src.toolkit.Traces.set_traces">set_traces() (src.toolkit.Traces method)</a>

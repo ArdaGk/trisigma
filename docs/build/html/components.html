@@ -267,7 +267,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.toolkit.</span></span><span class="sig-name descname"><span class="pre">Sock</span></span><a class="headerlink" href="#src.toolkit.Sock" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Sock.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.add" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">re</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a new function with a target query. Whenever the listener receives a new message that matches the query, it will call the given function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -282,7 +282,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="src.toolkit.Sock.send">
-<span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.send" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">send</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.toolkit.Sock.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a message in the socket</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -300,7 +300,12 @@
 </section>
 <section id="trisigma-time-utils">
 <h2>trisigma.time_utils<a class="headerlink" href="#trisigma-time-utils" title="Permalink to this heading">¶</a></h2>
-<span class="target" id="module-src.time_utils"></span><dl class="py function">
+<span class="target" id="module-src.time_utils"></span><dl class="py exception">
+<dt class="sig sig-object py" id="src.time_utils.BadIntervalError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">BadIntervalError</span></span><a class="headerlink" href="#src.time_utils.BadIntervalError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="src.time_utils.ceil">
 <span class="sig-prename descclassname"><span class="pre">src.time_utils.</span></span><span class="sig-name descname"><span class="pre">ceil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.time_utils.ceil" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
@@ -589,6 +594,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#trisigma-time-utils">trisigma.time_utils</a><ul>
+<li><a class="reference internal" href="#src.time_utils.BadIntervalError"><code class="docutils literal notranslate"><span class="pre">BadIntervalError</span></code></a></li>
 <li><a class="reference internal" href="#src.time_utils.ceil"><code class="docutils literal notranslate"><span class="pre">ceil()</span></code></a></li>
 <li><a class="reference internal" href="#src.time_utils.floor"><code class="docutils literal notranslate"><span class="pre">floor()</span></code></a></li>
 <li><a class="reference internal" href="#src.time_utils.to_timestamp"><code class="docutils literal notranslate"><span class="pre">to_timestamp()</span></code></a></li>
