@@ -88,7 +88,7 @@ class Trail:
     def __init__(self, broker, perc, save=False):
         """Constructor for Trail object
 
-        :param broker: broker object
+        :param broker: broker objecttool
         :type broker: trisigma.Broker
         :param perc: The trailling percentage (0.0-1.0)
         :type perc: int
@@ -101,7 +101,7 @@ class Trail:
         self.trail = -1
         self.last_trail = -1
         self.active = False
-        self.dir = 1 if perc>1.0 else -1
+        self.dir = 1 if perc>0 else -1
         self.hist = {}
         self.save = save
         self.is_active = lambda: self.active
@@ -144,6 +144,9 @@ class Trail:
     def is_active(self):
         """Returns true of trail is active"""
         return self.active
+
+    def set_perc(self, perc):
+        self.perc = perc
 
     def set_peak (self, peak):
         self.last_trail = self.trail

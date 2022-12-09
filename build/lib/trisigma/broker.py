@@ -1,117 +1,201 @@
-from binance.spot import Spot
-from datetime import datetime, timedelta
-import math
-import copy
-
-
 class Broker:
 
-    def __init__(self, symbol, balance, client, label=None):
-        pass
     def __call__(self):
-        """Updates broker attributes (price, position, balance, time)"""
-        pass 
-    def buy(self, _type, qty, limit_price=None):
+        """Updates broker attributes (price, position, balance, time). This magic method will be called automatically by the base class before each check, therefore there is no need to call it within the strategy."""
+        return
+
+    def buy(self, typ, qty, limit_price=None):
         """Buy a certain quantity from an asset.
-        :param _type: "LIMIT" or "MARKET"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param qty: quantity
-        :param limit_price: Limit price for _type="LIMIT"
+        :type qty: float
+        :param limit_price: Limit price if typ="LIMIT"
+        :type limit_price: float
         """
-        pass
-    def quote_buy(self, _type, quote_price, limit_price=None):
-        """Buy an asset with a quote price.
-        :param _type: "LIMIT" or "MARKET"
+        return
+    def quote_buy(self, typ, quote_price, limit_price=None):
+        """Buy an asset with a quote price (e.g. buy $100 worth of LINK instead of 18 LINK)
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param quote_price: amount of asset to purchase with the quote price.
-        :param limit_price" limit price for _type="LIMIT"
+        :type quote_price: float
+        :param limit_price" limit price if typ="LIMIT"
         """
-        pass
-    def sell(self, _type, qty, limit_price=None):
+        return
+    def sell(self, typ, qty, limit_price=None):
         """Sell a certain quantity from an asset.
-        :param _type: "LIMIT" or "MARKET"
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
         :param qty: quantity
-        :param limit_price: Limit price for _type="LIMIT"
+        :type qty: float
+        :param limit_price: Limit price if typ="LIMIT"
         """
-        pass
-    def quote_sell(self, _type, quote_price, limit_price=None):
-        """Sell an asset with a quote price.
-        :param _type: "LIMIT" or "MARKET"
-        :param quote_price: amount of asset to sell with the quote price.
-        :param limit_price" limit price for _type="LIMIT"
+        return
+    def quote_sell(self, typ, quote_price, limit_price=None):
+        """Sell an asset with a quote price. (e.g. sell $100 worth of LINK instead of 18 LINK)
+
+        :param typ: "LIMIT" or "MARKET"
+        :type typ: string
+        :param quote_price: amount of asset to purchase with the quote price.
+        :type quote_price: float
+        :param limit_price" limit price if typ="LIMIT"
         """
-        pass
+        return
     def cancel(self, orderId):
-       """Cancel an existing open order
-       :param orderId: the order id which to cancel.
-       """
-       pass 
-    def cancel_all(self):
-      """Cancel every open order"""
-        pass
+        """Cancel an existing open order
+
+        :param orderId: the order id which to cancel.
+        """
+        return
+    def cancel_all(self, side='all'):
+        """Cancel every open order
+
+        :param side: This can be used to cancel only a specific side ("BUY" or "SELL", default: "all")
+        :type side: string
+        """
+        return
     def get_open_orders(self):
-        """Returns a list of open orders"""
-        pass
+        """
+        :return: A list of open orders
+        :rtype: list
+        
+        .. highlight:: python
+        .. code-block:: python
+
+            # Format of open order dictionary:
+            {
+                "orderId": <int>,
+                "time": <int>, #timestamp
+                "symbol": <str>,
+                "side" : <str>,
+                "price": <float>,
+                "origQty": <float>,
+                "filledQty": <float>,
+                "status": <str>, # "NEW", "PARTIALLY_FILLED", "REJECTED", "EXPIRED", "PENDING_CANCEL"
+                "timeInForce": <str> # Only "GTC" for now.
+                "type": <str>, # Only "LIMIT" for now.
+            }
+        """
+        return
 
     def get_trades(self):
-        """Returns previous trades"""
-         pass
+        """
+        :return: A list of trades made by this account.
+        :rtype: list
+        
+        .. highlight:: python
+        .. code-block:: python
+
+            # Format of trade dictionary:
+            {
+                "orderId": <int>,
+                "time": <int>, #timestamp
+                "symbol": <str>,
+                "side" : <str>,
+                "price": <float>,
+                "qty": <float>,
+                "quoteQty": <float>,
+                "type": <str>, # "LIMIT", "MARKET"
+                "commission": <float>,
+                "commissionAsset": <float>
+            }
+        """
+        return
 
     def get_position(self):
-        """Returns the position including those that are locked"""
-        pass
+        """
+        :return: The position including those that are locked.
+
+        .. highlight:: python
+        .. code-block:: python
+
+            # Format of ticker position:
+            {"full": <float>, "free": <float>, "locked": <float>}
+
+            # full: total ammount of asset owned.
+            # free: amount of asset that can be traded.
+            # locked: amount of asset that is already in a open order.
+        """
+        return
 
     def get_balance(self, reserved=True):
-        if reserved:
-            return self.balance
-        else:
-            return -1
+        """
+        :return: The overall balance (quote asset) of the account. This output represents the capital. ("USD", "USDT", "EUR" etc.)
+
+        .. highlight:: python
+        .. code-block:: python
+
+            # Format of account balance:
+            {"full": <float>, "free": <float>, "locked": <float>}
+
+            # full: total ammount of capital
+            # free: amount of asset capital that can be used to buy an asset.
+            # locked: amount of capital that is locked due to a open order (limit buy).
+        """
+
+        return
 
     def get_ohlc(self, interval, lookback=1):
-        return self.client.klines[self.symbol][interval][:lookback]
+        """
+        :param interval: candle interval eg. "1h"
+        :type interval: string
+        :param lookback: how many candles to return
+        :type lookback: int
 
-    def get_price(self, lookback=1):
-        return self.client.quotes[self.symbol]['price']
+        :return: Previous candles.
+        :rtype: pandas.DataFrame
+        """
+        return
 
-    def get_time(self, of_trade=False):
-        return datetime.now()
+    def get_price(self):
+        """
+        :return: The price of the symbol.
+        """
+        return
 
-    def get_timestamp(self, of_trade=False):
-        time = datetime.now().timestamp()
-        return time
+    def get_time(self):
+        """
+        The output is not equal to datetime.now(), the time returned is the one given by the target brokerage firm.
 
-    def get_bids(self):
-        return self.client.quotes[self.symbol]['bidPrice']
+        :return: The time of the target server.
+        :rtype: datetime.datetime
+        """
+        return
+    def get_timestamp(self):
+        """
+        | The output is same as get_time().timestamp()
+        | The output is not equal to datetime.now().timestamp(), the time returned is the one given by the target brokerage firm.
 
-    def get_asks(self):
-        return self.client.quotes[self.symbol]['askPrice']
+        :return: The timestamp of the target server.
+        :rtype: int
+        """
+        return
 
-    def get_sell_price(self):
-        return self.get_bids()
+    def get_bid(self):
+        """
+        :return: The best bid in the order book.
+        :rtype: float
+        """
+        return
 
-    def get_buy_price(self):
-        return self.get_asks()
+    def get_ask(self):
+        """
+        :return: The best ask in the order book.
+        :rtype: float
+        """
+        return
 
-    def on_trade(self, side='all', _type='all'):
-        output = {}
-        last_buy = max(
-            [trd['time'] for trd in self.client.trades[self.symbol] if trd['isBuyer']] + [-1])
-        last_sell = max(
-            [trd['time'] for trd in self.client.trades[self.symbol] if not trd['isBuyer']] + [-1])
+    
+    def on_trade(self, side='all', typ='all'):
+        """Returns True if there was a trade since the last time this function is called, (this is NOT a pure function, if it returns True, the new trade will be stored)
 
-        output['BUY'] = last_buy not in [self.__trade_buffer['BUY'], -1]
-        output['SELL'] = last_sell not in [self.__trade_buffer['SELL'], -1]
-        output['all'] = output['BUY'] or output['SELL']
-
-        self.__trade_buffer['BUY'] = last_buy
-        self.__trade_buffer['SELL'] = last_sell
-
-        return output[side]
-
-    def __save(self, order):
-        typ = order['type']
-        ts = order['time']
-        stats = fm.load(f"{self.label}_stats")
-        stats['open_orders'].append(ts)
-        times = [ord['time'] for ord in self.client.orders[self.broker.symbol]]
-        new_orders = [t for t in stats['orders'] if t in times]
-        stats['open_orders'] = new_orders
-        self.fm.save(stats, f"{self.label}_stats")
+        :param side: Checks a specific side:  'BUY', 'SELL', 'all' (default).
+        :type side: string
+        :param typ: Checks a specific order type: 'MARKET', 'LIMIT', 'all' (default).
+        :type typ: string
+        """
+        return

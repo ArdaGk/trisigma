@@ -33,8 +33,8 @@ class LiveTest:
             try:
                 time.sleep(0.3)
                 [algo.fire() for algo in self.algos]
-            except Exception as e:
-                raise e
+            except ConnectionError as e:
+                self.fm.log("connection", "Connection Error")
         print("Stream Ended")
 
     def __get_client(self, conf):

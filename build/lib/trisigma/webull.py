@@ -17,8 +17,6 @@ from datetime import datetime, date
 #No isBuyer, isMakerr
 #time as datetime
 #ping target can get deprecated
-# Balance free only
-#position full only
 #price individual, pulled at broker-time
 #get_price lookback
 #cancel single thread
@@ -85,9 +83,9 @@ class Client:
         return trades
 
     def trade(self, symbol, typ, side, qty, limit_price = None, enforce = "GTC"):
-        if typ in ['MARKET', 'MKT']:
-            order = self.wb.place_order(stock=symbol, action=side, orderType="MKT", quant=qty)
-        elif typ in ['LIMIT', 'LMT']:
+        if typ.upper() in ['MARKET', 'MKT']:
+            order = self.wb.place_order(stock=symbol, action=side, orderType="MKT", quant=qty, enforce="DAY")
+        elif typ.upper() in ['LIMIT', 'LMT']:
             order = self.wb.place_order(stock=symbol, action=side, orderType="LMT", price=limit_price, enforce=enforce, quant=qty)
         else:
             raise Exception(f"err, Unknown order type: {typ}")
@@ -102,8 +100,6 @@ class Client:
         latency = (datetime.now().timestamp()-start) * 1000
         return latency
 
-    def cancel (self, symbol, orderId):
-        return self.wb.cancel_order(orderId)
 
     def __tickermap(self, ticker):
         ticker = ticker.strip().replace('-', " ")
@@ -340,8 +336,10 @@ class Broker:
     def cancel(self, orderId):
         return self.client.cancel(self.symbol, orderId)
 
-    def cancel_all(self, side='all'):
-        orders = self.__open_orders['BUY'] + self.__open_orders['SELL'] if side == 'all' else self.__open_orders[side]
+
+    def cancel_all(self, side='ALL'):
+        side = side.upper()
+        orders = self.__open_orders['BUY'] + self.__open_orders['SELL'] if side == 'ALL' else self.__open_orders[side]
         ids = [order['orderId'] for order in orders]
         resp = [self.cancel(_id) for _id in ids]
         return resp
