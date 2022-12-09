@@ -7,6 +7,9 @@ Manual Testing
 
 "remote" is a python file that can be used to trigger actions on the bot. This will only work on this specific ``TestingAlgo`` class defined in the ``algo.py``.
 
+add python block
+
+
 Steps:
  1. Navigate *test/webull-manual*
  2. ``python3 main.py TESTING``

@@ -145,6 +145,10 @@ class Trail:
         """Returns true of trail is active"""
         return self.active
 
+    def is_locked(self):
+        """Returns true if trail is locked"""
+        return self.locked
+
     def set_perc(self, perc):
         self.perc = perc
 
