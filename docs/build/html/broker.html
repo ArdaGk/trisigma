@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Broker Interface &#8212; trisigma  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Broker Interface</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="broker-interface">
+<h1>Broker Interface<a class="headerlink" href="#broker-interface" title="Permalink to this heading">¶</a></h1>
+<p>This is the object that should used to access market data and send signals. This object will be constructed by the Base class (Strategy) and can be accessed via <code class="docutils literal notranslate"><span class="pre">self.broker</span></code>.</p>
+<p>The method signatures does not contain any parameter for the symbol and trading platform. This is because each symbol is treated as an individual Strategy object, In other words, A new Broker object is automatically constructed for each symbol, in the specified trading platform, therefore those values are already stored as an attribute.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.broker.Broker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.broker.</span></span><span class="sig-name descname"><span class="pre">Broker</span></span><a class="headerlink" href="#src.broker.Broker" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates broker attributes (price, position, balance, time). This magic method will be called automatically by the base class before each check, therefore there is no need to call it within the strategy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.buy">
+<span class="sig-name descname"><span class="pre">buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.buy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buy a certain quantity from an asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>typ</strong> (<em>string</em>) – “LIMIT” or “MARKET”</p></li>
+<li><p><strong>qty</strong> (<em>float</em>) – quantity</p></li>
+<li><p><strong>limit_price</strong> (<em>float</em>) – Limit price if typ=”LIMIT”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.quote_buy">
+<span class="sig-name descname"><span class="pre">quote_buy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.quote_buy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Buy an asset with a quote price (e.g. buy $100 worth of LINK instead of 18 LINK)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>typ</strong> (<em>string</em>) – “LIMIT” or “MARKET”</p></li>
+<li><p><strong>quote_price</strong> (<em>float</em>) – amount of asset to purchase with the quote price.</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param limit_price” limit price if typ=”LIMIT”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.sell">
+<span class="sig-name descname"><span class="pre">sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qty</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.sell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sell a certain quantity from an asset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>typ</strong> (<em>string</em>) – “LIMIT” or “MARKET”</p></li>
+<li><p><strong>qty</strong> (<em>float</em>) – quantity</p></li>
+<li><p><strong>limit_price</strong> – Limit price if typ=”LIMIT”</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.quote_sell">
+<span class="sig-name descname"><span class="pre">quote_sell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quote_price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.quote_sell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sell an asset with a quote price. (e.g. sell $100 worth of LINK instead of 18 LINK)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>typ</strong> (<em>string</em>) – “LIMIT” or “MARKET”</p></li>
+<li><p><strong>quote_price</strong> (<em>float</em>) – amount of asset to purchase with the quote price.</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param limit_price” limit price if typ=”LIMIT”</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.cancel">
+<span class="sig-name descname"><span class="pre">cancel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">orderId</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.cancel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel an existing open order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>orderId</strong> – the order id which to cancel.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.cancel_all">
+<span class="sig-name descname"><span class="pre">cancel_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.cancel_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel every open order</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>side</strong> (<em>string</em>) – This can be used to cancel only a specific side (“BUY” or “SELL”, default: “all”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_open_orders">
+<span class="sig-name descname"><span class="pre">get_open_orders</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_open_orders" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of open orders</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format of open order dictionary:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;orderId&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1">#timestamp</span>
+    <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;side&quot;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;origQty&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;filledQty&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1"># &quot;NEW&quot;, &quot;PARTIALLY_FILLED&quot;, &quot;REJECTED&quot;, &quot;EXPIRED&quot;, &quot;PENDING_CANCEL&quot;</span>
+    <span class="s2">&quot;timeInForce&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span> <span class="c1"># Only &quot;GTC&quot; for now.</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1"># Only &quot;LIMIT&quot; for now.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_trades">
+<span class="sig-name descname"><span class="pre">get_trades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_trades" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of trades made by this account.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format of trade dictionary:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;orderId&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1">#timestamp</span>
+    <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;side&quot;</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;qty&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;quoteQty&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span> <span class="c1"># &quot;LIMIT&quot;, &quot;MARKET&quot;</span>
+    <span class="s2">&quot;commission&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="s2">&quot;commissionAsset&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The position including those that are locked.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format of ticker position:</span>
+<span class="p">{</span><span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;free&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;locked&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="c1"># full: total ammount of asset owned.</span>
+<span class="c1"># free: amount of asset that can be traded.</span>
+<span class="c1"># locked: amount of asset that is already in a open order.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_balance">
+<span class="sig-name descname"><span class="pre">get_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reserved</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_balance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The overall balance (quote asset) of the account. This output represents the capital. (“USD”, “USDT”, “EUR” etc.)</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Format of account balance:</span>
+<span class="p">{</span><span class="s2">&quot;full&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;free&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">,</span> <span class="s2">&quot;locked&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">}</span>
+
+<span class="c1"># full: total ammount of capital</span>
+<span class="c1"># free: amount of asset capital that can be used to buy an asset.</span>
+<span class="c1"># locked: amount of capital that is locked due to a open order (limit buy).</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_ohlc">
+<span class="sig-name descname"><span class="pre">get_ohlc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_ohlc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>string</em>) – candle interval eg. “1h”</p></li>
+<li><p><strong>lookback</strong> (<em>int</em>) – how many candles to return</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Previous candles.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_price">
+<span class="sig-name descname"><span class="pre">get_price</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_price" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The price of the symbol.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_time">
+<span class="sig-name descname"><span class="pre">get_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The output is not equal to datetime.now(), the time returned is the one given by the target brokerage firm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The time of the target server.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_timestamp">
+<span class="sig-name descname"><span class="pre">get_timestamp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><div class="line-block">
+<div class="line">The output is same as get_time().timestamp()</div>
+<div class="line">The output is not equal to datetime.now().timestamp(), the time returned is the one given by the target brokerage firm.</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The timestamp of the target server.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_bid">
+<span class="sig-name descname"><span class="pre">get_bid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_bid" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The best bid in the order book.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.get_ask">
+<span class="sig-name descname"><span class="pre">get_ask</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.get_ask" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The best ask in the order book.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.broker.Broker.on_trade">
+<span class="sig-name descname"><span class="pre">on_trade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typ</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.broker.Broker.on_trade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if there was a trade since the last time this function is called, (this is NOT a pure function, if it returns True, the new trade will be stored)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>side</strong> (<em>string</em>) – Checks a specific side:  ‘BUY’, ‘SELL’, ‘all’ (default).</p></li>
+<li><p><strong>typ</strong> (<em>string</em>) – Checks a specific order type: ‘MARKET’, ‘LIMIT’, ‘all’ (default).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Broker Interface</a><ul>
+<li><a class="reference internal" href="#src.broker.Broker"><code class="docutils literal notranslate"><span class="pre">Broker</span></code></a><ul>
+<li><a class="reference internal" href="#src.broker.Broker.__call__"><code class="docutils literal notranslate"><span class="pre">Broker.__call__()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.buy"><code class="docutils literal notranslate"><span class="pre">Broker.buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.quote_buy"><code class="docutils literal notranslate"><span class="pre">Broker.quote_buy()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.sell"><code class="docutils literal notranslate"><span class="pre">Broker.sell()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.quote_sell"><code class="docutils literal notranslate"><span class="pre">Broker.quote_sell()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.cancel"><code class="docutils literal notranslate"><span class="pre">Broker.cancel()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.cancel_all"><code class="docutils literal notranslate"><span class="pre">Broker.cancel_all()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_open_orders"><code class="docutils literal notranslate"><span class="pre">Broker.get_open_orders()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_trades"><code class="docutils literal notranslate"><span class="pre">Broker.get_trades()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_position"><code class="docutils literal notranslate"><span class="pre">Broker.get_position()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_balance"><code class="docutils literal notranslate"><span class="pre">Broker.get_balance()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_ohlc"><code class="docutils literal notranslate"><span class="pre">Broker.get_ohlc()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_price"><code class="docutils literal notranslate"><span class="pre">Broker.get_price()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_time"><code class="docutils literal notranslate"><span class="pre">Broker.get_time()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_timestamp"><code class="docutils literal notranslate"><span class="pre">Broker.get_timestamp()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_bid"><code class="docutils literal notranslate"><span class="pre">Broker.get_bid()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.get_ask"><code class="docutils literal notranslate"><span class="pre">Broker.get_ask()</span></code></a></li>
+<li><a class="reference internal" href="#src.broker.Broker.on_trade"><code class="docutils literal notranslate"><span class="pre">Broker.on_trade()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/broker.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">trisigma  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Broker Interface</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Arda Gok.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.2.3.
+    </div>
+  </body>
+</html>

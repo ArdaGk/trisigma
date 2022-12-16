@@ -53,7 +53,6 @@ class Algorithm:
         except AttributeError as e:
             obj = str(e)[-(len(name)+1):-1]
             if obj != name:
-                input('Attribute Error: ' + str(e))
                 getattr(self, name)()
 
     def call_events(self):
@@ -476,7 +475,7 @@ class Sock:
 
     __queries = {}
     __enabled = False
-    __port = 3003
+    __port = 3006
     __n = 5
 
     def add(query, func):
@@ -488,7 +487,7 @@ class Sock:
             return 'Already exist!'
 
         if not Sock.__enabled:
-            listener = threading.Thread(target=Sock.__launch)
+            listener = threading.Thread(target=Sock.__launch, daemon=True)
             listener.start()
 
     def send(msg, timeout=5.0, port=None):
@@ -509,6 +508,7 @@ class Sock:
         Sock.__enabled = True
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        print(Sock.__port)
         s.bind(('', Sock.__port))
         s.listen(Sock.__n)
 
