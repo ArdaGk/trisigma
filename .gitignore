@@ -3,6 +3,7 @@ gspread.json
 trisigma.egg-info/
 *.py
 *.out
+!test/binance-manual/*.py
 !setup.py
 !docs/source/*.py
 !src/*.py
