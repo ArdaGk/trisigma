@@ -25,7 +25,7 @@ class FileManager:
         if base_path[-1] != self.sep:
             base_path+=self.sep
         if base_path[-1] != self.sep:
-           base_path = basepath + self.sep
+           base_path = base_path + self.sep
         self.__setup(base_path)
 
     def __setup (self, base_path):
@@ -44,15 +44,27 @@ class FileManager:
         if not os.path.exists(_dir):
             os.mkdir(_dir)
 
-    def log(self, name, data):
+    def log(self, name, data, title="null"):
         """Append a message to a log file. (stored in algdata/logs/)
+
         :param name: name of the log file (without extension)
         :param data: text to append
         :type data: <str>
+        :param title: An optional title to add to the log message.
+        :type title: <str>
+
         """
         name = self.add_ext(name, '.txt')
         with open(self.dir['log'] + name, 'a') as file:
-            file.write(self.get_time() + '\t' + str(data) + '\n')
+            file.write(self.get_time() + '\t' + title + '\t' + str(data) + '\n') 
+    
+    def get_logs(self, name):
+        name = self.add_ext(name, '.txt')
+        try:
+            with open(self.dir['log'] + name, 'r') as file:
+                return file.readlines()
+        except FileNotFoundError:
+            return None
 
     def save(self, output, name, _dir="var"):
         """Save a variable in "algdata/data/var/" as a json file.

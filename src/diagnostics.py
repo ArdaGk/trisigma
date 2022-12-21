@@ -6,7 +6,7 @@ class BinanceDiagnostics ():
 
     @staticmethod
     def check_exchange(last_exchange_info):
-        symbols = [item["symbol"] for item in last_exchange_info["symbols"].keys()]
+        symbols = [item["symbol"] for item in last_exchange_info["symbols"]]
         new_exchange_info = Spot().exchange_info(symbols=symbols)
         del new_exchange_info["serverTime"]
         if len(last_exchange_info) == 0 and "symbols" in last_exchange_info:
@@ -18,7 +18,7 @@ class BinanceDiagnostics ():
     @staticmethod
     def check_patch(last_patch):
         resp = requests.get("https://raw.githubusercontent.com/binance/binance-spot-api-docs/master/CHANGELOG.md")
-        cur_patch = resp.text.split("## ")[1:]
+        cur_patch = resp.text.split("## ")[1:][0]
         report = {"result": last_patch == cur_patch, "details": cur_patch, "new": cur_patch}
         return report
 
@@ -27,13 +27,16 @@ class BinanceDiagnostics ():
         client = Spot(key=api, secret=secret)
         acc_state = client.account_status()['data']
         trading_state = client.api_trading_status()['data']
-        result = acc_state == "NORMAL" and not trading_state['isLocked']
+        result = acc_state == "Normal" and not trading_state['isLocked']
         report = {"result": result, "details": {"acc_state": acc_state, "trading_state": trading_state}}
         return report
 
     @staticmethod
     def check_weight():
-        pass
+        resp = Spot(show_limit_usage=True).ping()
+        weight = float(resp['limit_usage']['x-mbx-used-weight'])
+        report = {"result": None, "details": {"weight": weight}}
+        return report
 
     @staticmethod
     def check_connection():

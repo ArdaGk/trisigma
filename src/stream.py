@@ -30,6 +30,7 @@ class Stream:
 
     def connect(self, *argv):
         #Some initial setup
+        Sock.add("GET_ACTIVE_SYMBOLS", self.get_active_symbols)
         self.setup(*argv)
 
         #Start both client and Bot Controller
@@ -113,6 +114,9 @@ class Stream:
             resp.append(bot['alg'].resume())
         print("stream resumed")
         return '\n'.join(resp)
+
+    def get_active_symbols(self):
+        return list(self.bots.keys())
 
     def __is_ready(self, bot):
         now = datetime.now().timestamp()

@@ -479,7 +479,7 @@ class Sock:
     __n = 5
 
     def add(query, func):
-        if query != Sock.__queries.keys():
+        if query not in Sock.__queries.keys():
             Sock.__queries[query] = [func]
         elif func not in Sock.__queries[query]:
             Sock.__queries[query].append(func)
@@ -502,6 +502,9 @@ class Sock:
             return resp.decode()
         except socket.timeout as e:
             print(e)
+
+    def get_queries():
+        return Sock.__queries
 
     @staticmethod
     def __launch():
