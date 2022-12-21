@@ -1,4 +1,4 @@
-from trisigma import *
+from src import *
 
 class Algo (Algorithm):
     def start(self):

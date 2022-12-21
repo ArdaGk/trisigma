@@ -1,6 +1,9 @@
-from trisigma.stream import Stream
-from algo import Algo
+import sys
 import os
+sys.path.append(os.path.normpath(os.path.realpath(__file__) + "/../../..")) # append the base directory.
+from src.stream import Stream
+from algo import Algo
+
 
 
 
@@ -22,7 +25,7 @@ conf = {'alg':Algo,
     'freq': '5s',
     'platform': 'binance',
     'symbols': SYMBOLS,
-    'api_key': API_KEY,
+
     'secret_key': SECRET_KEY,
     'fm': DATA_PATH}
 Stream(conf).connect()

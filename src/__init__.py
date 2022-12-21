@@ -508,8 +508,8 @@ class Sock:
         Sock.__enabled = True
         s = socket.socket()
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        print(Sock.__port)
         s.bind(('', Sock.__port))
+        print(Sock.__port)
         s.listen(Sock.__n)
 
         while Sock.__enabled:

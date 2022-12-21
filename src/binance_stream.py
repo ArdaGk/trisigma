@@ -150,10 +150,14 @@ class Client:
     self.acc_info = acc_info
 
     for bal in acc_info['data']['balances']:
-      free = self.round_qty(float(bal['free']), bal['asset'] + self.quote_asset, key='symbol', notional=True)
-      locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
-      full = free + locked
-      self.positions[bal['asset']] = {'full': full, 'free': free, 'locked': locked}
+      if bal['asset'] == self.quote_asset:
+          entry = {'full': float(bal['free']) + float(bal['locked']), 'free': float(bal['free']), 'locked': float(bal['locked'])}
+      else:
+          free = self.round_qty(float(bal['free']), bal['asset'] + self.quote_asset, key='symbol', notional=True)
+          locked = self.round_qty(float(bal['locked']), bal['asset'] + self.quote_asset, key='symbol')
+          full = free + locked
+          entry = {'full': full, 'free': free, 'locked': locked}
+      self.positions[bal['asset']] = entry
   
     self.changed_assets()
 
