@@ -10,7 +10,7 @@ class PotManager:
 class ReservedPots:
     def __init__ (self, broker, amount):
         self.broker = broker
-        self.start = broker.get_timestamp()
+        self.start = broker.get_timestamp()*1000
         self.amount = amount
     def get_balance(self):
         trades = list(filter(lambda trd: trd['time'] > self.start, self.broker.trades))

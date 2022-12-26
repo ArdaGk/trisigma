@@ -30,7 +30,7 @@ class Stream:
 
     def connect(self, *argv):
         #Some initial setup
-        Sock.add("GET_ACTIVE_SYMBOLS", self.get_active_symbols)
+        #Sock.add("GET_ACTIVE_SYMBOLS", self.get_active_symbols)
         self.setup(*argv)
 
         #Start both client and Bot Controller

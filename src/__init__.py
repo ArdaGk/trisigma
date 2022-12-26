@@ -479,6 +479,7 @@ class Sock:
     __n = 5
 
     def add(query, func):
+        return
         if query not in Sock.__queries.keys():
             Sock.__queries[query] = [func]
         elif func not in Sock.__queries[query]:
